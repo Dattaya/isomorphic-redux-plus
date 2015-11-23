@@ -4,29 +4,27 @@ import TodosForm              from './TodosForm';
 import { bindActionCreators } from 'redux';
 import * as TodoActions       from 'actions/TodoActions';
 import { connect }            from 'react-redux';
+import fetchData              from 'lib/fetchDataDeferred';
 
-@connect(state => ({ todos: state.todos }))
-
-export default class Home extends React.Component {
+@fetchData([TodoActions.getTodos])
+@connect(state => ({ todos: state.todos, user: state.auth.get('user') }))
+export default class Todos extends React.Component {
   static propTypes = {
     todos:    PropTypes.any.isRequired,
     dispatch: PropTypes.func.isRequired
   }
 
-  static needs = [
-    TodoActions.getTodos
-  ]
-  
   render() {
-    const { todos, dispatch } = this.props;
+    const { todos, user, dispatch } = this.props;
 
     return (
       <div id="todo-list">
-        <TodosView todos={todos}
+        <TodosView todos={todos} user={user}
           {...bindActionCreators(TodoActions, dispatch)} />
 
-        <TodosForm
-          {...bindActionCreators(TodoActions, dispatch)}/>
+        {user && <TodosForm
+          {...bindActionCreators(TodoActions, dispatch)} />
+        }
       </div>
     );
   }

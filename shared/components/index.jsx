@@ -1,4 +1,6 @@
 import React, { PropTypes } from 'react';
+import { Link, IndexLink }  from 'react-router';
+import Login                from './Login';
 
 export default class MainView extends React.Component {
   static propTypes = {
@@ -8,10 +10,12 @@ export default class MainView extends React.Component {
   render() {
     return (
       <div id="main-view">
-        <h1>Todos</h1>
-
+        <IndexLink to="/">About</IndexLink>
+        {' '}
+        <Link to="/todos">Todos</Link>
         <hr />
-
+        <Login />
+        <hr />
         {this.props.children}
       </div>
     );

@@ -1,17 +1,21 @@
-import express                   from 'express';
-import React                     from 'react';
-import { renderToString }        from 'react-dom/server'
-import { RoutingContext, match } from 'react-router';
-import createLocation            from 'history/lib/createLocation';
-import routes                    from 'routes';
-import { Provider }              from 'react-redux';
-import * as reducers             from 'reducers';
-import promiseMiddleware         from 'lib/promiseMiddleware';
-import fetchComponentData        from 'lib/fetchComponentData';
+import express                     from 'express';
+import bodyParser                  from 'body-parser';
+import session                     from 'express-session';
+import axios                       from 'axios';
+import React                       from 'react';
+import { renderToString }          from 'react-dom/server'
+import { RoutingContext, match }   from 'react-router';
+import createLocation              from 'history/lib/createLocation';
+import injectStoreAndGetRoutes     from 'routes';
+import { Provider }                from 'react-redux';
+import * as reducers               from 'reducers';
+import injectAxiosAndGetMiddleware from 'lib/promiseMiddleware';
+import fetchComponentData          from 'lib/fetchComponentData';
 import { createStore,
          combineReducers,
-         applyMiddleware }       from 'redux';
-import path                      from 'path';
+         applyMiddleware }         from 'redux';
+import path                        from 'path';
+import apiRouter                   from './api';
 
 const app = express();
 
@@ -21,10 +25,35 @@ if (process.env.NODE_ENV !== 'production') {
 
 app.use(express.static(path.join(__dirname, 'dist')));
 
+app.use(session({
+  secret: 'duck quack',
+  resave: false,
+  saveUninitialized: false,
+}));
+
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+
+app.use(bodyParser.json());
+
+app.use('/api/1', apiRouter);
+
 app.use( (req, res) => {
+  axios.interceptors.request.use(function (config) {
+    if (config.url[0] === '/') {
+      config.url = 'http://localhost:3000/api/1' + config.url;
+      config.headers = req.headers;
+    }
+    return config;
+  });
+
   const location = createLocation(req.url);
   const reducer  = combineReducers(reducers);
+  const promiseMiddleware = injectAxiosAndGetMiddleware(axios);
+
   const store    = applyMiddleware(promiseMiddleware)(createStore)(reducer);
+  const routes = injectStoreAndGetRoutes(store);
 
   match({ routes, location }, (err, redirectLocation, renderProps) => {
     if(err) {

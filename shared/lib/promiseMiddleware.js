@@ -1,4 +1,4 @@
-export default function promiseMiddleware() {
+export default client => function promiseMiddleware() {
   return next => action => {
     const { promise, type, ...rest } = action;
 
@@ -11,7 +11,7 @@ export default function promiseMiddleware() {
 
     next({ ...rest, type: REQUEST });
 
-    return promise
+    return promise(client)
       .then(res => {
         next({ ...rest, res, type: SUCCESS });
 

@@ -4,9 +4,10 @@ import Immutable     from 'immutable';
 
 export default class TodosView extends React.Component {
   static propTypes = {
-    todos:         PropTypes.instanceOf(Immutable.List).isRequired,
+    todos:      PropTypes.instanceOf(Immutable.List).isRequired,
     editTodo:   PropTypes.func.isRequired,
-    deleteTodo: PropTypes.func.isRequired
+    deleteTodo: PropTypes.func.isRequired,
+    user: PropTypes.string
   }
 
   handleDelete = (e) => {
@@ -29,6 +30,7 @@ export default class TodosView extends React.Component {
     const btnStyle = {
       'margin': '1em 0 1em 1em'
     };
+    const {user} = this.props;
 
     return (
       <div id="todos-list">
@@ -37,9 +39,12 @@ export default class TodosView extends React.Component {
             return (
               <div style={btnStyle} key={index}>
                 <span>{todo}</span>
-
-                <button style={btnStyle} data-id={index} onClick={this.handleDelete}>X</button>
-                <button style={btnStyle} data-id={index} onClick={this.handleEdit}>Edit</button>
+                {user &&
+                <span>
+                  <button style={btnStyle} data-id={index} onClick={this.handleDelete}>X</button>
+                  <button style={btnStyle} data-id={index} onClick={this.handleEdit}>Edit</button>
+                </span>
+                }
               </div>
             );
           }.bind(this))
