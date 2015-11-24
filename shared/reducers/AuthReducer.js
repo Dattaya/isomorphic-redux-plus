@@ -11,10 +11,10 @@ export default function authReducer(state = defaultState, action = {}) {
       return state.set('loggingIn', true);
 
     case 'LOGIN':
-      return state.merge({loggingIn: false, user: action.res.data, errorMessage: null});
+      return state.merge({loggingIn: false, user: action.res.data, error: false});
 
     case 'LOGIN_FAILURE':
-      return state.merge({loggingIn: false, user: null, errorMessage: action.errorMessage});
+      return state.merge({loggingIn: false, user: null, error: true});
 
     case 'LOGOUT':
       return state.set('user', null);

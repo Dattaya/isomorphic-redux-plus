@@ -3,13 +3,13 @@ import { connect }            from 'react-redux';
 
 import * as AuthActions       from 'actions/AuthActions';
 
-@connect(state => ({user: state.auth.get('user'), errorMessage: state.auth.get('errorMessage')}), AuthActions)
+@connect(state => ({user: state.auth.get('user'), error: state.auth.get('error')}), AuthActions)
 export default class Login extends React.Component {
   static propTypes = {
-    login:        PropTypes.func.isRequired,
-    logout:       PropTypes.func.isRequired,
-    user:         PropTypes.string,
-    errorMessage: PropTypes.string
+    login:  PropTypes.func.isRequired,
+    logout: PropTypes.func.isRequired,
+    user:   PropTypes.string,
+    error:  PropTypes.bool
   };
 
   handleSubmit = (e) => {
@@ -23,13 +23,13 @@ export default class Login extends React.Component {
   };
 
   componentDidUpdate() {
-    if (this.props.errorMessage) {
+    if (this.props.error) {
       this.refs.login.focus();
     }
   }
 
   render() {
-    const {user, logout, errorMessage} = this.props;
+    const {user, logout, error} = this.props;
     const errorStyle = {
       'color':      'red',
       'marginLeft': '5px'
@@ -41,8 +41,8 @@ export default class Login extends React.Component {
           <input type="text" placeholder="User name" ref="login" />
           <input type="password" placeholder="Password" ref="pass" />
           <input type="submit" value="Send" onClick={this.handleSubmit} />
-          {errorMessage &&
-            <span style={errorStyle}>{errorMessage}</span>
+          {error &&
+            <span style={errorStyle}>Wrong user name or password.</span>
           }
         </form>
         }
