@@ -7,8 +7,8 @@ export function load() {
 
 export function login(login, pass) {
   return {
-    type:         'LOGIN',
-    promise:      client => client.post('/login', {login, pass}),
+    type:    'LOGIN',
+    promise: client => client.post('/login', {login, pass})
   };
 }
 

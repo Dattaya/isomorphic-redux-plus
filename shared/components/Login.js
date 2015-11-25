@@ -1,15 +1,20 @@
-import React, { PropTypes }   from 'react';
-import { connect }            from 'react-redux';
+import React, { PropTypes } from 'react';
+import { connect }          from 'react-redux';
+import ImmutablePropTypes   from 'react-immutable-proptypes';
 
 import * as AuthActions       from 'actions/AuthActions';
 
-@connect(state => ({user: state.auth.get('user'), error: state.auth.get('error')}), AuthActions)
+@connect(state => ({auth: state.auth}), AuthActions)
 export default class Login extends React.Component {
   static propTypes = {
     login:  PropTypes.func.isRequired,
     logout: PropTypes.func.isRequired,
-    user:   PropTypes.string,
-    error:  PropTypes.bool
+    //auth:   ImmutablePropTypes.mapOf(
+    //  ImmutablePropTypes.contains({
+    //    error: PropTypes.bool,
+    //    user:  PropTypes.string
+    //  })
+    //)
   };
 
   handleSubmit = (e) => {
@@ -23,13 +28,16 @@ export default class Login extends React.Component {
   };
 
   componentDidUpdate() {
-    if (this.props.error) {
+    if (this.props.auth.get('error')) {
       this.refs.login.focus();
     }
   }
 
   render() {
-    const {user, logout, error} = this.props;
+    const { auth, logout } = this.props;
+    const user = auth.get('user');
+    const error = auth.get('error');
+
     const errorStyle = {
       'color':      'red',
       'marginLeft': '5px'
