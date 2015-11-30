@@ -10,8 +10,9 @@ export default class Login extends React.Component {
     login:  PropTypes.func.isRequired,
     logout: PropTypes.func.isRequired,
     auth:   ImmutablePropTypes.shape({
-      user:  PropTypes.string,
-      error: PropTypes.bool,
+      user:      PropTypes.string,
+      loggingIn: PropTypes.bool,
+      error:     PropTypes.bool
     })
   };
 
@@ -35,6 +36,7 @@ export default class Login extends React.Component {
     const { auth, logout } = this.props;
     const user = auth.get('user');
     const error = auth.get('error');
+    const loggingIn = auth.get('loggingIn');
 
     const errorStyle = {
       'color':      'red',
@@ -44,12 +46,14 @@ export default class Login extends React.Component {
       <div>
         {!user &&
         <form>
-          <input type="text" placeholder="User name" ref="login" />
-          <input type="password" placeholder="Password" ref="pass" />
-          <input type="submit" value="Send" onClick={this.handleSubmit} />
-          {error &&
-            <span style={errorStyle}>Wrong user name or password.</span>
-          }
+          <fieldset disabled={loggingIn}>
+            <input type="text" placeholder="User name" ref="login" />
+            <input type="password" placeholder="Password" ref="pass" />
+            <input type="submit" value="Send" onClick={this.handleSubmit} />
+            {error &&
+              <span style={errorStyle}>Wrong user name or password.</span>
+            }
+          </fieldset>
         </form>
         }
         {user &&
