@@ -9,12 +9,10 @@ export default class Login extends React.Component {
   static propTypes = {
     login:  PropTypes.func.isRequired,
     logout: PropTypes.func.isRequired,
-    //auth:   ImmutablePropTypes.mapOf(
-    //  ImmutablePropTypes.contains({
-    //    error: PropTypes.bool,
-    //    user:  PropTypes.string
-    //  })
-    //)
+    auth:   ImmutablePropTypes.shape({
+      user:  PropTypes.string,
+      error: PropTypes.bool,
+    })
   };
 
   handleSubmit = (e) => {
