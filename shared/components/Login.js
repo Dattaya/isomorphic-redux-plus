@@ -34,9 +34,7 @@ export default class Login extends React.Component {
 
   render() {
     const { auth, logout } = this.props;
-    const user = auth.get('user');
-    const error = auth.get('error');
-    const loggingIn = auth.get('loggingIn');
+    const { user, error, loggingIn } = auth.toObject();
 
     const errorStyle = {
       'color':      'red',
