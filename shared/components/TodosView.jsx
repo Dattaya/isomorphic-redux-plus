@@ -7,7 +7,7 @@ export default class TodosView extends React.Component {
     todos:      ImmutablePropTypes.list.isRequired,
     editTodo:   PropTypes.func.isRequired,
     deleteTodo: PropTypes.func.isRequired,
-    user: PropTypes.string
+    user:       PropTypes.string
   }
 
   handleDelete = (e) => {
