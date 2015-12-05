@@ -10,14 +10,11 @@ export default class TodosView extends React.Component {
     user:       PropTypes.string
   }
 
-  handleDelete = (e) => {
-    const id = Number(e.target.dataset.id);
-
+  handleDelete = (id) => {
     this.props.deleteTodo(id);
   }
 
-  handleEdit = (e) => {
-    const id         = Number(e.target.dataset.id);
+  handleEdit = (id) => {
     const currentVal = this.props.todos.get(id);
 
     // For a cutting edge UX
@@ -41,8 +38,8 @@ export default class TodosView extends React.Component {
                 <span>{todo}</span>
                 {user &&
                 <span>
-                  <button style={btnStyle} data-id={index} onClick={this.handleDelete}>X</button>
-                  <button style={btnStyle} data-id={index} onClick={this.handleEdit}>Edit</button>
+                  <button style={btnStyle} onClick={() => this.handleDelete(index)}>X</button>
+                  <button style={btnStyle} onClick={() => this.handleEdit(index)}>Edit</button>
                 </span>
                 }
               </div>
