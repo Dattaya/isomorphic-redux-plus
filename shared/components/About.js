@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import { connect }          from 'react-redux';
+
 import { getAbout }         from 'actions/AboutActions';
 import fetchData            from 'lib/fetchDataDeferred';
 

@@ -1,5 +1,5 @@
-import React         from 'react';
-import { PropTypes } from 'react';
+import React                from 'react';
+import { PropTypes }        from 'react';
 import ImmutablePropTypes   from 'react-immutable-proptypes';
 
 export default class TodosView extends React.Component {

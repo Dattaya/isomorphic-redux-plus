@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import hoistStatics from 'hoist-non-react-statics';
+import hoistStatics                    from 'hoist-non-react-statics';
 
 const { shape, func } = PropTypes;
 /**

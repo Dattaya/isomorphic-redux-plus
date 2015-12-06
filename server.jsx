@@ -9,12 +9,15 @@ import createLocation              from 'history/lib/createLocation';
 import injectStoreAndGetRoutes     from 'routes';
 import { Provider }                from 'react-redux';
 import * as reducers               from 'reducers';
-import injectAxiosAndGetMiddleware from 'lib/promiseMiddleware';
-import fetchComponentData          from 'lib/fetchComponentData';
-import { createStore,
-         combineReducers,
-         applyMiddleware }         from 'redux';
+import {
+  createStore,
+  combineReducers,
+  applyMiddleware
+}                                  from 'redux';
 import path                        from 'path';
+
+import fetchComponentData          from 'lib/fetchComponentData';
+import injectAxiosAndGetMiddleware from 'lib/promiseMiddleware';
 import apiRouter                   from './api';
 
 const app = express();

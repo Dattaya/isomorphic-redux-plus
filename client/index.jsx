@@ -7,12 +7,15 @@ import { Provider }                from 'react-redux';
 import { fromJS }                  from 'immutable';
 import * as reducers               from 'reducers';
 import injectStoreAndGetRoutes     from 'routes';
-import injectAxiosAndGetMiddleware from 'lib/promiseMiddleware';
-import immutifyState               from 'lib/immutifyState';
-import { createStore,
-         combineReducers,
-         applyMiddleware }         from 'redux';
+import {
+  createStore,
+  combineReducers,
+  applyMiddleware
+}                                  from 'redux';
 import axios                       from 'axios';
+
+import immutifyState               from 'lib/immutifyState';
+import injectAxiosAndGetMiddleware from 'lib/promiseMiddleware';
 
 axios.interceptors.request.use(function (config) {
   if (config.url[0] === '/') {

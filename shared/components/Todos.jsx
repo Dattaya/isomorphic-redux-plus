@@ -1,11 +1,12 @@
 import React, { PropTypes }   from 'react';
-import TodosView              from './TodosView';
-import TodosForm              from './TodosForm';
 import { bindActionCreators } from 'redux';
-import * as TodoActions       from 'actions/TodoActions';
 import { connect }            from 'react-redux';
-import fetchData              from 'lib/fetchDataDeferred';
 import ImmutablePropTypes     from 'react-immutable-proptypes';
+
+import fetchData              from 'lib/fetchDataDeferred';
+import TodosForm              from './TodosForm';
+import TodosView              from './TodosView';
+import * as TodoActions       from 'actions/TodoActions';
 
 @fetchData([TodoActions.getTodos])
 @connect(state => ({ todos: state.todos, user: state.auth.get('user') }))
