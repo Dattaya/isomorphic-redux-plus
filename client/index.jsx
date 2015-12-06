@@ -2,7 +2,7 @@ import 'babel/polyfill';
 import React                       from 'react';
 import { render }                  from 'react-dom';
 import { Router }                  from 'react-router';
-import createBrowserHistory        from 'history/lib/createBrowserHistory'
+import { createHistory }           from 'history';
 import { Provider }                from 'react-redux';
 import { fromJS }                  from 'immutable';
 import * as reducers               from 'reducers';
@@ -23,7 +23,7 @@ axios.interceptors.request.use(function (config) {
 
 const initialState = immutifyState(window.__INITIAL_STATE__);
 
-const history = createBrowserHistory();
+const history = createHistory();
 
 const reducer = combineReducers(reducers);
 const promiseMiddleware = injectAxiosAndGetMiddleware(axios);
