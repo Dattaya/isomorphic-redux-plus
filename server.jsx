@@ -5,7 +5,6 @@ import axios                       from 'axios';
 import React                       from 'react';
 import { renderToString }          from 'react-dom/server'
 import { RoutingContext, match }   from 'react-router';
-import createLocation              from 'history/lib/createLocation';
 import injectStoreAndGetRoutes     from 'routes';
 import { Provider }                from 'react-redux';
 import * as reducers               from 'reducers';
@@ -51,14 +50,13 @@ app.use( (req, res) => {
     return config;
   });
 
-  const location = createLocation(req.url);
   const reducer  = combineReducers(reducers);
   const promiseMiddleware = injectAxiosAndGetMiddleware(axios);
 
   const store    = applyMiddleware(promiseMiddleware)(createStore)(reducer);
   const routes = injectStoreAndGetRoutes(store);
 
-  match({ routes, location }, (err, redirectLocation, renderProps) => {
+  match({ routes, location: req.url }, (err, redirectLocation, renderProps) => {
     if(err) {
       console.error(err);
       return res.status(500).end('Internal server error');
