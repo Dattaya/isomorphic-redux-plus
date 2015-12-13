@@ -9,7 +9,7 @@ Object.assign = assign;
 
 export default function(app) {
   const config = Object.assign(prodCfg, {
-    devtool: 'inline-source-map',
+    devtool: 'cheap-module-inline-source-map',
     entry:   [
       'webpack-hot-middleware/client',
       './client'
