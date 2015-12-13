@@ -25,7 +25,7 @@ if (process.env.NODE_ENV !== 'production') {
   require('./webpack.dev')(app);
 }
 
-app.use(express.static(path.join(__dirname, 'dist')));
+app.use(express.static(path.join(__dirname, 'static')));
 
 app.use(session({
   secret: 'duck quack',
@@ -93,7 +93,7 @@ app.use( (req, res) => {
         </head>
         <body>
           <div id="react-view">${componentHTML}</div>
-          <script type="application/javascript" src="/bundle.js"></script>
+          <script type="application/javascript" src="/dist/bundle.js"></script>
         </body>
       </html>
       `;

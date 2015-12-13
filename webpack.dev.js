@@ -45,6 +45,6 @@ export default function(app) {
 
   const compiler = webpack(config);
 
-  app.use(webpackDevMiddleware(compiler, { noInfo: true }));
+  app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: config.output.publicPath }));
   app.use(webpackHotMiddleware(compiler));
 }

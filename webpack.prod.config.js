@@ -9,9 +9,9 @@ module.exports = {
     extensions:         ['', '.js', '.jsx']
   },
   output: {
-    path:       path.join(__dirname, 'dist'),
+    path:       path.join(__dirname, 'static', 'dist'),
     filename:   'bundle.js',
-    publicPath: '/'
+    publicPath: '/dist/'
   },
   module: {
     loaders: [
