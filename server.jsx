@@ -14,6 +14,7 @@ import {
   applyMiddleware
 }                                  from 'redux';
 import path                        from 'path';
+import favicon                     from 'serve-favicon';
 
 import fetchComponentData          from 'lib/fetchComponentData';
 import injectAxiosAndGetMiddleware from 'lib/promiseMiddleware';
@@ -24,6 +25,8 @@ const app = express();
 if (process.env.NODE_ENV !== 'production') {
   require('./webpack.dev')(app);
 }
+
+app.use(favicon(path.join(__dirname, 'static', 'favicon.ico')));
 
 app.use(express.static(path.join(__dirname, 'static')));
 
@@ -85,6 +88,8 @@ app.use( (req, res) => {
       <html>
         <head>
           <meta charset="utf-8">
+          <link rel="shortcut icon" href="/favicon.ico">
+
           <title>Redux Demo</title>
 
           <script>
