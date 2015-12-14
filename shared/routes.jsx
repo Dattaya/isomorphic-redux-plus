@@ -4,6 +4,7 @@ import { Route, IndexRoute }       from 'react-router';
 import App                         from 'components/index';
 import Todos                       from 'components/Todos';
 import About                       from 'components/About';
+import NotFound                    from 'components/NotFound';
 import { load as loadAuthActionC } from 'actions/AuthActions';
 
 export default (store) => {
@@ -19,6 +20,7 @@ export default (store) => {
     <Route name="app" component={App} path="/" onEnter={loadAuth}>
       <IndexRoute component={About}/>
       <Route path="todos" component={Todos}/>
+      <Route path="*" component={NotFound} status={404}/>
     </Route>
   );
 };

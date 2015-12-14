@@ -72,6 +72,8 @@ app.use( (req, res) => {
     if(!renderProps)
       return res.status(404).end('Not found');
 
+    const status = renderProps.routes.reduce((prev, curr) => curr.status || prev, 200);
+
     function renderView() {
       const InitialView = (
         <Provider store={store}>
@@ -108,8 +110,8 @@ app.use( (req, res) => {
 
     fetchComponentData(store.dispatch, renderProps.components, renderProps.params)
       .then(renderView)
-      .then(html => res.end(html))
-      .catch(err => res.end(err.message));
+      .then(html => res.status(status).end(html))
+      .catch(err => res.end(err));
   });
 });
 
