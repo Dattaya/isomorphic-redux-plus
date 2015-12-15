@@ -108,7 +108,7 @@ app.use((req, res) => {
       return HTML;
     }
 
-    fetchComponentData(store.dispatch, renderProps.components, renderProps.params)
+    fetchComponentData(store, renderProps.components, renderProps.params)
       .then(renderView)
       .then(html => res.status(status).end(html))
       .catch(err => {

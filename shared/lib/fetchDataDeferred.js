@@ -8,14 +8,14 @@ const { shape, func, object } = PropTypes;
  * on the server all static `needs` properties are collected
  * to pass them to fetchComponentData.
  *
- * @param needs
+ * @param fetch
  * @returns {Function}
  */
-export default (needs) => {
+export default (fetch) => {
   return WrappedComponent => {
     class FetchDataDecorator extends Component {
       static WrappedComponent = WrappedComponent;
-      static needs = needs;
+      static fetchData = fetch;
 
       static propTypes = {
         params: object.isRequired
@@ -23,16 +23,15 @@ export default (needs) => {
 
       static contextTypes = {
         store: shape({
-          dispatch: func.isRequired
+          dispatch:  func.isRequired,
+          getState:  func.isRequired
         })
       };
 
       componentDidMount() {
-        const { dispatch } = this.context.store;
+        const { getState, dispatch } = this.context.store;
 
-        const promises = needs.map(need => dispatch(need(this.props.params)));
-
-        Promise.all(promises);
+        fetch(getState(), dispatch, this.props.params);
       }
 
       render() {
