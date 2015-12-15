@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import hoistStatics                    from 'hoist-non-react-statics';
 
-const { shape, func } = PropTypes;
+const { shape, func, object } = PropTypes;
+
 /**
  * Should always be a top level (outermost) decorator because
  * on the server all static `needs` properties are collected
@@ -17,7 +18,7 @@ export default (needs) => {
       static needs = needs;
 
       static propTypes = {
-        params: PropTypes.object.isRequired
+        params: object.isRequired
       };
 
       static contextTypes = {
