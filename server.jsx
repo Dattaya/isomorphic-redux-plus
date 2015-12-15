@@ -31,8 +31,8 @@ app.use(favicon(path.join(__dirname, 'static', 'favicon.ico')));
 app.use(express.static(path.join(__dirname, 'static')));
 
 app.use(session({
-  secret: 'duck quack',
-  resave: false,
+  secret:            'duck quack',
+  resave:            false,
   saveUninitialized: false,
 }));
 
@@ -44,7 +44,7 @@ app.use(bodyParser.json());
 
 app.use('/api/1', apiRouter);
 
-app.use( (req, res) => {
+app.use((req, res) => {
   axios.interceptors.request.use(function (config) {
     if (config.url[0] === '/') {
       config.url = 'http://localhost:3000/api/1' + config.url;
@@ -53,14 +53,14 @@ app.use( (req, res) => {
     return config;
   });
 
-  const reducer  = combineReducers(reducers);
+  const reducer = combineReducers(reducers);
   const promiseMiddleware = injectAxiosAndGetMiddleware(axios);
 
-  const store    = applyMiddleware(promiseMiddleware)(createStore)(reducer);
+  const store = applyMiddleware(promiseMiddleware)(createStore)(reducer);
   const routes = injectStoreAndGetRoutes(store);
 
-  match({ routes, location: req.url }, (err, redirectLocation, renderProps) => {
-    if(err) {
+  match({routes, location: req.url}, (err, redirectLocation, renderProps) => {
+    if (err) {
       console.error(err);
       return res.status(500).end('Internal server error');
     }
@@ -69,7 +69,7 @@ app.use( (req, res) => {
       return res.redirect(302, redirectLocation.pathname + redirectLocation.search);
     }
 
-    if(!renderProps)
+    if (!renderProps)
       return res.status(404).end('Not found');
 
     const status = renderProps.routes.reduce((prev, curr) => curr.status || prev, 200);
@@ -111,7 +111,10 @@ app.use( (req, res) => {
     fetchComponentData(store.dispatch, renderProps.components, renderProps.params)
       .then(renderView)
       .then(html => res.status(status).end(html))
-      .catch(err => res.end(err));
+      .catch(err => {
+        console.log(err.stack);
+        res.sendStatus(500);
+      });
   });
 });
 
