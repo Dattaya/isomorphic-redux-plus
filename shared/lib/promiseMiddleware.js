@@ -19,7 +19,10 @@ export default client => function promiseMiddleware() {
       })
       .catch(error => {
         next({ ...rest, error, type: FAILURE });
-        console.log(error);
+
+        if (action.role === 'primary') {
+          return {status: error.status};
+        }
 
         return false;
       });
