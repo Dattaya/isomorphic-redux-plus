@@ -6,7 +6,7 @@ import ImmutablePropTypes     from 'react-immutable-proptypes';
 import fetchData              from 'lib/fetchDataDeferred';
 import {
   TodosForm, TodosView
-}                             from 'components';
+}                             from './presentational';
 import * as TodoActions       from 'actions/TodoActions';
 
 @fetchData((state, dispatch, params) => dispatch(TodoActions.loadTodos()))
