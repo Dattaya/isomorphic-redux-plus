@@ -4,7 +4,7 @@ import { Link, IndexLink }  from 'react-router';
 import Login                from './Login';
 import { rendered }         from 'lib/fetchDataDeferred';
 
-export default class MainView extends React.Component {
+export default class App extends React.Component {
   static propTypes = {
     children: PropTypes.object
   };
