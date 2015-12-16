@@ -4,7 +4,7 @@ const defaultState = Immutable.Map({loaded: false, user: null});
 
 export default function authReducer(state = defaultState, action = {}) {
   switch (action.type) {
-    case 'LOAD':
+    case 'LOAD_AUTH':
       return state.merge({loaded: true, user: action.res.data || null});
 
     case 'LOGIN_REQUEST':

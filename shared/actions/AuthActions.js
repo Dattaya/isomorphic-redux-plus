@@ -1,5 +1,5 @@
 export const loadAuth = () => ({
-  type:    'LOAD',
+  type:    'LOAD_AUTH',
   promise: client => client.get('/loadAuth')
 });
 

@@ -8,7 +8,7 @@ import TodosForm              from './TodosForm';
 import TodosView              from './TodosView';
 import * as TodoActions       from 'actions/TodoActions';
 
-@fetchData((state, dispatch, params) => dispatch(TodoActions.getTodos()))
+@fetchData((state, dispatch, params) => dispatch(TodoActions.loadTodos()))
 @connect(state => ({ todos: state.todos, user: state.auth.get('user') }))
 export default class Todos extends React.Component {
   static propTypes = {

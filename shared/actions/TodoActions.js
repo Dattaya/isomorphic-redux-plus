@@ -1,5 +1,5 @@
-export const getTodos = () => ({
-  type:    'GET_TODOS',
+export const loadTodos = () => ({
+  type:    'LOAD_TODOS',
   promise: client => client.get('/todos')
 });
 

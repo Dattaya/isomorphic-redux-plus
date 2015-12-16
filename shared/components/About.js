@@ -1,10 +1,10 @@
 import React, { PropTypes } from 'react';
 import { connect }          from 'react-redux';
 
-import { getAbout }         from 'actions/AboutActions';
+import { loadAbout }         from 'actions/AboutActions';
 import fetchData            from 'lib/fetchDataDeferred';
 
-@fetchData((state, dispatch, params) => dispatch(getAbout()))
+@fetchData((state, dispatch, params) => dispatch(loadAbout()))
 @connect(state => ({about: state.about}))
 export default class About extends React.Component {
   static propTypes = {
