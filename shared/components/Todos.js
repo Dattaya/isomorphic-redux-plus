@@ -4,8 +4,9 @@ import { connect }            from 'react-redux';
 import ImmutablePropTypes     from 'react-immutable-proptypes';
 
 import fetchData              from 'lib/fetchDataDeferred';
-import TodosForm              from './TodosForm';
-import TodosView              from './TodosView';
+import {
+  TodosForm, TodosView
+}                             from 'components';
 import * as TodoActions       from 'actions/TodoActions';
 
 @fetchData((state, dispatch, params) => dispatch(TodoActions.loadTodos()))

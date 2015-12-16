@@ -1,10 +1,9 @@
 import React                       from 'react';
 import { Route, IndexRoute }       from 'react-router';
 
-import App                             from 'components/App';
-import Todos                           from 'components/Todos';
-import About                           from 'components/About';
-import NotFound                        from 'components/NotFound';
+import {
+  App, Todos, About, NotFound
+}                                      from 'components';
 import { loadAuth as loadAuthActionC } from 'actions/AuthActions';
 
 export default (store) => {
