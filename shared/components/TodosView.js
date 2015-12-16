@@ -8,11 +8,11 @@ export default class TodosView extends React.Component {
     editTodo:   PropTypes.func.isRequired,
     deleteTodo: PropTypes.func.isRequired,
     user:       PropTypes.string
-  }
+  };
 
   handleDelete = (id) => {
     this.props.deleteTodo(id);
-  }
+  };
 
   handleEdit = (id) => {
     const currentVal = this.props.todos.get(id);
@@ -21,7 +21,7 @@ export default class TodosView extends React.Component {
     let text = window.prompt('', currentVal);
 
     this.props.editTodo(id, text);
-  }
+  };
 
   render() {
     const btnStyle = {
