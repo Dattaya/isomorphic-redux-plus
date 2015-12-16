@@ -1,20 +1,14 @@
-export function load() {
-  return {
-    type:    'LOAD',
-    promise: client => client.get('/loadAuth')
-  };
-}
+export const loadAuth = () => ({
+  type:    'LOAD',
+  promise: client => client.get('/loadAuth')
+});
 
-export function login(login, pass) {
-  return {
-    type:    'LOGIN',
-    promise: client => client.post('/login', {login, pass})
-  };
-}
+export const login = (login, pass) => ({
+  type:    'LOGIN',
+  promise: client => client.post('/login', {login, pass})
+});
 
-export function logout() {
-  return {
-    type:    'LOGOUT',
-    promise: client => client.post('/logout', {})
-  };
-}
+export const logout = () => ({
+  type:    'LOGOUT',
+  promise: client => client.post('/logout', {})
+});

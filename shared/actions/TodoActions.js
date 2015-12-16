@@ -1,29 +1,21 @@
-export function getTodos() {
-  return {
-    type:    'GET_TODOS',
-    promise: client => client.get('/todos')
-  }
-}
+export const getTodos = () => ({
+  type:    'GET_TODOS',
+  promise: client => client.get('/todos')
+});
 
-export function createTodo(text) {
-  return {
-    type:    'CREATE_TODO',
-    promise: client => client.post('/todos', { time: Date.now(), text })
-  };
-}
+export const createTodo = (text) => ({
+  type:    'CREATE_TODO',
+  promise: client => client.post('/todos', {time: Date.now(), text})
+});
 
-export function editTodo(id, text) {
-  return {
-    type: 'EDIT_TODO',
-    id,
-    text,
-    date: Date.now()
-  };
-}
+export const editTodo = (id, text) => ({
+        id,
+        text,
+  type: 'EDIT_TODO',
+  date: Date.now()
+});
 
-export function deleteTodo(id) {
-  return {
-    type: 'DELETE_TODO',
-    id
-  };
-}
+export const deleteTodo = (id) => ({
+        id,
+  type: 'DELETE_TODO'
+});
