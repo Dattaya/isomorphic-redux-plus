@@ -1,10 +1,9 @@
-import 'babel/polyfill';
+import 'babel-polyfill';
 import React                       from 'react';
 import { render }                  from 'react-dom';
 import { Router }                  from 'react-router';
 import { createHistory }           from 'history';
 import { Provider }                from 'react-redux';
-import { fromJS }                  from 'immutable';
 import * as reducers               from 'reducers';
 import injectStoreAndGetRoutes     from 'routes';
 import {

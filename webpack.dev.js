@@ -7,7 +7,7 @@ import prodCfg              from './webpack.prod.config.js';
 
 Object.assign = assign;
 
-export default function(app) {
+export default function (app) {
   const config = Object.assign(prodCfg, {
     devtool: 'cheap-module-inline-source-map',
     entry:   [
@@ -21,17 +21,17 @@ export default function(app) {
           exclude: /node_modules/,
           loader:  'babel',
           query:   {
-            stage:   0,
-            plugins: ['react-transform'],
-            extra:   {
-              'react-transform': {
+            plugins: [
+              [
+                'react-transform', {
                 transforms: [{
                   transform: 'react-transform-hmr',
                   imports:   ['react'],
                   locals:    ['module']
                 }]
               }
-            }
+              ]
+            ]
           }
         }
       ]
@@ -45,6 +45,6 @@ export default function(app) {
 
   const compiler = webpack(config);
 
-  app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: config.output.publicPath }));
+  app.use(webpackDevMiddleware(compiler, {noInfo: true, publicPath: config.output.publicPath}));
   app.use(webpackHotMiddleware(compiler));
 }

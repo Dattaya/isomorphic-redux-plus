@@ -1,3 +1,4 @@
 {
-  "optional": ["es7.decorators", "es7.classProperties", "es7.objectRestSpread"]
+  presets: ["es2015", "stage-1", "react"],
+  plugins: ["transform-decorators-legacy"]
 }

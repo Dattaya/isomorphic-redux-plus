@@ -23,7 +23,7 @@ import apiRouter                   from './api';
 const app = express();
 
 if (process.env.NODE_ENV !== 'production') {
-  require('./webpack.dev')(app);
+  require('./webpack.dev').default(app);
 }
 
 app.use(favicon(path.join(__dirname, 'static', 'favicon.ico')));
