@@ -13,7 +13,7 @@ import * as TodoActions       from 'actions/TodoActions';
 @connect(state => ({ todos: state.todos, user: state.auth.get('user') }))
 export default class Todos extends React.Component {
   static propTypes = {
-    todos:    ImmutablePropTypes.list.isRequired,
+    todos:    ImmutablePropTypes.map.isRequired,
     dispatch: PropTypes.func.isRequired,
     user:     PropTypes.string
   };

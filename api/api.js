@@ -4,7 +4,15 @@ import path       from 'path';
 import marked     from 'marked';
 
 const router = Router();
-let todos = ['Todo item 1', 'Todo item 2', 'Todo item 3', 'Todo item 4', 'Todo item 5'];
+
+let todos = {
+  1: {id: 1, text: 'Todo item 1', dateUpdated: Date.now()},
+  2: {id: 2, text: 'Todo item 2', dateUpdated: Date.now()},
+  3: {id: 3, text: 'Todo item 3', dateUpdated: Date.now()},
+  4: {id: 4, text: 'Todo item 4', dateUpdated: Date.now()},
+  5: {id: 5, text: 'Todo item 5', dateUpdated: Date.now()}
+};
+let lastIndex = 5;
 
 router.get('/about', (req, res) => {
   fs.readFile(path.join(__dirname, '../README.md'), {encoding: 'utf-8'}, function (err, data) {
@@ -22,8 +30,33 @@ router.get('/todos', (req, res) => {
 
 router.post('/todos', (req, res) => {
   if (req.session.user) {
-    todos.push(req.body.text);
-    return res.json(req.body);
+    const id = ++lastIndex;
+    todos[id] = {...req.body, id};
+    return res.json(todos[id]);
+  }
+  return res.sendStatus(401);
+});
+
+router.put('/todos/:id', (req, res) => {
+  if (req.session.user) {
+    const id = parseInt(req.body.id, 10);
+    if (id && todos[id]) {
+      todos[id] = req.body;
+      return res.json(todos[id]);
+    }
+    return res.sendStatus(400);
+  }
+  return res.sendStatus(401);
+});
+
+router.delete('/todos/:id', (req, res) => {
+  if (req.session.user) {
+    const id = parseInt(req.params.id, 10);
+    if (id && todos[id]) {
+      delete todos[id];
+      return res.sendStatus(200);
+    }
+    return res.sendStatus(400);
   }
   return res.sendStatus(401);
 });
@@ -36,10 +69,10 @@ router.post('/login', (req, res) => {
   const { login, pass } = req.body;
   if (login === 'demo' && pass === 'demo') {
     req.session.user = 'demo';
-    res.send(req.session.user);
-  } else {
-    res.sendStatus(401);
+    return res.send(req.session.user);
   }
+
+  return res.sendStatus(401);
 });
 
 router.post('/logout', (req, res) => {
