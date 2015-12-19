@@ -3,9 +3,9 @@ import React from 'react';
 export default class NotFound extends React.Component {
   render() {
     const style = {
-      color: 'grey',
+      color:     'grey',
       textAlign: 'center',
-      fontSize: '100px'
+      fontSize:  '100px'
     };
 
     return (

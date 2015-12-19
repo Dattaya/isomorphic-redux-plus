@@ -29,8 +29,8 @@ export default (fetch) => {
 
       static contextTypes = {
         store: shape({
-          dispatch:  func.isRequired,
-          getState:  func.isRequired
+          dispatch: func.isRequired,
+          getState: func.isRequired
         })
       };
 

@@ -9,12 +9,13 @@ import {
 }                             from './presentational';
 import * as TodoActions       from 'actions/TodoActions';
 
-@fetchData((state, dispatch, params) => dispatch(TodoActions.loadTodos()))
+@fetchData((state, dispatch) => dispatch(TodoActions.loadTodos()))
 @connect(state => ({ todos: state.todos, user: state.auth.get('user') }))
 export default class Todos extends React.Component {
   static propTypes = {
     todos:    ImmutablePropTypes.list.isRequired,
-    dispatch: PropTypes.func.isRequired
+    dispatch: PropTypes.func.isRequired,
+    user:     PropTypes.string
   };
 
   shouldComponentUpdate(nextProps) {

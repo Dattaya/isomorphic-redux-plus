@@ -1,4 +1,4 @@
-export default client => store => next => action => {
+export default client => () => next => action => {
   const { promise, type, ...rest } = action;
 
   if (!promise) return next(action);

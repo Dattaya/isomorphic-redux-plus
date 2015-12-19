@@ -4,7 +4,7 @@ import { connect }          from 'react-redux';
 import { loadAbout }         from 'actions/AboutActions';
 import fetchData            from 'lib/fetchDataDeferred';
 
-@fetchData((state, dispatch, params) => dispatch(loadAbout()))
+@fetchData((state, dispatch) => dispatch(loadAbout()))
 @connect(state => ({about: state.about}))
 export default class About extends React.Component {
   static propTypes = {
