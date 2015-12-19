@@ -20,7 +20,7 @@ export default client => store => next => action => {
       next({...rest, error, type: FAILURE});
 
       if (action.role === 'primary') {
-        return {status: error.status};
+        throw {status: error.status};
       }
 
       return false;

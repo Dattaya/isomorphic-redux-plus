@@ -18,7 +18,6 @@ import favicon                     from 'serve-favicon';
 
 import fetchComponentData          from 'lib/fetchComponentData';
 import injectAxiosAndGetMiddleware from 'lib/promiseMiddleware';
-import getStatus                   from 'lib/getStatus';
 import apiRouter                   from './api';
 
 const app = express();
@@ -73,7 +72,7 @@ app.use((req, res) => {
     if (!renderProps)
       return res.status(404).end('Not found');
 
-    function renderView(resultsFromFetchComponentData) {
+    function renderView(errOrArrayFromPromiseAll) {
       const InitialView = (
         <Provider store={store}>
           <RoutingContext {...renderProps} />
@@ -105,19 +104,27 @@ app.use((req, res) => {
       `;
 
       return {
-        resultsFromFetchComponentData,
+        errOrArrayFromPromiseAll,
         html
       };
     }
 
     fetchComponentData(store, renderProps.components, renderProps.params)
+      .catch(err => err)
       .then(renderView)
-      .then(r => res.status(getStatus(renderProps.routes, r.resultsFromFetchComponentData)).end(r.html))
+      .then(r => res.status(getStatus(r.errOrArrayFromPromiseAll, renderProps.routes)).end(r.html))
       .catch(err => {
-        console.log(err.stack);
+        console.error(err.stack);
         res.sendStatus(500);
       });
   });
 });
+
+function getStatus(errOrRes, routes) {
+  if (errOrRes && errOrRes.status) {
+    return errOrRes.status;
+  }
+  return routes.reduce((prev, curr) => curr.status || prev) || 200;
+}
 
 export default app;
