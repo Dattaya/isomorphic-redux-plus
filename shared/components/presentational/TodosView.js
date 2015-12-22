@@ -7,7 +7,7 @@ export default class TodosView extends React.Component {
     todos:      ImmutablePropTypes.map.isRequired,
     editTodo:   PropTypes.func.isRequired,
     deleteTodo: PropTypes.func.isRequired,
-    user:       PropTypes.string
+    editable:   PropTypes.bool
   };
 
   handleDelete = (id) => {
@@ -27,7 +27,7 @@ export default class TodosView extends React.Component {
     const btnStyle = {
       'margin': '1em 0 1em 1em'
     };
-    const {user} = this.props;
+    const {editable} = this.props;
 
     return (
       <div id="todos-list">
@@ -36,7 +36,7 @@ export default class TodosView extends React.Component {
             return (
               <div style={btnStyle} key={id}>
                 <span>{todo.get('text')}</span>
-                {user &&
+                {editable &&
                 <span>
                   <button style={btnStyle} onClick={() => this.handleDelete(id)}>X</button>
                   <button style={btnStyle} onClick={() => this.handleEdit(id)}>Edit</button>

@@ -1,9 +1,11 @@
 import Immutable from 'immutable';
 
+import { isAuthenticated } from './AuthReducer';
+
 const defaultState = Immutable.Map();
 
 export default function todoReducer(state = defaultState, action) {
-  switch(action.type) {
+  switch (action.type) {
     case 'LOAD_TODOS':
       return Immutable.fromJS(action.res.data);
 
@@ -20,3 +22,7 @@ export default function todoReducer(state = defaultState, action) {
       return state;
   }
 }
+
+// Selectors:
+
+export const isEditable = (state) => isAuthenticated(state);

@@ -23,3 +23,9 @@ export default function authReducer(state = defaultState, action = {}) {
       return state;
   }
 }
+
+// Selectors:
+
+export const isLoaded = (state) => state.auth.get('loaded');
+
+export const isAuthenticated = (state) => !!state.auth.get('user');
