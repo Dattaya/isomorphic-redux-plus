@@ -2,6 +2,8 @@ import React                from 'react';
 import { PropTypes }        from 'react';
 import ImmutablePropTypes   from 'react-immutable-proptypes';
 
+import { TodoItem } from './index';
+
 export default class TodosView extends React.Component {
   static propTypes = {
     todos:      ImmutablePropTypes.map.isRequired,
@@ -34,15 +36,10 @@ export default class TodosView extends React.Component {
         {
           this.props.todos.map((todo, id) => {
             return (
-              <div style={btnStyle} key={id}>
-                <span>{todo.get('text')}</span>
-                {editable &&
-                <span>
-                  <button style={btnStyle} onClick={() => this.handleDelete(id)}>X</button>
-                  <button style={btnStyle} onClick={() => this.handleEdit(id)}>Edit</button>
-                </span>
-                }
-              </div>
+              <TodoItem btnStyle={btnStyle} editable={editable} key={id} handleDelete={() => this.handleDelete(id)}
+                        handleEdit={() => this.handleEdit(id)}>
+                {todo.get('text')}
+              </TodoItem>
             );
           }).valueSeq()
         }
