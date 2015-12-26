@@ -26,7 +26,7 @@
     "body-parser": "^1.14.1",
     "express": "^4.13.3",
     "express-session": "^1.12.1",
-    "history": "1.13.1",
+    "history": "~1.17.0",
     "hoist-non-react-statics": "^1.0.3",
     "immutable": "^3.7.5",
     "marked": "^0.3.5",
@@ -35,7 +35,7 @@
     "react-dom": "^0.14.0",
     "react-immutable-proptypes": "^1.5.0",
     "react-redux": "^4.0.0",
-    "react-router": "^1.0.2",
+    "react-router": "~1.0.3",
     "redux": "^3.0.0",
     "serve-favicon": "^2.3.0"
   },
