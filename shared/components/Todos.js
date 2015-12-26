@@ -1,5 +1,4 @@
 import React, { PropTypes }   from 'react';
-import { bindActionCreators } from 'redux';
 import { connect }            from 'react-redux';
 import ImmutablePropTypes     from 'react-immutable-proptypes';
 
@@ -8,18 +7,47 @@ import {
   TodosForm, TodosView
 }                             from './presentational';
 import * as TodoActions       from 'actions/TodoActions';
-import { isEditable }         from 'reducers/TodoReducer';
+import {
+  isEditable, selectTodo
+}                             from 'reducers/TodoReducer';
 
 @fetchData((state, dispatch) => dispatch(TodoActions.loadTodos()))
 @connect(state => ({
-  todos: state.todos,
-  editable: isEditable(state)
-}))
+    todos:          state.todos,
+    editable:       isEditable(state),
+    todoIdsOrdered: state.todoIdsOrdered,
+    selectTodo:     selectTodo.bind(null, state)
+  }),
+  TodoActions
+)
 export default class Todos extends React.Component {
   static propTypes = {
-    todos:    ImmutablePropTypes.map.isRequired,
-    dispatch: PropTypes.func.isRequired,
-    editable: PropTypes.bool.isRequired
+    todos:          ImmutablePropTypes.map.isRequired,
+    todoIdsOrdered: ImmutablePropTypes.list.isRequired,
+    selectTodo:     PropTypes.func.isRequired,
+    editTodo:       PropTypes.func.isRequired,
+    deleteTodo:     PropTypes.func.isRequired,
+    createTodo:     PropTypes.func.isRequired,
+    editable:       PropTypes.bool.isRequired
+  };
+
+  handleDelete = (id) => {
+    this.props.deleteTodo(id);
+  };
+
+  handleEdit = (id) => {
+    const currentVal = this.props.selectTodo(id).get('text');
+
+    // For a cutting edge UX
+    let text = window.prompt('', currentVal);
+
+    this.props.editTodo(id, text);
+  };
+
+  handleSubmit = (node) => {
+    this.props.createTodo(node.value);
+
+    node.value = '';
   };
 
   shouldComponentUpdate(nextProps) {
@@ -35,15 +63,14 @@ export default class Todos extends React.Component {
   }
 
   render() {
-    const { todos, editable, dispatch } = this.props;
+    const { editable, todoIdsOrdered, selectTodo } = this.props;
 
     return (
       <div id="todo-list">
-        <TodosView todos={todos} editable={editable}
-          {...bindActionCreators(TodoActions, dispatch)} />
+        <TodosView selectTodo={selectTodo} todoIdsOrdered={todoIdsOrdered} editable={editable}
+                   handleDelete={this.handleDelete} handleEdit={this.handleEdit} />
 
-        {editable && <TodosForm
-          {...bindActionCreators(TodoActions, dispatch)} />
+        {editable && <TodosForm handleSubmit={this.handleSubmit} />
         }
       </div>
     );

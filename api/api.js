@@ -6,11 +6,11 @@ import marked     from 'marked';
 const router = Router();
 
 let todos = {
-  1: {id: 1, text: 'Todo item 1', dateUpdated: Date.now()},
-  2: {id: 2, text: 'Todo item 2', dateUpdated: Date.now()},
-  3: {id: 3, text: 'Todo item 3', dateUpdated: Date.now()},
-  4: {id: 4, text: 'Todo item 4', dateUpdated: Date.now()},
-  5: {id: 5, text: 'Todo item 5', dateUpdated: Date.now()}
+  '1': {id: '1', text: 'Todo item 1', dateUpdated: Date.now()},
+  '2': {id: '2', text: 'Todo item 2', dateUpdated: Date.now()},
+  '3': {id: '3', text: 'Todo item 3', dateUpdated: Date.now()},
+  '4': {id: '4', text: 'Todo item 4', dateUpdated: Date.now()},
+  '5': {id: '5', text: 'Todo item 5', dateUpdated: Date.now()}
 };
 let lastIndex = 5;
 
@@ -28,6 +28,15 @@ router.get('/todos', (req, res) => {
   res.json(todos);
 });
 
+router.get('/todos/:id', (req, res) => {
+  const id = req.params.id;
+
+  if (todos[id]) {
+    return res.json(todos[id])
+  }
+  return res.sendStatus(404);
+});
+
 router.post('/todos', (req, res) => {
   if (req.session.user) {
     const id = ++lastIndex;
@@ -39,7 +48,7 @@ router.post('/todos', (req, res) => {
 
 router.put('/todos/:id', (req, res) => {
   if (req.session.user) {
-    const id = parseInt(req.body.id, 10);
+    const id = req.body.id;
     if (id && todos[id]) {
       todos[id] = req.body;
       return res.json(todos[id]);
@@ -51,7 +60,7 @@ router.put('/todos/:id', (req, res) => {
 
 router.delete('/todos/:id', (req, res) => {
   if (req.session.user) {
-    const id = parseInt(req.params.id, 10);
+    const id = req.params.id;
     if (id && todos[id]) {
       delete todos[id];
       return res.sendStatus(200);

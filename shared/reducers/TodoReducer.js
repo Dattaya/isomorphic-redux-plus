@@ -9,6 +9,9 @@ export default function todoReducer(state = defaultState, action) {
     case 'LOAD_TODOS':
       return Immutable.fromJS(action.res.data);
 
+    case 'LOAD_TODO':
+      return state.set(action.res.data.id, Immutable.Map(action.res.data));
+
     case 'CREATE_TODO':
       return state.set(action.res.data.id, Immutable.Map(action.res.data));
 
@@ -26,3 +29,5 @@ export default function todoReducer(state = defaultState, action) {
 // Selectors:
 
 export const isEditable = (state) => isAuthenticated(state);
+
+export const selectTodo = (state, id) => state.todos.get(id);

@@ -3,6 +3,12 @@ export const loadTodos = () => ({
   promise: client => client.get('/todos')
 });
 
+export const loadTodo = (id) => ({
+  type:    'LOAD_TODO',
+  role:    'primary',
+  promise: client => client.get('/todos/' + id)
+});
+
 export const createTodo = (text) => ({
   type:    'CREATE_TODO',
   promise: client => client.post('/todos', {text, dateUpdated: Date.now()})
