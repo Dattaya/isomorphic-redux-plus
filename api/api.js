@@ -30,6 +30,9 @@ router.get('/todos', (req, res) => {
 
 router.get('/todos/:id', (req, res) => {
   const id = req.params.id;
+  if (id === '5') {
+    return res.sendStatus(500);
+  }
 
   if (todos[id]) {
     return res.json(todos[id])

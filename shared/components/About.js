@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { connect }          from 'react-redux';
 
 import { loadAbout }         from 'actions/AboutActions';
-import fetchData            from 'lib/fetchDataDeferred';
+import fetchData            from 'lib/fetchData';
 
 @fetchData((state, dispatch) => dispatch(loadAbout()))
 @connect(state => ({about: state.about}))

@@ -2,13 +2,14 @@ import React                from 'react';
 import { connect }          from 'react-redux';
 import ImmutablePropTypes   from 'react-immutable-proptypes';
 
-import { TodoItem }         from './presentational';
-import { NotFound }         from './index';
+import {
+  TodoItem
+}                           from './presentational';
 import { loadTodo }         from 'actions/TodoActions';
 import {
   selectTodo
 }                           from 'reducers/TodoReducer';
-import fetchData            from 'lib/fetchDataDeferred';
+import fetchData            from 'lib/fetchData';
 
 /**
  * The only reason this page was created is to show that in a situation when
@@ -33,10 +34,6 @@ export default class Todo extends React.Component {
 
   render() {
     const { todo } = this.props;
-
-    if (!todo) {
-      return <NotFound/>
-    }
 
     const todoStyle = {
       'textAlign': 'center'

@@ -2,11 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import hoistStatics                    from 'hoist-non-react-statics';
 
 const { shape, func, object } = PropTypes;
-let initialRender = true;
-
-export function rendered() {
-  initialRender = false;
-}
 
 /**
  * Should always be a top level (outermost) decorator because
@@ -15,7 +10,6 @@ export function rendered() {
  *
  * @param fetch
  * @returns {Function}
- * @author Tim Dorr, see https://gist.github.com/timdorr/3ffe30e3c4e116019bc3
  */
 export default (fetch) => {
   return WrappedComponent => {
@@ -33,15 +27,6 @@ export default (fetch) => {
           getState: func.isRequired
         })
       };
-
-      componentDidMount() {
-        if (initialRender) {
-          return;
-        }
-        const { getState, dispatch } = this.context.store;
-
-        fetch(getState(), dispatch, this.props.params);
-      }
 
       render() {
         return <WrappedComponent {...this.props} />;

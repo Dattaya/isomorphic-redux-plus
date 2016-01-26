@@ -2,7 +2,7 @@ import React, { PropTypes }   from 'react';
 import { connect }            from 'react-redux';
 import ImmutablePropTypes     from 'react-immutable-proptypes';
 
-import fetchData              from 'lib/fetchDataDeferred';
+import fetchData              from 'lib/fetchData';
 import {
   TodosForm, TodosView
 }                             from './presentational';

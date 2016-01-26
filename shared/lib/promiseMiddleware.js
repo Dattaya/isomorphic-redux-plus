@@ -19,10 +19,6 @@ export default client => () => next => action => {
     .catch(error => {
       next({...rest, error, type: FAILURE});
 
-      if (action.role === 'primary') {
-        throw {status: error.status};
-      }
-
-      return false;
+      throw error;
     });
 };

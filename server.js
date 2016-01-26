@@ -18,11 +18,12 @@ import favicon                     from 'serve-favicon';
 
 import fetchComponentData          from 'lib/fetchComponentData';
 import injectAxiosAndGetMiddleware from 'lib/promiseMiddleware';
+import universalRouter             from 'lib/universalRouter';
 import apiRouter                   from './api';
 
 const app = express();
 
-if (process.env.NODE_ENV !== 'production') {
+if (__DEVELOPMENT__) {
   require('./webpack.dev').default(app);
 }
 
@@ -59,30 +60,14 @@ app.use((req, res) => {
   const store = applyMiddleware(promiseMiddleware)(createStore)(reducer);
   const routes = injectStoreAndGetRoutes(store);
 
-  match({routes, location: req.url}, (err, redirectLocation, renderProps) => {
-    if (err) {
-      console.error(err);
-      return res.status(500).end('Internal server error');
-    }
+  return universalRouter({routes, location: req.url, store})
+    .then(({component, matchedRoutes, redirectLocation}) => {
+      if (redirectLocation) {
+        return res.redirect(302, redirectLocation.pathname + redirectLocation.search);
+      }
 
-    if (redirectLocation) {
-      return res.redirect(302, redirectLocation.pathname + redirectLocation.search);
-    }
-
-    if (!renderProps)
-      return res.status(404).end('Not found');
-
-    function renderView(errOrArrayFromPromiseAll) {
-      const InitialView = (
-        <Provider store={store}>
-          <RouterContext {...renderProps} />
-        </Provider>
-      );
-
-      const componentHTML = renderToString(InitialView);
-
+      const componentHTML = renderToString(component);
       const initialState = store.getState();
-
       const html = `
       <!DOCTYPE html>
       <html>
@@ -102,28 +87,14 @@ app.use((req, res) => {
         </body>
       </html>
       `;
-
-      return {
-        errOrArrayFromPromiseAll,
-        html
-      };
-    }
-
-    fetchComponentData(store, renderProps.components, renderProps.params)
-      .catch(err => err)
-      .then(renderView)
-      .then(r => res.status(getStatus(r.errOrArrayFromPromiseAll, renderProps.routes)).end(r.html))
-      .catch(err => {
-        console.error(err.stack);
-        res.sendStatus(500);
-      });
-  });
+      res.status(getStatus(matchedRoutes)).send(html);
+    }, (error) => {
+      res.status(500).end('Internal server error');
+      console.error(error);
+    });
 });
 
-function getStatus(errOrRes, routes) {
-  if (errOrRes && errOrRes.status) {
-    return errOrRes.status;
-  }
+function getStatus(routes) {
   return routes.reduce((prev, curr) => curr.status || prev) || 200;
 }
 

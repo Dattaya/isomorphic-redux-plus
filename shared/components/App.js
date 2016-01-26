@@ -2,16 +2,11 @@ import React, { PropTypes } from 'react';
 import { Link, IndexLink }  from 'react-router';
 
 import { Login }            from 'components';
-import { rendered }         from 'lib/fetchDataDeferred';
 
 export default class App extends React.Component {
   static propTypes = {
     children: PropTypes.object
   };
-
-  componentDidMount() {
-    rendered();
-  }
 
   render() {
     return (

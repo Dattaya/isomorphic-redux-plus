@@ -1,4 +1,5 @@
 var path = require('path');
+var webpack = require('webpack');
 
 module.exports = {
   entry: [
@@ -22,4 +23,11 @@ module.exports = {
       }
     ]
   },
+  plugins: [
+    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.DefinePlugin({
+      __DEVELOPMENT__: false,
+    })
+  ]
+
 };

@@ -5,7 +5,8 @@ export default class NotFound extends React.Component {
     const style = {
       color:     'grey',
       textAlign: 'center',
-      fontSize:  '100px'
+      fontSize:  '100px',
+      margin:    '0'
     };
 
     return (
