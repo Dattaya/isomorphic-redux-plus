@@ -88,7 +88,8 @@ app.use((req, res) => {
       </html>
       `;
       res.status(getStatus(matchedRoutes)).send(html);
-    }, (error) => {
+    })
+    .catch((error) => {
       res.status(500).end('Internal server error');
       console.error(error);
     });
