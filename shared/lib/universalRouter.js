@@ -21,10 +21,10 @@ import fetchComponentData from './fetchComponentData';
 export default function universalRouter({routes, location, store, history, deferred = false, preload = true}) {
   const rematch = (location, resolve, reject, rematched = false) => {
     const handleError = (error) => {
-      if (__DEVELOPMENT__ || rematched) {
+      if (rematched) {
         return reject(error);
       }
-      rematch(getErrorPagePath(error.status || 500), resolve, reject, true);
+      rematch(getErrorPagePath(error.status.toString() || '500'), resolve, reject, true);
     };
 
     match({routes, location, history}, (error, redirectLocation, renderProps) => {
@@ -71,6 +71,5 @@ const statusTable = {
 };
 
 function getErrorPagePath(status) {
-  status = status.toString();
   return statusTable[status] ? statusTable[status] : getErrorPagePath(status.slice(0, -1));
 }
