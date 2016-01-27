@@ -46,8 +46,12 @@ reduxRouterMiddleware.listenForReplays(store);
 
 const renderApp = (location, preload) => {
   return universalRouter({routes, location, store, history, deferred: true, preload})
-    .then(({component}) => {
-      render(component, document.getElementById('react-view'));
+    .then(({component, redirectLocation}) => {
+      if (redirectLocation) {
+        history.replace(redirectLocation)
+      } else {
+        render(component, document.getElementById('react-view'));
+      }
     })
     .catch(console.error.bind(console));
 };
