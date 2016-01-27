@@ -5,7 +5,7 @@ const { shape, func, object } = PropTypes;
 
 /**
  * Should always be a top level (outermost) decorator because
- * on the server all static `needs` properties are collected
+ * on the server and on the client all `fetchData` properties are collected
  * to pass them to fetchComponentData.
  *
  * @param fetch
