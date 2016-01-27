@@ -21,7 +21,7 @@ import fetchComponentData from './fetchComponentData';
 export default function universalRouter({routes, location, store, history, deferred = false, preload = true}) {
   const rematch = (location, resolve, reject, rematched = false) => {
     const handleError = (error) => {
-      if (rematched) {
+      if (__DEVELOPMENT__ || rematched) {
         return reject(error);
       }
       rematch(getErrorPagePath(error.status.toString() || '500'), resolve, reject, true);
