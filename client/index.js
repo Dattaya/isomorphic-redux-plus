@@ -15,6 +15,10 @@ import {
   applyMiddleware
 }                                  from 'redux';
 import axios                       from 'axios';
+import {
+  syncHistory,
+  routeReducer
+}                                  from 'react-router-redux'
 
 import immutifyState               from 'lib/immutifyState';
 import injectAxiosAndGetMiddleware from 'lib/promiseMiddleware';
@@ -31,10 +35,14 @@ const { pathname, search } = window.location;
 
 const initialState = immutifyState(window.__INITIAL_STATE__);
 
-const reducer = combineReducers(reducers);
+const reducer = combineReducers({...reducers, routing: routeReducer});
 const promiseMiddleware = injectAxiosAndGetMiddleware(axios);
-const store = applyMiddleware(promiseMiddleware)(createStore)(reducer, initialState);
+const reduxRouterMiddleware = syncHistory(history);
+const store = applyMiddleware(reduxRouterMiddleware, promiseMiddleware)(createStore)(reducer, initialState);
 const routes = injectStoreAndGetRoutes(store);
+
+// Required for replaying actions from devtools to work
+reduxRouterMiddleware.listenForReplays(store);
 
 const renderApp = (location, preload) => {
   return universalRouter({routes, location, store, history, deferred: true, preload})

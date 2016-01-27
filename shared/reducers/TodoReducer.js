@@ -1,4 +1,5 @@
-import Immutable from 'immutable';
+import Immutable           from 'immutable';
+import { UPDATE_LOCATION } from 'react-router-redux'
 
 import { isAuthenticated } from './AuthReducer';
 
@@ -6,6 +7,10 @@ const defaultState = Immutable.Map();
 
 export default function todoReducer(state = defaultState, action) {
   switch (action.type) {
+    case UPDATE_LOCATION:
+      console.log('react-router-redux is working! Here\'s a location object for you: ', action.payload);
+      return state;
+
     case 'LOAD_TODOS':
       return Immutable.fromJS(action.res.data);
 
