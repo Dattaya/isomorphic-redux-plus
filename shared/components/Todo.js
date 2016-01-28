@@ -9,14 +9,14 @@ import { loadTodo }         from 'actions/TodoActions';
 import {
   selectTodo
 }                           from 'reducers/TodoReducer';
-import fetchData            from 'lib/fetchData';
+import connectData          from 'lib/connectData';
 
 /**
  * The only reason this page was created is to show that in a situation when
  * a react-router route had been successfully matched but the entity
  * is missing, server would return a proper status code for the page.
  */
-@fetchData((state, dispatch, params) => dispatch(loadTodo(params.id)))
+@connectData((state, dispatch, params) => dispatch(loadTodo(params.id)))
 @connect((state, ownProps) => ({
   todo: selectTodo(state, ownProps.params.id)
 }))

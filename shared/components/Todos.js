@@ -2,7 +2,7 @@ import React, { PropTypes }   from 'react';
 import { connect }            from 'react-redux';
 import ImmutablePropTypes     from 'react-immutable-proptypes';
 
-import fetchData              from 'lib/fetchData';
+import connectData            from 'lib/connectData';
 import {
   TodosForm, TodosView
 }                             from './presentational';
@@ -11,7 +11,7 @@ import {
   isEditable, selectTodo
 }                             from 'reducers/TodoReducer';
 
-@fetchData((state, dispatch) => dispatch(TodoActions.loadTodos()))
+@connectData((state, dispatch) => dispatch(TodoActions.loadTodos()))
 @connect(state => ({
     todos:          state.todos,
     editable:       isEditable(state),
