@@ -48,7 +48,6 @@ export default function universalRouter({routes, location, store, history, defer
       }
 
       function resolveWithComponent() {
-        // TODO try...catch here + handleError?
         const component = (
           <Provider store={store}>
             <RouterContext {...renderProps}/>
