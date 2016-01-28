@@ -14,7 +14,7 @@ import fetchComponentData from './fetchComponentData';
  * @param location
  * @param store
  * @param history
- * @param deferred is not implemented yet. If `true`, deferred data is fetched without blocking (we want this behavior on the client).
+ * @param deferred If `true`, deferred data is fetched without blocking (we want this behavior on the client).
  * @param preload If `true`, fetchComponentData will be called. Those two arguments (deferred, preload) were set to match the server defaults
  * @returns {Promise}
  */
