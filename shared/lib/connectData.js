@@ -3,8 +3,7 @@ import hoistStatics                    from 'hoist-non-react-statics';
 
 /**
  * Should always be a top level (outermost) decorator because
- * on the server and on the client all `fetchData` properties are collected
- * to pass them to fetchComponentData.
+ * all `fetchData`/`fetchDataDeferred` properties are collected in `lib/fetchComponentData`.
  *
  * @param fetchData
  * @param fetchDataDeferred
