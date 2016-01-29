@@ -10,7 +10,7 @@ let todos = {
   '2': {id: '2', text: 'Todo item 2', dateUpdated: Date.now()},
   '3': {id: '3', text: 'Todo item 3', dateUpdated: Date.now()},
   '4': {id: '4', text: 'Todo item 4', dateUpdated: Date.now()},
-  '5': {id: '5', text: 'Todo item 5', dateUpdated: Date.now()}
+  '5': {id: '5', text: 'Todo item 5 (API action returns 500 status code)', dateUpdated: Date.now()}
 };
 let lastIndex = 5;
 

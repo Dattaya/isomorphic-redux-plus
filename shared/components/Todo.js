@@ -3,13 +3,14 @@ import { connect }          from 'react-redux';
 import ImmutablePropTypes   from 'react-immutable-proptypes';
 
 import {
-  TodoItem
+  TodoItem,
 }                           from './presentational';
 import { loadTodo }         from 'actions/TodoActions';
 import {
   selectTodo
 }                           from 'reducers/TodoReducer';
 import connectData          from 'lib/connectData';
+import handleApiErrors      from 'lib/handleApiErrors';
 
 /**
  * The only reason this page was created is to show that in a situation when
@@ -17,12 +18,13 @@ import connectData          from 'lib/connectData';
  * is missing, server would return a proper status code for the page.
  */
 @connectData((state, dispatch, params) => dispatch(loadTodo(params.id)))
+@handleApiErrors()
 @connect((state, ownProps) => ({
   todo: selectTodo(state, ownProps.params.id)
 }))
 export default class Todo extends React.Component {
   static propTypes = {
-    todo: ImmutablePropTypes.map,
+    todo: ImmutablePropTypes.map
   };
 
   render() {

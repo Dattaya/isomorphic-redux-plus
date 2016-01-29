@@ -61,7 +61,7 @@ app.use((req, res) => {
   const routes = injectStoreAndGetRoutes(store);
 
   return universalRouter({routes, location: req.url, store})
-    .then(({component, matchedRoutes, redirectLocation}) => {
+    .then(({component, matchedRoutes, redirectLocation, status}) => {
       if (redirectLocation) {
         return res.redirect(302, redirectLocation.pathname + redirectLocation.search);
       }
@@ -87,7 +87,7 @@ app.use((req, res) => {
         </body>
       </html>
       `;
-      res.status(getStatus(matchedRoutes)).send(html);
+      res.status(status || getStatus(matchedRoutes)).send(html);
     })
     .catch((error) => {
       res.status(500).end('Internal server error');

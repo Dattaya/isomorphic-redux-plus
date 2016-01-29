@@ -1,6 +1,7 @@
 import React, { PropTypes }   from 'react';
 import { connect }            from 'react-redux';
 import ImmutablePropTypes     from 'react-immutable-proptypes';
+import { Link }               from 'react-router';
 
 import connectData            from 'lib/connectData';
 import {
@@ -70,8 +71,10 @@ export default class Todos extends React.Component {
         <TodosView selectTodo={selectTodo} todoIdsOrdered={todoIdsOrdered} editable={editable}
                    handleDelete={this.handleDelete} handleEdit={this.handleEdit} />
 
-        {editable && <TodosForm handleSubmit={this.handleSubmit} />
-        }
+        {editable && <TodosForm handleSubmit={this.handleSubmit} />}
+        Let's assume that in this app users can post comments with links to parts of this website.
+        Here's a broken link:
+        <Link to="/todos/18">Non existent item</Link>
       </div>
     );
   }
