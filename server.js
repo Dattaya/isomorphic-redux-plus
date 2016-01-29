@@ -64,7 +64,6 @@ app.use((req, res) => {
       console.error(err);
       return res.status(500).end('Internal server error');
     }
-
     if (redirectLocation) {
       return res.redirect(302, redirectLocation.pathname + redirectLocation.search);
     }
@@ -124,7 +123,7 @@ function getStatus(errOrRes, routes) {
   if (errOrRes && errOrRes.status) {
     return errOrRes.status;
   }
-  return routes.reduce((prev, curr) => curr.status || prev) || 200;
+  return routes.reduce((prev, curr) => curr.status || prev, 200);
 }
 
 export default app;
