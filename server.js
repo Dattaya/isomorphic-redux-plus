@@ -96,7 +96,7 @@ app.use((req, res) => {
 });
 
 function getStatus(routes) {
-  return routes.reduce((prev, curr) => curr.status || prev) || 200;
+  return routes.reduce((prev, curr) => curr.status || prev, 200);
 }
 
 export default app;
