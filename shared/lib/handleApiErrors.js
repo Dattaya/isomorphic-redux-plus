@@ -11,7 +11,7 @@ import {
  * @returns {handleApiErrors}
  */
 export default function handleApiErrors() {
-  return function wrapWith404(WrappedComponent) {
+  return function wrap(WrappedComponent) {
     class HandleApiErrors extends Component {
       static contextTypes = {
         status: React.PropTypes.number
