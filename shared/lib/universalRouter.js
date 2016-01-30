@@ -16,10 +16,10 @@ import fetchComponentData from './fetchComponentData';
  * @param store
  * @param history
  * @param deferred If `true`, fetchDataDeferred is fetched without blocking (we want this behavior on the client).
- * @param preload If `true`, fetchComponentData will be called. Those two arguments (deferred, preload) were set to match the server defaults
+ * @param initialStatus If present, fetchComponentData will NOT be called, instead, the page will be loaded that matches the initial status.
  * @returns {Promise}
  */
-export default function universalRouter({routes, location, store, history, deferred = false, preload = true}) {
+export default function universalRouter({routes, location, store, history, deferred = false, initialStatus}) {
   return new Promise((resolve, reject) => {
     match({routes, location, history}, (error, redirectLocation, renderProps) => {
       if (error) {
@@ -32,7 +32,9 @@ export default function universalRouter({routes, location, store, history, defer
         });
       }
 
-      if (preload) {
+      if (initialStatus) {
+        resolveWithComponent(initialStatus);
+      } else {
         fetchComponentData(store, renderProps.components, renderProps.params, renderProps.location.query, deferred)
           .then(() => resolveWithComponent())
           .catch((error) => {
@@ -42,8 +44,6 @@ export default function universalRouter({routes, location, store, history, defer
               reject(error)
             }
           });
-      } else {
-        resolveWithComponent();
       }
 
       function resolveWithComponent(status) {

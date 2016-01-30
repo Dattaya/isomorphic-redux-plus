@@ -79,6 +79,7 @@ app.use((req, res) => {
 
           <script>
             window.__INITIAL_STATE__ = ${JSON.stringify(initialState)};
+            window.__INITIAL_STATUS__ = ${status || 200};
           </script>
         </head>
         <body>

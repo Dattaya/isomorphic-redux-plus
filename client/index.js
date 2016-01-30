@@ -44,8 +44,8 @@ const routes = injectStoreAndGetRoutes(store);
 // Required for replaying actions from devtools to work
 reduxRouterMiddleware.listenForReplays(store);
 
-const renderApp = (location, preload) => {
-  return universalRouter({routes, location, store, history, deferred: true, preload})
+const renderApp = (location, initialStatus) => {
+  return universalRouter({routes, location, store, history, deferred: true, initialStatus})
     .then(({component, redirectLocation}) => {
       if (redirectLocation) {
         history.replace(redirectLocation)
@@ -57,10 +57,8 @@ const renderApp = (location, preload) => {
 };
 
 history.listenBefore((location, callback) => {
-  renderApp(location, true)
+  renderApp(location)
     .then(callback);
 });
 
-// can't use `false` for `preload` as this would break symmetry and `fetchComponentData`...`catch` wouldn't be called.
-// need to find a workaround.
-renderApp(pathname + search, true);
+renderApp(pathname + search, Number(window.__INITIAL_STATUS__));
