@@ -37,8 +37,8 @@ export default function universalRouter({routes, location, store, history, defer
         fetchComponentData(store, renderProps.components, renderProps.params, renderProps.location.query, deferred)
           .then(() => resolveWithComponent(getRouteStatus(renderProps.routes)))
           .catch((error) => {
-            if (error && error.status && generateStatus(error.status.toString())) {
-              resolveWithComponent(generateStatus(error.status.toString()));
+            if (error && error.status && generateStatusFromApi(error.status.toString())) {
+              resolveWithComponent(generateStatusFromApi(error.status.toString()));
             } else {
               reject(error)
             }
@@ -65,8 +65,8 @@ const statusTable = {
   '5': 500
 };
 
-function generateStatus(status) {
-  return statusTable[status] ? statusTable[status] : generateStatus(status.slice(0, -1));
+function generateStatusFromApi(status) {
+  return statusTable[status] ? statusTable[status] : generateStatusFromApi(status.slice(0, -1));
 }
 
 function getRouteStatus(routes) {
