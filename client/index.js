@@ -19,7 +19,7 @@ import {
 
 import immutifyState               from 'lib/immutifyState';
 import injectAxiosAndGetMiddleware from 'lib/promiseMiddleware';
-import universalRouter             from 'lib/universalRouter';
+import universalMatch              from 'lib/universalMatch';
 
 axios.interceptors.request.use(function (config) {
   if (config.url[0] === '/') {
@@ -42,7 +42,7 @@ const routes = injectStoreAndGetRoutes(store);
 reduxRouterMiddleware.listenForReplays(store);
 
 const renderApp = (location, initialStatus) => {
-  return universalRouter({routes, location, store, history, deferred: true, initialStatus})
+  return universalMatch({routes, location, store, history, deferred: true, initialStatus})
     .then(({component, redirectLocation}) => {
       if (redirectLocation) {
         history.replace(redirectLocation)

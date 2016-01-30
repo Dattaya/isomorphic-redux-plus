@@ -16,7 +16,7 @@ import favicon                     from 'serve-favicon';
 
 import fetchComponentData          from 'lib/fetchComponentData';
 import injectAxiosAndGetMiddleware from 'lib/promiseMiddleware';
-import universalRouter             from 'lib/universalRouter';
+import universalMatch              from 'lib/universalMatch';
 import apiRouter                   from './api';
 
 const app = express();
@@ -58,7 +58,7 @@ app.use((req, res) => {
   const store = applyMiddleware(promiseMiddleware)(createStore)(reducer);
   const routes = injectStoreAndGetRoutes(store);
 
-  return universalRouter({routes, location: req.url, store})
+  return universalMatch({routes, location: req.url, store})
     .then(({component, redirectLocation, status}) => {
       if (redirectLocation) {
         return res.redirect(302, redirectLocation.pathname + redirectLocation.search);

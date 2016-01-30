@@ -18,7 +18,7 @@ import fetchComponentData from 'lib/fetchComponentData';
  * @param initialStatus If present, fetchComponentData will NOT be called, instead, the page will be loaded that matches the initial status.
  * @returns {Promise}
  */
-export default function universalRouter({routes, location, store, history, deferred = false, initialStatus}) {
+export default function universalMatch({routes, location, store, history, deferred = false, initialStatus}) {
   return new Promise((resolve, reject) => {
     match({routes, location, history}, (error, redirectLocation, renderProps) => {
       if (error) {
