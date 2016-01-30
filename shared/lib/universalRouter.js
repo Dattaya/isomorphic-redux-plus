@@ -2,7 +2,6 @@ import React                  from 'react';
 import {
   match,
   RouterContext,
-  Router
 }                             from 'react-router';
 import { Provider }           from 'react-redux';
 

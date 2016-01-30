@@ -2,11 +2,8 @@ import 'babel-polyfill';
 import React                       from 'react';
 import { render }                  from 'react-dom';
 import {
-  Router,
   browserHistory as history,
-  match
 }                                  from 'react-router';
-import { Provider }                from 'react-redux';
 import * as reducers               from 'reducers';
 import injectStoreAndGetRoutes     from 'routes';
 import {

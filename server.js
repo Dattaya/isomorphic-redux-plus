@@ -4,9 +4,7 @@ import session                     from 'express-session';
 import axios                       from 'axios';
 import React                       from 'react';
 import { renderToString }          from 'react-dom/server'
-import { RouterContext, match }    from 'react-router';
 import injectStoreAndGetRoutes     from 'routes';
-import { Provider }                from 'react-redux';
 import * as reducers               from 'reducers';
 import {
   createStore,
