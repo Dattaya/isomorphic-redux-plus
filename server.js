@@ -59,7 +59,7 @@ app.use((req, res) => {
   const routes = injectStoreAndGetRoutes(store);
 
   return universalRouter({routes, location: req.url, store})
-    .then(({component, matchedRoutes, redirectLocation, status}) => {
+    .then(({component, redirectLocation, status}) => {
       if (redirectLocation) {
         return res.redirect(302, redirectLocation.pathname + redirectLocation.search);
       }
@@ -77,7 +77,7 @@ app.use((req, res) => {
 
           <script>
             window.__INITIAL_STATE__ = ${JSON.stringify(initialState)};
-            window.__INITIAL_STATUS__ = ${status || 200};
+            window.__INITIAL_STATUS__ = ${status};
           </script>
         </head>
         <body>
@@ -86,16 +86,12 @@ app.use((req, res) => {
         </body>
       </html>
       `;
-      res.status(status || getStatus(matchedRoutes)).send(html);
+      res.status(status).send(html);
     })
     .catch((error) => {
       res.status(500).end('Internal server error');
       console.error(error);
     });
 });
-
-function getStatus(routes) {
-  return routes.reduce((prev, curr) => curr.status || prev, 200);
-}
 
 export default app;

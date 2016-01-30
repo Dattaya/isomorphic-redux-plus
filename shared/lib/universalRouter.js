@@ -35,7 +35,7 @@ export default function universalRouter({routes, location, store, history, defer
         resolveWithComponent(initialStatus);
       } else {
         fetchComponentData(store, renderProps.components, renderProps.params, renderProps.location.query, deferred)
-          .then(() => resolveWithComponent())
+          .then(() => resolveWithComponent(getRouteStatus(renderProps.routes)))
           .catch((error) => {
             if (error && error.status && generateStatus(error.status.toString())) {
               resolveWithComponent(generateStatus(error.status.toString()));
@@ -53,7 +53,7 @@ export default function universalRouter({routes, location, store, history, defer
             </ErrorHandler>
           </Provider>
         );
-        resolve({component, matchedRoutes: renderProps.routes, status})
+        resolve({component, status})
       }
     });
   });
@@ -67,4 +67,8 @@ const statusTable = {
 
 function generateStatus(status) {
   return statusTable[status] ? statusTable[status] : generateStatus(status.slice(0, -1));
+}
+
+function getRouteStatus(routes) {
+  return routes.reduce((prev, curr) => curr.status || prev, 200);
 }
