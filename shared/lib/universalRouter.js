@@ -6,7 +6,7 @@ import {
 import { Provider }           from 'react-redux';
 
 import ErrorHandler       from 'lib/ErrorHandler';
-import fetchComponentData from './fetchComponentData';
+import fetchComponentData from 'lib/fetchComponentData';
 
 /**
  *
