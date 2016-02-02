@@ -21,17 +21,7 @@ export default function (app) {
           exclude: /node_modules/,
           loader:  'babel',
           query:   {
-            plugins: [
-              [
-                'react-transform', {
-                transforms: [{
-                  transform: 'react-transform-hmr',
-                  imports:   ['react'],
-                  locals:    ['module']
-                }]
-              }
-              ]
-            ]
+            presets: ['react-hmre']
           }
         }
       ]
