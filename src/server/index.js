@@ -6,10 +6,9 @@ process.env = JSON.parse(JSON.stringify(process.env));
 
 require('babel-register')({});
 
+var config = require('./config').default;
 var server = require('./server').default;
 
-const PORT = process.env.PORT || 3000;
-
-server.listen(PORT, function () {
-  console.log('Server listening on: ' + PORT);
+server.listen(config.port, config.host, function () {
+  console.log('Server listening on: ' + config.port);
 });
