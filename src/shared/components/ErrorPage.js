@@ -1,10 +1,10 @@
-import React, {PropTypes}    from 'react';
+import React, { PropTypes }    from 'react';
 
 export default class ErrorPage extends React.Component {
   static defaultProps = {
     status:  404,
     message: 'Page not found.',
-    title:    'Page not found',
+    title:   'Page not found',
   };
 
   render() {
@@ -12,13 +12,13 @@ export default class ErrorPage extends React.Component {
     const statusStyle = {
       color:     'grey',
       textAlign: 'center',
-      fontSize:  '100px'
+      fontSize:  '100px',
     };
 
     const messageStyle = {
       color:     'grey',
       textAlign: 'center',
-      fontSize:  '50px'
+      fontSize:  '50px',
     };
 
     return (

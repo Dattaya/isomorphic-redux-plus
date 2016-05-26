@@ -1,12 +1,12 @@
-import React, {PropTypes}    from 'react';
-import {connect}             from 'react-redux';
+import React, { PropTypes }    from 'react';
+import { connect }             from 'react-redux';
 
-import {ErrorPage}         from 'components';
-import {selectPageStatus}  from 'redux/reducers/StatusReducer';
+import { ErrorPage }         from 'components';
+import { selectPageStatus }  from 'redux/reducers/StatusReducer';
 
 @connect((state, props) => ({
-    status: selectPageStatus(state),
-  }),
+  status: selectPageStatus(state),
+}),
 )
 export default class ErrorHandler extends React.Component {
   render() {
@@ -18,11 +18,21 @@ export default class ErrorHandler extends React.Component {
 
     switch (status) {
       case 0:
-        return <ErrorPage status={0} title="Couldn't load the page" message="Couldn't load the page.
-               Maybe you have a problem with Internet connection. Please try again later." />;
+        return (
+          <ErrorPage
+            status={0}
+            title="Couldn't load the page"
+            message="Couldn't load the page. Maybe you have a problem with Internet connection. Please try again later."
+          />
+        );
       case 503:
-        return <ErrorPage status={503} title="Server problem"
-                          message="Server problem. Please visit the site later." />;
+        return (
+          <ErrorPage
+            status={503}
+            title="Server problem"
+            message="Server problem. Please visit the site later."
+          />
+        );
       default:
         return <ErrorPage />;
     }

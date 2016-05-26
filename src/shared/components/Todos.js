@@ -4,20 +4,20 @@ import ImmutablePropTypes     from 'react-immutable-proptypes';
 
 import fetchData              from 'lib/fetchDataDeferred';
 import {
-  TodosForm, TodosView
+  TodosForm, TodosView,
 }                             from './presentational';
 import * as TodoActions       from 'redux/actions/TodoActions';
 import {
-  isEditable, selectTodo
+  isEditable, selectTodo,
 }                             from 'redux/reducers/TodoReducer';
 
 @fetchData((state, dispatch) => dispatch(TodoActions.loadTodos()))
 @connect(state => ({
-    todos:          state.todos,
-    editable:       isEditable(state),
-    todoIdsOrdered: state.todoIdsOrdered,
-    selectTodo:     selectTodo.bind(null, state)
-  }),
+  todos:          state.todos,
+  editable:       isEditable(state),
+  todoIdsOrdered: state.todoIdsOrdered,
+  selectTodo:     selectTodo.bind(null, state),
+}),
   TodoActions
 )
 export default class Todos extends React.Component {
@@ -28,7 +28,7 @@ export default class Todos extends React.Component {
     editTodo:       PropTypes.func.isRequired,
     deleteTodo:     PropTypes.func.isRequired,
     createTodo:     PropTypes.func.isRequired,
-    editable:       PropTypes.bool.isRequired
+    editable:       PropTypes.bool.isRequired,
   };
 
   handleDelete = (id) => {
@@ -39,7 +39,7 @@ export default class Todos extends React.Component {
     const currentVal = this.props.selectTodo(id).get('text');
 
     // For a cutting edge UX
-    let text = window.prompt('', currentVal);
+    const text = window.prompt('', currentVal);
 
     this.props.editTodo(id, text);
   };
@@ -67,8 +67,12 @@ export default class Todos extends React.Component {
 
     return (
       <div id="todo-list">
-        <TodosView selectTodo={selectTodo} todoIdsOrdered={todoIdsOrdered} editable={editable}
-                   handleDelete={this.handleDelete} handleEdit={this.handleEdit} />
+        <TodosView selectTodo={selectTodo}
+          todoIdsOrdered={todoIdsOrdered}
+          editable={editable}
+          handleDelete={this.handleDelete}
+          handleEdit={this.handleEdit}
+        />
 
         {editable && <TodosForm handleSubmit={this.handleSubmit} />
         }

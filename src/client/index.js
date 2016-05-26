@@ -8,13 +8,13 @@ import {
 import { Provider }                from 'react-redux';
 import injectStoreAndGetRoutes     from 'routes';
 import axios                       from 'axios';
-import {syncHistoryWithStore}      from 'react-router-redux';
+import { syncHistoryWithStore }      from 'react-router-redux';
 
 import immutifyState               from 'lib/immutifyState';
 import config                      from 'config';
 import configureStore              from 'redux/configureStore';
 
-axios.interceptors.request.use(function (axiosConfig) {
+axios.interceptors.request.use((axiosConfig) => {
   if (axiosConfig.url[0] === '/') {
     axiosConfig.url = config.apiBaseUrl + axiosConfig.url;
   }

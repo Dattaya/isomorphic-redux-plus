@@ -5,10 +5,10 @@ export default client => () => next => action => {
 
   const SUCCESS = type;
 
-  const REQUEST = type + '_REQUEST';
-  const FAILURE = type + '_FAILURE';
+  const REQUEST = `${type}_REQUEST`;
+  const FAILURE = `${type}_FAILURE`;
 
-  next({...rest, type: REQUEST});
+  next({ ...rest, type: REQUEST });
 
   return promise(client)
     .then(

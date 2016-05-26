@@ -6,7 +6,7 @@ import { rendered }            from 'lib/fetchDataDeferred';
 
 export default class App extends React.Component {
   static propTypes = {
-    children: PropTypes.object
+    children: PropTypes.object,
   };
 
   componentDidMount() {

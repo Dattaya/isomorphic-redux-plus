@@ -1,7 +1,7 @@
 import {
   createStore,
   applyMiddleware,
-  compose
+  compose,
 }                  from 'redux';
 
 import injectClientAndGetMiddleware from 'redux/middlewares/promiseMiddleware';
@@ -18,7 +18,7 @@ export default function configureStore(client, initialState) {
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers
     module.hot.accept('redux/reducer', () => {
-      const nextReducer = require('redux/reducer').default;
+      const nextReducer = require('redux/reducer').default; // eslint-disable-line global-require
       store.replaceReducer(nextReducer);
     });
   }

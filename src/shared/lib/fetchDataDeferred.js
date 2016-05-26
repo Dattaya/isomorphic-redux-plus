@@ -17,37 +17,35 @@ export function rendered() {
  * @returns {Function}
  * @author Tim Dorr, see https://gist.github.com/timdorr/3ffe30e3c4e116019bc3
  */
-export default (fetch) => {
-  return WrappedComponent => {
-    class FetchDataDecorator extends Component {
-      static WrappedComponent = WrappedComponent;
-      static fetchData = fetch;
+export default (fetch) => WrappedComponent => {
+  class FetchDataDecorator extends Component {
+    static WrappedComponent = WrappedComponent;
+    static fetchData = fetch;
 
-      static propTypes = {
-        params: object
-      };
+    static propTypes = {
+      params: object,
+    };
 
-      static contextTypes = {
-        store: shape({
-          dispatch: func.isRequired,
-          getState: func.isRequired
-        })
-      };
+    static contextTypes = {
+      store: shape({
+        dispatch: func.isRequired,
+        getState: func.isRequired,
+      }),
+    };
 
-      componentDidMount() {
-        if (initialRender) {
-          return;
-        }
-        const { getState, dispatch } = this.context.store;
-
-        fetch(getState(), dispatch, this.props.params);
+    componentDidMount() {
+      if (initialRender) {
+        return;
       }
+      const { getState, dispatch } = this.context.store;
 
-      render() {
-        return <WrappedComponent {...this.props} />;
-      }
+      fetch(getState(), dispatch, this.props.params);
     }
 
-    return hoistStatics(FetchDataDecorator, WrappedComponent)
-  };
-}
+    render() {
+      return <WrappedComponent {...this.props} />;
+    }
+  }
+
+  return hoistStatics(FetchDataDecorator, WrappedComponent);
+};
