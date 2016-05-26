@@ -17,12 +17,13 @@ import axios                       from 'axios';
 
 import immutifyState               from 'lib/immutifyState';
 import injectAxiosAndGetMiddleware from 'lib/promiseMiddleware';
+import config                      from 'config';
 
-axios.interceptors.request.use(function (config) {
-  if (config.url[0] === '/') {
-    config.url = '/api/1' + config.url;
+axios.interceptors.request.use(function (axiosConfig) {
+  if (axiosConfig.url[0] === '/') {
+    axiosConfig.url = config.apiBaseUrl + axiosConfig.url;
   }
-  return config;
+  return axiosConfig;
 });
 
 const initialState = immutifyState(window.__INITIAL_STATE__);

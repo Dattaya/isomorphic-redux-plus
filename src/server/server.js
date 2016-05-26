@@ -19,6 +19,7 @@ import favicon                     from 'serve-favicon';
 import fetchComponentData          from 'lib/fetchComponentData';
 import injectAxiosAndGetMiddleware from 'lib/promiseMiddleware';
 import apiRouter                   from './api';
+import config                      from './config';
 
 Object.assign = require('object-assign');
 
@@ -33,7 +34,8 @@ app.use(favicon(path.join(__dirname, '..', '..', 'static', 'favicon.ico')));
 app.use(express.static(path.join(__dirname, '..', '..', 'static'), { maxAge: '7 days' }));
 
 app.use(session({
-  secret:            'duck quack',
+  secret:            config.session.secret,
+  name:              config.session.name,
   resave:            false,
   saveUninitialized: false,
 }));
@@ -44,15 +46,18 @@ app.use(bodyParser.urlencoded({
 
 app.use(bodyParser.json());
 
-app.use('/api/1', apiRouter);
+app.use(config.apiBaseUrl, apiRouter);
 
 app.use((req, res) => {
-  axios.interceptors.request.use(function (config) {
-    if (config.url[0] === '/') {
-      config.url = 'http://localhost:3000/api/1' + config.url;
-      config.headers = req.headers;
+  res.contentType('text/html');
+
+  axios.interceptors.request.use(function (axiosConfig) {
+    if (axiosConfig.url[0] === '/') {
+      axiosConfig.url = 'http://' + config.host + ':' + config.port + config.apiBaseUrl + axiosConfig.url;
+      axiosConfig.headers = req.headers;
     }
-    return config;
+
+    return axiosConfig;
   });
 
   const reducer = combineReducers(reducers);
