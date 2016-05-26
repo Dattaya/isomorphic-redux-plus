@@ -50,8 +50,9 @@ app.use(config.apiBaseUrl, apiRouter);
 
 app.use((req, res) => {
   res.contentType('text/html');
-
-  axios.interceptors.request.use(function (axiosConfig) {
+  
+  const client = axios.create();
+  client.interceptors.request.use(function (axiosConfig) {
     if (axiosConfig.url[0] === '/') {
       axiosConfig.url = 'http://' + config.host + ':' + config.port + config.apiBaseUrl + axiosConfig.url;
       axiosConfig.headers = req.headers;
@@ -61,7 +62,7 @@ app.use((req, res) => {
   });
 
   const reducer = combineReducers(reducers);
-  const promiseMiddleware = injectAxiosAndGetMiddleware(axios);
+  const promiseMiddleware = injectAxiosAndGetMiddleware(client);
 
   const store = applyMiddleware(promiseMiddleware)(createStore)(reducer);
   const routes = injectStoreAndGetRoutes(store);
