@@ -4,6 +4,8 @@
 // See https://github.com/facebook/react/issues/812.
 process.env = JSON.parse(JSON.stringify(process.env));
 
+global.__DEVELOPMENT__ = process.env.NODE_ENV !== 'production';
+
 require('babel-register')({});
 
 var config = require('./config').default;

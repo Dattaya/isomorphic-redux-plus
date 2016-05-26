@@ -25,7 +25,7 @@ Object.assign = require('object-assign');
 
 const app = express();
 
-if (process.env.NODE_ENV !== 'production') {
+if (__DEVELOPMENT__) {
   require('../../webpack/webpack.dev').default(app);
 }
 
