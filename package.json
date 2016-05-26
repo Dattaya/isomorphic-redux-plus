@@ -9,7 +9,8 @@
     "dev": "cross-env NODE_PATH=./src/shared node --harmony ./src/server",
     "build": "npm run build:server && npm run build:client",
     "build:client": "webpack --progress --color -p --config ./webpack/webpack.prod.config.js",
-    "build:server": "rimraf ./build && babel src -d build --copy-files"
+    "build:server": "rimraf ./build && babel src -d build --copy-files",
+    "lint": "eslint src"
   },
   "author": "Milo Mordaunt <milomord@gmail.com>",
   "license": "MIT",
@@ -45,7 +46,10 @@
     "babel-register": "^6.9.0",
     "clean-webpack-plugin": "^0.1.9",
     "eslint": "^2.10.2",
-    "eslint-plugin-react": "^3.16.1",
+    "eslint-config-airbnb": "^9.0.1",
+    "eslint-plugin-import": "^1.8.1",
+    "eslint-plugin-jsx-a11y": "^1.2.2",
+    "eslint-plugin-react": "^5.1.1",
     "webpack": "^1.13.1",
     "webpack-dev-middleware": "^1.6.1",
     "webpack-hot-middleware": "^2.10.0"
