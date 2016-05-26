@@ -25,12 +25,12 @@ Object.assign = require('object-assign');
 const app = express();
 
 if (process.env.NODE_ENV !== 'production') {
-  require('./webpack.dev').default(app);
+  require('../../webpack/webpack.dev').default(app);
 }
 
-app.use(favicon(path.join(__dirname, 'static', 'favicon.ico')));
+app.use(favicon(path.join(__dirname, '..', '..', 'static', 'favicon.ico')));
 
-app.use(express.static(path.join(__dirname, 'static')));
+app.use(express.static(path.join(__dirname, '..', '..', 'static'), { maxAge: '7 days' }));
 
 app.use(session({
   secret:            'duck quack',

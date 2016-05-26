@@ -12,7 +12,7 @@ export default function (app) {
     devtool: 'cheap-module-inline-source-map',
     entry:   [
       'webpack-hot-middleware/client',
-      './client'
+      './src/client'
     ],
     module: {
       loaders: [

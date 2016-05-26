@@ -5,9 +5,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=production NODE_PATH=./shared node --harmony .",
-    "dev": "cross-env NODE_PATH=./shared node --harmony .",
-    "build": "webpack --progress --color -p --config webpack.prod.config.js"
+    "start": "cross-env NODE_ENV=production NODE_PATH=./src/shared node --harmony ./src/server",
+    "dev": "cross-env NODE_PATH=./src/shared node --harmony ./src/server",
+    "build": "webpack --progress --color -p --config ./webpack/webpack.prod.config.js"
   },
   "author": "Milo Mordaunt <milomord@gmail.com>",
   "license": "MIT",

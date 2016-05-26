@@ -7,10 +7,10 @@ var distPath = path.join(rootPath, 'static', 'dist');
 
 module.exports = {
   entry:   [
-    './client'
+    './src/client'
   ],
   resolve: {
-    modulesDirectories: ['node_modules', 'shared'],
+    modulesDirectories: ['node_modules', 'src/shared'],
     extensions:         ['', '.js', '.jsx']
   },
   output:  {
