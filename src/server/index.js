@@ -1,6 +1,6 @@
 'use strict';
 
-require('babel-core/register')({});
+require('babel-register')({});
 
 var server = require('./server').default;
 
