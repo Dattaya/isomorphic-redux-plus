@@ -7,7 +7,7 @@ import { renderToString }          from 'react-dom/server'
 import { RouterContext, match }    from 'react-router';
 import injectStoreAndGetRoutes     from 'routes';
 import { Provider }                from 'react-redux';
-import * as reducers               from 'reducers';
+import * as reducers               from 'redux/reducers';
 import {
   createStore,
   combineReducers,
@@ -17,7 +17,7 @@ import path                        from 'path';
 import favicon                     from 'serve-favicon';
 
 import fetchComponentData          from 'lib/fetchComponentData';
-import injectAxiosAndGetMiddleware from 'lib/promiseMiddleware';
+import injectAxiosAndGetMiddleware from 'redux/middlewares/promiseMiddleware';
 import apiRouter                   from './api';
 import config                      from './config';
 

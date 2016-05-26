@@ -6,10 +6,10 @@ import fetchData              from 'lib/fetchDataDeferred';
 import {
   TodosForm, TodosView
 }                             from './presentational';
-import * as TodoActions       from 'actions/TodoActions';
+import * as TodoActions       from 'redux/actions/TodoActions';
 import {
   isEditable, selectTodo
-}                             from 'reducers/TodoReducer';
+}                             from 'redux/reducers/TodoReducer';
 
 @fetchData((state, dispatch) => dispatch(TodoActions.loadTodos()))
 @connect(state => ({

@@ -4,10 +4,10 @@ import ImmutablePropTypes   from 'react-immutable-proptypes';
 
 import { TodoItem }         from './presentational';
 import { NotFound }         from './index';
-import { loadTodo }         from 'actions/TodoActions';
+import { loadTodo }         from 'redux/actions/TodoActions';
 import {
   selectTodo
-}                           from 'reducers/TodoReducer';
+}                           from 'redux/reducers/TodoReducer';
 import fetchData            from 'lib/fetchDataDeferred';
 
 /**

@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { connect }          from 'react-redux';
 import ImmutablePropTypes   from 'react-immutable-proptypes';
 
-import * as AuthActions from 'actions/AuthActions';
+import * as AuthActions from 'redux/actions/AuthActions';
 
 @connect(state => ({auth: state.auth}), AuthActions)
 export default class Login extends React.Component {

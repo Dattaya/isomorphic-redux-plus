@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { connect }          from 'react-redux';
 
-import { loadAbout }         from 'actions/AboutActions';
+import { loadAbout }         from 'redux/actions/AboutActions';
 import fetchData            from 'lib/fetchDataDeferred';
 
 @fetchData((state, dispatch) => dispatch(loadAbout()))

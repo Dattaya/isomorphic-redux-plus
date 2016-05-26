@@ -4,7 +4,7 @@ import { Route, IndexRoute }       from 'react-router';
 import {
   App, Todos, About, NotFound, Todo
 }                                      from 'components';
-import { loadAuth as loadAuthActionC } from 'actions/AuthActions';
+import { loadAuth as loadAuthActionC } from 'redux/actions/AuthActions';
 
 export default (store) => {
   const loadAuth = (nextState, replaceState, next) => {
