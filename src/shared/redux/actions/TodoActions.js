@@ -1,5 +1,6 @@
 export const loadTodos = () => ({
   type:    'LOAD_TODOS',
+  role:    'primary',
   promise: client => client.get('/todos')
 });
 

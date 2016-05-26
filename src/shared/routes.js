@@ -2,7 +2,8 @@ import React                       from 'react';
 import { Route, IndexRoute }       from 'react-router';
 
 import {
-  App, Todos, About, NotFound, Todo
+  App, Todos, About, NotFound, Todo,
+  ErrorPage,
 }                                      from 'components';
 import { loadAuth as loadAuthActionC } from 'redux/actions/AuthActions';
 
@@ -20,7 +21,7 @@ export default (store) => {
       <IndexRoute component={About}/>
       <Route path="todos" component={Todos}/>
       <Route path="todos/:id" component={Todo}/>
-      <Route path="*" component={NotFound} status={404}/>
+      <Route path="*" component={ErrorPage} status={404}/>
     </Route>
   );
 };

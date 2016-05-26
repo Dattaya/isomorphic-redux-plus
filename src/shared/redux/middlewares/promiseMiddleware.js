@@ -11,18 +11,12 @@ export default client => () => next => action => {
   next({...rest, type: REQUEST});
 
   return promise(client)
-    .then(res => {
-      next({...rest, payload: res.data, type: SUCCESS});
-
-      return true;
-    })
+    .then(
+      res => next({ ...rest, payload: res.data, type: SUCCESS }),
+      error => next({ ...rest, error, type: FAILURE })
+    )
     .catch(error => {
-      next({...rest, error, type: FAILURE});
-
-      if (action.role === 'primary') {
-        throw {status: error.status};
-      }
-
-      return false;
+      console.error(`Error in reducer that handles ${type}: `, error);
+      next({ ...rest, error, type: FAILURE });
     });
 };

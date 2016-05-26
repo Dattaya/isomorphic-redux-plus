@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react';
 import { Link, IndexLink }  from 'react-router';
 
-import { Login }            from 'components';
-import { rendered }         from 'lib/fetchDataDeferred';
+import { Login, ErrorHandler } from 'components';
+import { rendered }            from 'lib/fetchDataDeferred';
 
 export default class App extends React.Component {
   static propTypes = {
@@ -22,7 +22,9 @@ export default class App extends React.Component {
         <hr />
         <Login />
         <hr />
-        {this.props.children}
+        <ErrorHandler>
+          {this.props.children}
+        </ErrorHandler>
       </div>
     );
   }

@@ -5,13 +5,14 @@ import axios                       from 'axios';
 import React                       from 'react';
 import { renderToString }          from 'react-dom/server'
 import { RouterContext, match }    from 'react-router';
-import injectStoreAndGetRoutes     from 'routes';
 import { Provider }                from 'react-redux';
 import path                        from 'path';
 import favicon                     from 'serve-favicon';
 
 import fetchComponentData          from 'lib/fetchComponentData';
 import configureStore              from 'redux/configureStore';
+import {selectPageStatus}          from 'redux/reducers/PageStatusReducer1';
+import injectStoreAndGetRoutes     from 'routes';
 import apiRouter                   from './api';
 import config                      from './config';
 
@@ -101,16 +102,11 @@ app.use((req, res) => {
       </html>
       `;
 
-      return {
-        errOrArrayFromPromiseAll,
-        html
-      };
+      res.status(getStatus(initialState, renderProps.routes)).end(html);
     }
 
     fetchComponentData(store, renderProps.components, renderProps.params)
-      .catch(err => err)
       .then(renderView)
-      .then(r => res.status(getStatus(r.errOrArrayFromPromiseAll, renderProps.routes)).end(r.html))
       .catch(err => {
         console.error(err.stack);
         res.sendStatus(500);
@@ -118,11 +114,8 @@ app.use((req, res) => {
   });
 });
 
-function getStatus(errOrRes, routes) {
-  if (errOrRes && errOrRes.status) {
-    return errOrRes.status;
-  }
-  return routes.reduce((prev, curr) => curr.status || prev, 200);
+function getStatus(state, routes) {
+  return selectPageStatus(state) || routes.reduce((prev, curr) => curr.status || prev, 200);
 }
 
 export default app;
