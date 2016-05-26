@@ -12,7 +12,7 @@ export default client => () => next => action => {
 
   return promise(client)
     .then(res => {
-      next({...rest, res, type: SUCCESS});
+      next({...rest, payload: res.data, type: SUCCESS});
 
       return true;
     })

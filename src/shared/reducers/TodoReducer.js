@@ -7,16 +7,16 @@ const defaultState = Immutable.Map();
 export default function todoReducer(state = defaultState, action) {
   switch (action.type) {
     case 'LOAD_TODOS':
-      return Immutable.fromJS(action.res.data);
+      return Immutable.fromJS(action.payload);
 
     case 'LOAD_TODO':
-      return state.set(action.res.data.id, Immutable.Map(action.res.data));
+      return state.set(action.payload.id, Immutable.Map(action.payload));
 
     case 'CREATE_TODO':
-      return state.set(action.res.data.id, Immutable.Map(action.res.data));
+      return state.set(action.payload.id, Immutable.Map(action.payload));
 
     case 'EDIT_TODO':
-      return state.set(action.res.data.id, Immutable.Map(action.res.data));
+      return state.set(action.payload.id, Immutable.Map(action.payload));
 
     case 'DELETE_TODO':
       return state.delete(action.id);
