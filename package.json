@@ -5,9 +5,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=production NODE_PATH=./src/shared node --harmony ./src/server",
+    "start": "cross-env NODE_ENV=production NODE_PATH=./build/shared node --harmony ./build/server",
     "dev": "cross-env NODE_PATH=./src/shared node --harmony ./src/server",
-    "build": "webpack --progress --color -p --config ./webpack/webpack.prod.config.js"
+    "build": "npm run build:server && npm run build:client",
+    "build:client": "webpack --progress --color -p --config ./webpack/webpack.prod.config.js",
+    "build:server": "rimraf ./build && babel src -d build --copy-files"
   },
   "author": "Milo Mordaunt <milomord@gmail.com>",
   "license": "MIT",

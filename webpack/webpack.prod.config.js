@@ -7,25 +7,16 @@ var distPath = path.join(rootPath, 'static', 'dist');
 
 module.exports = {
   entry:   [
-    './src/client'
+    './build/client'
   ],
   resolve: {
-    modulesDirectories: ['node_modules', 'src/shared'],
+    modulesDirectories: ['node_modules', 'build/shared'],
     extensions:         ['', '.js', '.jsx']
   },
   output:  {
     path:       distPath,
     filename:   'bundle.js',
     publicPath: '/dist/'
-  },
-  module:  {
-    loaders: [
-      {
-        test:    /\.jsx?$/,
-        exclude: /node_modules/,
-        loaders: ['babel']
-      }
-    ]
   },
   plugins: [
     new CleanWebpackPlugin(['static/dist'], {

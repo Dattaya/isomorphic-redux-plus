@@ -14,6 +14,10 @@ export default function (app) {
       'webpack-hot-middleware/client',
       './src/client'
     ],
+    resolve: {
+      modulesDirectories: ['node_modules', 'src/shared'],
+      extensions:         ['', '.js', '.jsx']
+    },
     module: {
       loaders: [
         {

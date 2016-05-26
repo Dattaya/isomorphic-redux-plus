@@ -6,7 +6,9 @@ process.env = JSON.parse(JSON.stringify(process.env));
 
 global.__DEVELOPMENT__ = process.env.NODE_ENV !== 'production';
 
-require('babel-register')({});
+if (__DEVELOPMENT__) {
+  require('babel-register')({});
+}
 
 var config = require('./config').default;
 var server = require('./server').default;
