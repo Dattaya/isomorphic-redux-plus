@@ -2,7 +2,7 @@ var path = require('path');
 var webpack = require('webpack');
 var CleanWebpackPlugin = require('clean-webpack-plugin');
 
-var rootPath = __dirname;
+var rootPath = path.join(__dirname, '..');
 var distPath = path.join(rootPath, 'static', 'dist');
 
 module.exports = {
