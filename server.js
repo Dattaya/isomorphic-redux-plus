@@ -4,7 +4,7 @@ import session                     from 'express-session';
 import axios                       from 'axios';
 import React                       from 'react';
 import { renderToString }          from 'react-dom/server'
-import { RoutingContext, match }   from 'react-router';
+import { RouterContext, match }    from 'react-router';
 import injectStoreAndGetRoutes     from 'routes';
 import { Provider }                from 'react-redux';
 import * as reducers               from 'reducers';
@@ -19,6 +19,8 @@ import favicon                     from 'serve-favicon';
 import fetchComponentData          from 'lib/fetchComponentData';
 import injectAxiosAndGetMiddleware from 'lib/promiseMiddleware';
 import apiRouter                   from './api';
+
+Object.assign = require('object-assign');
 
 const app = express();
 
@@ -74,7 +76,7 @@ app.use((req, res) => {
     function renderView(errOrArrayFromPromiseAll) {
       const InitialView = (
         <Provider store={store}>
-          <RoutingContext {...renderProps} />
+          <RouterContext {...renderProps} />
         </Provider>
       );
 
