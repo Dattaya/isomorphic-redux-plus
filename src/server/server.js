@@ -7,17 +7,11 @@ import { renderToString }          from 'react-dom/server'
 import { RouterContext, match }    from 'react-router';
 import injectStoreAndGetRoutes     from 'routes';
 import { Provider }                from 'react-redux';
-import * as reducers               from 'redux/reducers';
-import {
-  createStore,
-  combineReducers,
-  applyMiddleware
-}                                  from 'redux';
 import path                        from 'path';
 import favicon                     from 'serve-favicon';
 
 import fetchComponentData          from 'lib/fetchComponentData';
-import injectAxiosAndGetMiddleware from 'redux/middlewares/promiseMiddleware';
+import configureStore              from 'redux/configureStore';
 import apiRouter                   from './api';
 import config                      from './config';
 
@@ -61,10 +55,7 @@ app.use((req, res) => {
     return axiosConfig;
   });
 
-  const reducer = combineReducers(reducers);
-  const promiseMiddleware = injectAxiosAndGetMiddleware(client);
-
-  const store = applyMiddleware(promiseMiddleware)(createStore)(reducer);
+  const store = configureStore(client);
   const routes = injectStoreAndGetRoutes(store);
 
   match({routes, location: req.url}, (err, redirectLocation, renderProps) => {

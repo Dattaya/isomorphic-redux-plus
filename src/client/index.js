@@ -6,18 +6,12 @@ import {
   browserHistory,
 }                                  from 'react-router';
 import { Provider }                from 'react-redux';
-import * as reducers               from 'redux/reducers';
 import injectStoreAndGetRoutes     from 'routes';
-import {
-  createStore,
-  combineReducers,
-  applyMiddleware
-}                                  from 'redux';
 import axios                       from 'axios';
 
 import immutifyState               from 'lib/immutifyState';
-import injectAxiosAndGetMiddleware from 'redux/middlewares/promiseMiddleware';
 import config                      from 'config';
+import configureStore              from 'redux/configureStore';
 
 axios.interceptors.request.use(function (axiosConfig) {
   if (axiosConfig.url[0] === '/') {
@@ -26,11 +20,8 @@ axios.interceptors.request.use(function (axiosConfig) {
   return axiosConfig;
 });
 
-const initialState = immutifyState(window.__INITIAL_STATE__);
+const store = configureStore(axios, immutifyState(window.__INITIAL_STATE__));
 
-const reducer = combineReducers(reducers);
-const promiseMiddleware = injectAxiosAndGetMiddleware(axios);
-const store = applyMiddleware(promiseMiddleware)(createStore)(reducer, initialState);
 const routes = injectStoreAndGetRoutes(store);
 
 render(
