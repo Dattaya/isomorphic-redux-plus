@@ -8,6 +8,7 @@ import {
 import { Provider }                from 'react-redux';
 import injectStoreAndGetRoutes     from 'routes';
 import axios                       from 'axios';
+import {syncHistoryWithStore}      from 'react-router-redux';
 
 import immutifyState               from 'lib/immutifyState';
 import config                      from 'config';
@@ -21,12 +22,12 @@ axios.interceptors.request.use(function (axiosConfig) {
 });
 
 const store = configureStore(axios, immutifyState(window.__INITIAL_STATE__));
-
 const routes = injectStoreAndGetRoutes(store);
+const history = syncHistoryWithStore(browserHistory, store, { adjustUrlOnReplay: false });
 
 render(
   <Provider store={store}>
-    <Router history={browserHistory} children={routes} />
+    <Router history={history} children={routes} />
   </Provider>,
   document.getElementById('react-view')
 );

@@ -1,4 +1,6 @@
-import * as reducers from 'redux/reducers';
 import {combineReducers}           from 'redux';
+import {routerReducer as routing}  from 'react-router-redux';
 
-export default combineReducers(reducers);
+import * as reducers from 'redux/reducers';
+
+export default combineReducers({ ...reducers, routing, });
