@@ -14,7 +14,11 @@ module.exports = {
     }],
     'key-spacing': [2, { 'align': 'value' }],
     'no-console':  0,
-    'max-len':     [1, 120]
+    'max-len':     [1, 120],
+    'new-cap': [2, {
+      'newIsCap': true,
+      'capIsNew': false
+    }],
   },
   'parser':  'babel-eslint',
   'settings': {
