@@ -2,7 +2,7 @@ import React, {PropTypes}    from 'react';
 import {connect}             from 'react-redux';
 
 import {ErrorPage}         from 'components';
-import {selectPageStatus}  from 'redux/reducers/PageStatusReducer1';
+import {selectPageStatus}  from 'redux/reducers/StatusReducer';
 
 @connect((state, props) => ({
     status: selectPageStatus(state),

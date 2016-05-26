@@ -11,7 +11,7 @@ import favicon                     from 'serve-favicon';
 
 import fetchComponentData          from 'lib/fetchComponentData';
 import configureStore              from 'redux/configureStore';
-import {selectPageStatus}          from 'redux/reducers/PageStatusReducer1';
+import {selectPageStatus}          from 'redux/reducers/StatusReducer';
 import injectStoreAndGetRoutes     from 'routes';
 import apiRouter                   from './api';
 import config                      from './config';
