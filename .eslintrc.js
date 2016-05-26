@@ -5,6 +5,9 @@ module.exports = {
     'browser': true,
     'es6':     true
   },
+  'plugins': [
+    'react', 'import'
+  ],
   'rules':   {
     'no-multi-spaces': [2, {
       'exceptions': { 'ImportDeclaration': true }
@@ -14,4 +17,11 @@ module.exports = {
     'max-len':     [1, 120]
   },
   'parser':  'babel-eslint',
+  'settings': {
+    'import/resolver': {
+      'node': {
+        'moduleDirectory': ['node_modules', 'src/shared']
+      },
+    },
+  },
 };
