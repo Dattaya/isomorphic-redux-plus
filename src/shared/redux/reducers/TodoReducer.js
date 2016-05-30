@@ -1,25 +1,32 @@
-import Immutable from 'immutable';
-
+import keyBy               from 'lodash/keyBy';
+import omit                from 'lodash/omit';
+import values              from 'lodash/values';
+import update              from 'react-addons-update';
 import { isAuthenticated } from './AuthReducer';
 
-const defaultState = Immutable.Map();
+const defaultState = {};
 
 export default function todoReducer(state = defaultState, action) {
   switch (action.type) {
     case 'LOAD_TODOS':
-      return Immutable.fromJS(action.payload);
-
-    case 'LOAD_TODO':
-      return state.set(action.payload.id, Immutable.Map(action.payload));
+      return keyBy(action.payload, 'id');
 
     case 'CREATE_TODO':
-      return state.set(action.payload.id, Immutable.Map(action.payload));
+      return update(state, {
+        [action.payload.id]: {
+          $set: action.payload,
+        },
+      });
 
     case 'EDIT_TODO':
-      return state.set(action.payload.id, Immutable.Map(action.payload));
+      return update(state, {
+        [action.payload.id]: {
+          $set: action.payload,
+        },
+      });
 
     case 'DELETE_TODO':
-      return state.delete(action.id);
+      return omit(state, action.id);
 
     default:
       return state;
@@ -30,4 +37,6 @@ export default function todoReducer(state = defaultState, action) {
 
 export const isEditable = (state) => isAuthenticated(state);
 
-export const selectTodo = (state, id) => state.todos.get(id);
+export const selectTodos = (state) => values(state.todos);
+
+export const selectTodo = (state, id) => state.todos[id];

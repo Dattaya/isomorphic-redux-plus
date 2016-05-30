@@ -1,23 +1,21 @@
-import Immutable from 'immutable';
-
-const defaultState = Immutable.Map({ loaded: false, user: null });
+const defaultState = { loaded: false, user: null };
 
 export default function authReducer(state = defaultState, action = {}) {
   switch (action.type) {
     case 'LOAD_AUTH':
-      return state.merge({ loaded: true, user: action.payload || null });
+      return { ...state, loaded: true, user: action.payload || null };
 
     case 'LOGIN_REQUEST':
-      return state.set('loggingIn', true);
+      return { ...state, loggingIn: true };
 
     case 'LOGIN':
-      return state.merge({ loggingIn: false, user: action.payload || null, error: false });
+      return { ...state, loggingIn: false, user: action.payload || null, error: false };
 
     case 'LOGIN_FAILURE':
-      return state.merge({ loggingIn: false, user: null, error: true });
+      return { ...state, loggingIn: false, user: null, error: true };
 
     case 'LOGOUT':
-      return state.set('user', null);
+      return { ...state, user: null };
 
     default:
       return state;
@@ -26,6 +24,6 @@ export default function authReducer(state = defaultState, action = {}) {
 
 // Selectors:
 
-export const isLoaded = (state) => state.auth.get('loaded');
+export const isLoaded = (state) => state.auth.loaded;
 
-export const isAuthenticated = (state) => !!state.auth.get('user');
+export const isAuthenticated = (state) => !!state.auth.user;

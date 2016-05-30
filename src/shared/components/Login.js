@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react';
 import { connect }          from 'react-redux';
-import ImmutablePropTypes   from 'react-immutable-proptypes';
 
 import * as AuthActions from 'redux/actions/AuthActions';
 
@@ -9,16 +8,15 @@ export default class Login extends React.Component {
   static propTypes = {
     login:  PropTypes.func.isRequired,
     logout: PropTypes.func.isRequired,
-    auth:   ImmutablePropTypes.shape({
+    auth:   PropTypes.shape({
       user:      PropTypes.string,
       loggingIn: PropTypes.bool,
       error:     PropTypes.bool,
-      get:       PropTypes.func,
     }),
   };
 
   componentDidUpdate() {
-    if (this.props.auth.get('error')) {
+    if (this.props.auth.error) {
       this.refs.login.focus();
     }
   }
@@ -35,7 +33,7 @@ export default class Login extends React.Component {
 
   render() {
     const { auth, logout } = this.props;
-    const { user, error, loggingIn } = auth.toObject();
+    const { user, error, loggingIn } = auth;
 
     const errorStyle = {
       color:      'red',

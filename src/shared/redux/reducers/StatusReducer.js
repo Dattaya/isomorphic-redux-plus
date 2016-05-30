@@ -1,10 +1,9 @@
-import Immutable         from 'immutable';
 import { LOCATION_CHANGE } from 'react-router-redux';
 
 
-export const selectPageStatus = (state) => state.pageStatus.get('status');
+export const selectPageStatus = (state) => state.pageStatus.status;
 
-const defaultState = Immutable.Map({ status: null, initialLoad: true });
+const defaultState = { status: null, initialLoad: true };
 
 const computeStatus = (status) => {
   if (!status) {
@@ -18,13 +17,13 @@ const computeStatus = (status) => {
 
 export default (state = defaultState, action = {}) => {
   if (action.type === LOCATION_CHANGE) {
-    if (state.get('initialLoad')) {
-      return state.set('initialLoad', false);
+    if (state.initialLoad) {
+      return { ...state, initialLoad: false };
     }
-    return state.set('status', null);
+    return { ...state, status: null };
   }
   if (action.role === 'primary' && action.error) {
-    return state.set('status', computeStatus(action.error.status));
+    return { ...state, status: computeStatus(action.error.status) };
   }
 
   return state;

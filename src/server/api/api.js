@@ -2,16 +2,18 @@ import { Router } from 'express';
 import fs         from 'fs';
 import path       from 'path';
 import marked     from 'marked';
+import reject     from 'lodash/reject';
+import map        from 'lodash/map';
 
 const router = Router();
 
-const todos = {
-  '1': { id: '1', text: 'Todo item 1', dateUpdated: Date.now() },
-  '2': { id: '2', text: 'Todo item 2', dateUpdated: Date.now() },
-  '3': { id: '3', text: 'Todo item 3', dateUpdated: Date.now() },
-  '4': { id: '4', text: 'Todo item 4', dateUpdated: Date.now() },
-  '5': { id: '5', text: 'Todo item 5', dateUpdated: Date.now() },
-};
+let todos = [
+  { id: '1', text: 'Todo item 1', dateUpdated: Date.now() },
+  { id: '2', text: 'Todo item 2', dateUpdated: Date.now() },
+  { id: '3', text: 'Todo item 3', dateUpdated: Date.now() },
+  { id: '4', text: 'Todo item 4', dateUpdated: Date.now() },
+  { id: '5', text: 'Todo item 5', dateUpdated: Date.now() },
+];
 let lastIndex = 5;
 
 router.get('/about', (req, res) => {
@@ -28,20 +30,11 @@ router.get('/todos', (req, res) => {
   res.json(todos);
 });
 
-router.get('/todos/:id', (req, res) => {
-  const id = req.params.id;
-
-  if (todos[id]) {
-    return res.json(todos[id]);
-  }
-  return res.sendStatus(404);
-});
-
 router.post('/todos', (req, res) => {
   if (req.session.user) {
-    const id = ++lastIndex;
-    todos[id] = { ...req.body, id };
-    return res.json(todos[id]);
+    const todo = { ...req.body, id: String(++lastIndex) };
+    todos = [...todos, todo];
+    return res.json(todo);
   }
   return res.sendStatus(401);
 });
@@ -49,11 +42,8 @@ router.post('/todos', (req, res) => {
 router.put('/todos/:id', (req, res) => {
   if (req.session.user) {
     const id = req.body.id;
-    if (id && todos[id]) {
-      todos[id] = req.body;
-      return res.json(todos[id]);
-    }
-    return res.sendStatus(400);
+    todos = map(todos, (todo) => (id === todo.id ? req.body : todo));
+    return res.json(req.body);
   }
   return res.sendStatus(401);
 });
@@ -61,11 +51,8 @@ router.put('/todos/:id', (req, res) => {
 router.delete('/todos/:id', (req, res) => {
   if (req.session.user) {
     const id = req.params.id;
-    if (id && todos[id]) {
-      delete todos[id];
-      return res.sendStatus(200);
-    }
-    return res.sendStatus(400);
+    todos = reject(todos, ['id', id]);
+    return res.sendStatus(200);
   }
   return res.sendStatus(401);
 });
@@ -75,8 +62,8 @@ router.get('/loadAuth', (req, res) => {
 });
 
 router.post('/login', (req, res) => {
-  const { login, pass } = req.body;
-  if (login === 'demo' && pass === 'demo') {
+  const { name, pass } = req.body;
+  if (name === 'demo' && pass === 'demo') {
     req.session.user = 'demo'; // eslint-disable-line no-param-reassign
     return res.send(req.session.user);
   }
