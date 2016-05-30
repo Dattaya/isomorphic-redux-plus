@@ -5,6 +5,10 @@ export default class TodosForm extends React.Component {
     handleSubmit: PropTypes.func.isRequired,
   };
 
+  static defaultProps = {
+    handleSubmit: () => {},
+  };
+
   render() {
     const { handleSubmit } = this.props;
 

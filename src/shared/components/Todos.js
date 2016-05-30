@@ -27,6 +27,11 @@ export default class Todos extends React.Component {
     editable:   PropTypes.bool.isRequired,
   };
 
+  static defaultProps = {
+    todos:    [],
+    editable: false,
+  };
+
   handleDelete = (id) => {
     this.props.deleteTodo(id);
   };

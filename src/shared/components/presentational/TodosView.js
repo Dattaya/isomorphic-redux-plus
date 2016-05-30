@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 
 import { TodoItem } from './index';
 
-export default function TodosView({ editable, todos = [], handleDelete, handleEdit }) {
+export default function TodosView({ editable, todos, handleDelete, handleEdit }) {
   const btnStyle = {
     margin: '1em 0 1em 1em',
   };
@@ -32,4 +32,11 @@ TodosView.propTypes = {
   handleEdit:   PropTypes.func.isRequired,
   handleDelete: PropTypes.func.isRequired,
   editable:     PropTypes.bool,
+};
+
+TodosView.defaultProps = {
+  editable:     false,
+  todos:        [],
+  handleDelete: () => {},
+  handleEdit:   () => {},
 };

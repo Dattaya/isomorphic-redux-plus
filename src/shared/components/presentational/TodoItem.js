@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-export default function TodoItem({ editable = false, btnStyle = {}, onDelete, onEdit, children }) {
+export default function TodoItem({ editable, btnStyle, onDelete, onEdit, children }) {
   return (
     <div style={btnStyle}>
       {children}
@@ -20,4 +20,11 @@ TodoItem.propTypes = {
   onDelete: PropTypes.func,
   onEdit:   PropTypes.func,
   children: PropTypes.any,
+};
+
+TodoItem.defaultProps = {
+  editable: false,
+  btnStyle: {},
+  onDelete: () => {},
+  onEdit:   () => {},
 };
