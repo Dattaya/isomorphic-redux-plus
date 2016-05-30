@@ -71,7 +71,7 @@ app.use((req, res) => {
     if (!renderProps)
       return res.status(404).end('Not found');
 
-    function renderView(errOrArrayFromPromiseAll) {
+    function renderView() {
       const InitialView = (
         <Provider store={store}>
           <RouterContext {...renderProps} />
