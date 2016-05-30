@@ -31,25 +31,6 @@ export default class Todos extends React.Component {
     editable:       PropTypes.bool.isRequired,
   };
 
-  handleDelete = (id) => {
-    this.props.deleteTodo(id);
-  };
-
-  handleEdit = (id) => {
-    const currentVal = this.props.selectTodo(id).get('text');
-
-    // For a cutting edge UX
-    const text = window.prompt('', currentVal);
-
-    this.props.editTodo(id, text);
-  };
-
-  handleSubmit = (node) => {
-    this.props.createTodo(node.value);
-
-    node.value = '';
-  };
-
   shouldComponentUpdate(nextProps) {
     const { todos, editable } = this.props;
 
@@ -62,12 +43,32 @@ export default class Todos extends React.Component {
       'property. Comment out `shouldComponentUpdate` and it will appear.');
   }
 
+  handleDelete = (id) => {
+    this.props.deleteTodo(id);
+  };
+
+  handleEdit = (id) => {
+    const currentVal = this.props.selectTodo(id).get('text');
+
+    // For a cutting edge UX
+    const text = window.prompt('', currentVal); // eslint-disable-line no-alert
+
+    this.props.editTodo(id, text);
+  };
+
+  handleSubmit = (node) => {
+    this.props.createTodo(node.value);
+
+    node.value = ''; // eslint-disable-line no-param-reassign
+  };
+
   render() {
     const { editable, todoIdsOrdered, selectTodo } = this.props;
 
     return (
       <div id="todo-list">
-        <TodosView selectTodo={selectTodo}
+        <TodosView
+          selectTodo={selectTodo}
           todoIdsOrdered={todoIdsOrdered}
           editable={editable}
           handleDelete={this.handleDelete}

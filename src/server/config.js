@@ -1,4 +1,4 @@
-import commonConfig    from 'config';
+import commonConfig from 'config';
 
 export default {
   ...commonConfig, ...{
@@ -6,7 +6,7 @@ export default {
       name:   'ssid',
       secret: 'duck quack',
     },
-    host:    'localhost',
-    port:    3000,
+    host: 'localhost',
+    port: 3000,
   },
 };

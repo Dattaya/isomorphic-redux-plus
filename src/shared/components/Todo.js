@@ -6,7 +6,7 @@ import Immutable            from 'immutable';
 import { TodoItem }         from './presentational';
 import { loadTodo }         from 'redux/actions/TodoActions';
 import {
-  selectTodo
+  selectTodo,
 }                           from 'redux/reducers/TodoReducer';
 import fetchData            from 'lib/fetchDataDeferred';
 
@@ -19,27 +19,27 @@ import fetchData            from 'lib/fetchDataDeferred';
  */
 @fetchData((state, dispatch, params) => dispatch(loadTodo(params.id)))
 @connect((state, ownProps) => ({
-  todo: selectTodo(state, ownProps.params.id)
+  todo: selectTodo(state, ownProps.params.id),
 }))
 export default class Todo extends React.Component {
   static propTypes = {
     todo: ImmutablePropTypes.map,
   };
   static defaultProps = {
-    todo:  Immutable.Map(),
+    todo: Immutable.Map(),
   };
 
   render() {
     const { todo } = this.props;
 
     const todoStyle = {
-      'textAlign': 'center'
+      textAlign: 'center',
     };
 
     return (
       <TodoItem>
         <h1 style={todoStyle}>{todo.get('text')}</h1>
       </TodoItem>
-    )
+    );
   }
 }

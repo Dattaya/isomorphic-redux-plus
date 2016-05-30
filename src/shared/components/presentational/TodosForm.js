@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 
 export default class TodosForm extends React.Component {
   static propTypes = {
-    handleSubmit: PropTypes.func.isRequired
+    handleSubmit: PropTypes.func.isRequired,
   };
 
   render() {

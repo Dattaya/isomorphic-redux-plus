@@ -1,6 +1,11 @@
 import React, { PropTypes }    from 'react';
 
 export default class ErrorPage extends React.Component {
+  static propTypes = {
+    status:  PropTypes.number,
+    message: PropTypes.string,
+  };
+
   static defaultProps = {
     status:  404,
     message: 'Page not found.',

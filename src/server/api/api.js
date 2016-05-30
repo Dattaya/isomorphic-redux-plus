@@ -10,14 +10,14 @@ const todos = {
   '2': { id: '2', text: 'Todo item 2', dateUpdated: Date.now() },
   '3': { id: '3', text: 'Todo item 3', dateUpdated: Date.now() },
   '4': { id: '4', text: 'Todo item 4', dateUpdated: Date.now() },
-  '5': { id: '5', text: 'Todo item 5', dateUpdated: Date.now() }
+  '5': { id: '5', text: 'Todo item 5', dateUpdated: Date.now() },
 };
 let lastIndex = 5;
 
 router.get('/about', (req, res) => {
-  fs.readFile(path.join(__dirname, '../../../README.md'), { encoding: 'utf-8' }, function (err, data) {
+  fs.readFile(path.join(__dirname, '../../../README.md'), { encoding: 'utf-8' }, (err, data) => {
     if (!err) {
-      res.json({ 'text': marked(data) });
+      res.json({ text: marked(data) });
     } else {
       console.log(err);
     }
@@ -32,7 +32,7 @@ router.get('/todos/:id', (req, res) => {
   const id = req.params.id;
 
   if (todos[id]) {
-    return res.json(todos[id])
+    return res.json(todos[id]);
   }
   return res.sendStatus(404);
 });
@@ -77,7 +77,7 @@ router.get('/loadAuth', (req, res) => {
 router.post('/login', (req, res) => {
   const { login, pass } = req.body;
   if (login === 'demo' && pass === 'demo') {
-    req.session.user = 'demo';
+    req.session.user = 'demo'; // eslint-disable-line no-param-reassign
     return res.send(req.session.user);
   }
 
@@ -86,7 +86,7 @@ router.post('/login', (req, res) => {
 
 router.post('/logout', (req, res) => {
   if (req.session.user) {
-    req.session.user = '';
+    req.session.user = ''; // eslint-disable-line no-param-reassign
   }
   res.sendStatus(200);
 });

@@ -4,11 +4,16 @@ import { connect }             from 'react-redux';
 import { ErrorPage }         from 'components';
 import { selectPageStatus }  from 'redux/reducers/StatusReducer';
 
-@connect((state, props) => ({
+@connect((state) => ({
   status: selectPageStatus(state),
 }),
 )
 export default class ErrorHandler extends React.Component {
+  static propTypes = {
+    status:   PropTypes.number,
+    children: PropTypes.any,
+  };
+
   render() {
     const status = this.props.status;
 

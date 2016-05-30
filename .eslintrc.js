@@ -10,7 +10,7 @@ module.exports = {
   ],
   'rules':   {
     'no-multi-spaces': [2, {
-      'exceptions': { 'ImportDeclaration': true }
+      'exceptions': { 'ImportDeclaration': true, 'Property': true }
     }],
     'key-spacing': [2, { 'align': 'value' }],
     'no-console':  0,

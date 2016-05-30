@@ -4,6 +4,7 @@ import { connect }          from 'react-redux';
 import { loadAbout }        from 'redux/actions/AboutActions';
 import fetchData            from 'lib/fetchDataDeferred';
 
+/* eslint-disable react/prefer-stateless-function */
 @fetchData((state, dispatch) => dispatch(loadAbout()))
 @connect(state => ({ about: state.about }))
 export default class About extends React.Component {

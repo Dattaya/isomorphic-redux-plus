@@ -1,3 +1,4 @@
+/* eslint-disable */
 'use strict';
 
 // Speed things up on the server for libraries that unlike React do not cache `process.env`.
