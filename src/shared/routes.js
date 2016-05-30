@@ -4,19 +4,20 @@ import { Route, IndexRoute }       from 'react-router';
 import {
   App, Todos, About, ErrorPage,
 }                                      from 'components';
-import { loadAuth as loadAuthActionC } from 'redux/actions/AuthActions';
+import { loadAuth } from 'redux/actions/AuthActions';
+import { isLoaded } from 'redux/reducers/AuthReducer';
 
 export default (store) => {
-  const loadAuth = (nextState, replaceState, next) => {
-    if (!store.getState().auth.loaded) {
-      store.dispatch(loadAuthActionC()).then(() => next());
+  const loadAuthData = (nextState, replaceState, next) => {
+    if (!isLoaded(store.getState())) {
+      store.dispatch(loadAuth()).then(() => next());
     } else {
       next();
     }
   };
 
   return (
-    <Route name="app" component={App} path="/" onEnter={loadAuth}>
+    <Route name="app" component={App} path="/" onEnter={loadAuthData}>
       <IndexRoute component={About} />
       <Route path="todos" component={Todos} />
       <Route path="*" component={ErrorPage} status={404} />
