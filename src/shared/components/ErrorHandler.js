@@ -27,7 +27,8 @@ export default class ErrorHandler extends React.Component {
           <ErrorPage
             status={0}
             title="Couldn't load the page"
-            message="Couldn't load the page. Maybe you have a problem with Internet connection. Please try again later."
+            message="Couldn't load the page. Maybe you have a problem with the Internet connection.
+                     Please try again later."
           />
         );
       case 503:
@@ -35,7 +36,7 @@ export default class ErrorHandler extends React.Component {
           <ErrorPage
             status={503}
             title="Server problem"
-            message="Server problem. Please visit the site later."
+            message="Server problem. Please try again later."
           />
         );
       default:
