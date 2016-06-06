@@ -10,8 +10,8 @@ export function rendered() {
 
 /**
  * Should always be a top level (outermost) decorator because
- * on the server all static `needs` properties are collected
- * to pass them to fetchComponentData.
+ * on the server all static `fetchData` properties are collected
+ * in `fetchComponentData`.
  *
  * @param fetch
  * @returns {Function}

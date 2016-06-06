@@ -3,10 +3,10 @@ import {
   CREATE_TODO,
   EDIT_TODO,
   DELETE_TODO,
-}              from 'redux/todo/todoTypes';
+}              from 'redux/todo/types';
 import {
   getTodo,
-}              from 'redux/todo/todoSelectors';
+}              from 'redux/todo/selectors';
 
 export const loadTodos = () => ({
   type:    LOAD_TODOS,

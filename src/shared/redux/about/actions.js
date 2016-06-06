@@ -1,6 +1,6 @@
 import {
   LOAD_ABOUT,
-}              from 'redux/about/aboutTypes';
+}              from 'redux/about/types';
 
 export const loadAbout = () => ({
   type:    LOAD_ABOUT,

@@ -4,7 +4,7 @@ import {
   LOGIN,
   LOGIN_FAILURE,
   LOGOUT,
-}                from 'redux/auth/authTypes';
+}                from 'redux/auth/types';
 
 const defaultState = { loaded: false, user: null };
 

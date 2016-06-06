@@ -1,6 +1,6 @@
 import {
   SET_STATUS,
-}             from 'redux/status/statusTypes';
+}             from 'redux/status/types';
 
 export const setStatus = (status) => ({
   type: SET_STATUS,

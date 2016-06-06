@@ -2,14 +2,14 @@ import React, { PropTypes }   from 'react';
 import { connect }            from 'react-redux';
 import find                   from 'lodash/find';
 
-import fetchData              from 'lib/fetchDataDeferred';
+import fetchData              from 'lib/fetchData';
 import {
   TodosForm, TodosView,
 }                             from './presentational';
-import * as todoActions       from 'redux/todo/todoActions';
+import * as todoActions       from 'redux/todo/actions';
 import {
   isEditable, computeTodos,
-}                             from 'redux/todo/todoSelectors';
+}                             from 'redux/todo/selectors';
 
 @fetchData((state, dispatch) => dispatch(todoActions.loadTodos()))
 @connect(state => ({

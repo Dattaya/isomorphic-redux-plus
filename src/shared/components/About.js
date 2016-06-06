@@ -1,9 +1,9 @@
 import React, { PropTypes } from 'react';
 import { connect }          from 'react-redux';
 
-import { loadAbout }        from 'redux/about/aboutActions';
-import { getAbout }         from 'redux/about/aboutSelectors';
-import fetchData            from 'lib/fetchDataDeferred';
+import { loadAbout }        from 'redux/about/actions';
+import { getAbout }         from 'redux/about/selectors';
+import fetchData            from 'lib/fetchData';
 
 /* eslint-disable react/prefer-stateless-function */
 @fetchData((state, dispatch) => dispatch(loadAbout()))
