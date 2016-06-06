@@ -3,13 +3,14 @@ import {
   applyMiddleware,
   compose,
 }                  from 'redux';
+import thunk       from 'redux-thunk';
 
 import injectClientAndGetMiddleware from 'redux/middlewares/promiseMiddleware';
 import reducer                      from 'redux/reducer';
 
 export default function configureStore(client, initialState) {
   const finalCreateStore = compose(
-    applyMiddleware(injectClientAndGetMiddleware(client)),
+    applyMiddleware(injectClientAndGetMiddleware(client), thunk),
     (typeof window !== 'undefined' && window.devToolsExtension) ? window.devToolsExtension() : f => f
   )(createStore);
 
