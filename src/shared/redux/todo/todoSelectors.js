@@ -4,7 +4,7 @@ import { isAuthenticated } from 'redux/auth/authSelectors';
 
 export const isEditable = (state) => isAuthenticated(state);
 
-export const getTodos = (state) => state.todos;
+export const getTodos = (state) => state.todo;
 
 export const getTodo = (state, id) => getTodos(state)[id];
 
