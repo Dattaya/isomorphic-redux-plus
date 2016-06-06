@@ -1,5 +1,9 @@
 import { LOCATION_CHANGE } from 'react-router-redux';
 
+import {
+  SET_STATUS,
+}             from 'redux/status/statusTypes';
+
 const defaultState = { status: null, initialLoad: true };
 
 const computeStatus = (status) => {
@@ -13,6 +17,10 @@ const computeStatus = (status) => {
 };
 
 export default (state = defaultState, action = {}) => {
+  if (action.type === SET_STATUS) {
+    return { ...state, status: computeStatus(action.status) };
+  }
+
   if (action.type === LOCATION_CHANGE) {
     if (state.initialLoad) {
       return { ...state, initialLoad: false };
