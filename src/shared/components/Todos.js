@@ -8,12 +8,12 @@ import {
 }                             from './presentational';
 import * as todoActions       from 'redux/todo/todoActions';
 import {
-  isEditable, getTodos,
+  isEditable, computeTodos,
 }                             from 'redux/todo/todoSelectors';
 
 @fetchData((state, dispatch) => dispatch(todoActions.loadTodos()))
 @connect(state => ({
-  todos:    getTodos(state), // eslint-disable-line no-multi-spaces
+  todos:    computeTodos(state), // eslint-disable-line no-multi-spaces
   editable: isEditable(state),
 }),
   todoActions

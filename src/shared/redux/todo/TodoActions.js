@@ -1,27 +1,34 @@
+import {
+  LOAD_TODOS,
+  CREATE_TODO,
+  EDIT_TODO,
+  DELETE_TODO,
+}              from 'redux/todo/todoTypes';
+import {
+  getTodo,
+}              from 'redux/todo/todoSelectors';
+
 export const loadTodos = () => ({
-  type:    'LOAD_TODOS',
+  type:    LOAD_TODOS,
   role:    'primary',
   promise: client => client.get('/todos'),
 });
 
-export const loadTodo = (id) => ({
-  type:    'LOAD_TODO',
-  role:    'primary',
-  promise: client => client.get(`/todos/${id}`),
-});
-
 export const createTodo = (text) => ({
-  type:    'CREATE_TODO',
-  promise: client => client.post('/todos', { text, dateUpdated: Date.now() }),
+  type:    CREATE_TODO,
+  promise: client => client.post('/todos', { text, dateCreated: Date.now() }),
 });
 
-export const editTodo = (id, text) => ({
-  type:    'EDIT_TODO',
-  promise: client => client.put(`/todos/${id}`, { text, id, dateUpdated: Date.now() }),
-});
+export const editTodo = (id, text) => (dispatch, getState) => {
+  const todo = getTodo(getState(), id);
+  dispatch({
+    type:    EDIT_TODO,
+    promise: client => client.put(`/todos/${id}`, { ...todo, id, text }),
+  });
+};
 
 export const deleteTodo = (id) => ({
-  type:    'DELETE_TODO',
+  type:    DELETE_TODO,
   promise: client => client.delete(`/todos/${id}`),
   id,
 });

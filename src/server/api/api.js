@@ -9,10 +9,10 @@ const router = Router();
 
 let todos = [
   { id: '1', text: 'Todo item 1', dateCreated: Date.now() },
-  { id: '2', text: 'Todo item 2', dateCreated: Date.now() },
-  { id: '3', text: 'Todo item 3', dateCreated: Date.now() },
-  { id: '4', text: 'Todo item 4', dateCreated: Date.now() },
-  { id: '5', text: 'Todo item 5', dateCreated: Date.now() },
+  { id: '2', text: 'Todo item 2', dateCreated: Date.now() + 1 },
+  { id: '3', text: 'Todo item 3', dateCreated: Date.now() + 2 },
+  { id: '4', text: 'Todo item 4', dateCreated: Date.now() + 3 },
+  { id: '5', text: 'Todo item 5', dateCreated: Date.now() + 4 },
 ];
 let lastIndex = 5;
 
