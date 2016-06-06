@@ -6,17 +6,17 @@ import fetchData              from 'lib/fetchDataDeferred';
 import {
   TodosForm, TodosView,
 }                             from './presentational';
-import * as TodoActions       from 'redux/actions/TodoActions';
+import * as todoActions       from 'redux/todo/todoActions';
 import {
   isEditable, selectTodos,
-}                             from 'redux/reducers/TodoReducer';
+}                             from 'redux/todo/todoSelectors';
 
-@fetchData((state, dispatch) => dispatch(TodoActions.loadTodos()))
+@fetchData((state, dispatch) => dispatch(todoActions.loadTodos()))
 @connect(state => ({
   todos:    selectTodos(state), // eslint-disable-line no-multi-spaces
   editable: isEditable(state),
 }),
-  TodoActions
+  todoActions
 )
 export default class Todos extends React.Component {
   static propTypes = {

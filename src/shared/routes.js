@@ -4,8 +4,8 @@ import { Route, IndexRoute }       from 'react-router';
 import {
   App, Todos, About, ErrorPage,
 }                                      from 'components';
-import { loadAuth } from 'redux/actions/AuthActions';
-import { isLoaded } from 'redux/reducers/AuthReducer';
+import { loadAuth }                    from 'redux/auth/authActions';
+import { isLoaded }                    from 'redux/auth/authSelectors';
 
 export default (store) => {
   const loadAuthData = (nextState, replaceState, next) => {

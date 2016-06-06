@@ -8,5 +8,3 @@ export default function aboutReducer(state = defaultState, action) {
       return state;
   }
 }
-
-export const selectAbout = (state) => state.about;

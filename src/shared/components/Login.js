@@ -1,9 +1,9 @@
 import React, { PropTypes } from 'react';
 import { connect }          from 'react-redux';
 
-import * as AuthActions from 'redux/actions/AuthActions';
+import * as authActions from 'redux/auth/authActions';
 
-@connect(state => ({ auth: state.auth }), AuthActions)
+@connect(state => ({ auth: state.auth }), authActions)
 export default class Login extends React.Component {
   static propTypes = {
     login:  PropTypes.func.isRequired,

@@ -8,11 +8,11 @@ import map        from 'lodash/map';
 const router = Router();
 
 let todos = [
-  { id: '1', text: 'Todo item 1', dateUpdated: Date.now() },
-  { id: '2', text: 'Todo item 2', dateUpdated: Date.now() },
-  { id: '3', text: 'Todo item 3', dateUpdated: Date.now() },
-  { id: '4', text: 'Todo item 4', dateUpdated: Date.now() },
-  { id: '5', text: 'Todo item 5', dateUpdated: Date.now() },
+  { id: '1', text: 'Todo item 1', dateCreated: Date.now() },
+  { id: '2', text: 'Todo item 2', dateCreated: Date.now() },
+  { id: '3', text: 'Todo item 3', dateCreated: Date.now() },
+  { id: '4', text: 'Todo item 4', dateCreated: Date.now() },
+  { id: '5', text: 'Todo item 5', dateCreated: Date.now() },
 ];
 let lastIndex = 5;
 

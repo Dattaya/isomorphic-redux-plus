@@ -3,7 +3,7 @@ import bodyParser                  from 'body-parser';
 import session                     from 'express-session';
 import axios                       from 'axios';
 import React                       from 'react';
-import { renderToString }         from 'react-dom/server';
+import { renderToString }          from 'react-dom/server';
 import { RouterContext, match }    from 'react-router';
 import { Provider }                from 'react-redux';
 import path                        from 'path';
@@ -11,7 +11,7 @@ import favicon                     from 'serve-favicon';
 
 import fetchComponentData          from 'lib/fetchComponentData';
 import configureStore              from 'redux/configureStore';
-import { selectPageStatus }        from 'redux/reducers/StatusReducer';
+import { selectPageStatus }        from 'redux/status/statusSelectors';
 import injectStoreAndGetRoutes     from 'routes';
 import apiRouter                   from './api';
 import config                      from './config';
