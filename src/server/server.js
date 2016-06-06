@@ -88,7 +88,7 @@ app.use((req, res) => {
 
       const componentHTML = renderToString(InitialView);
 
-      const initialState = store.getState();
+      const preloadedState = store.getState();
 
       const html = `
       <!DOCTYPE html>
@@ -100,7 +100,7 @@ app.use((req, res) => {
           <title>Redux Demo</title>
 
           <script>
-            window.__INITIAL_STATE__ = ${JSON.stringify(initialState)};
+            window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState)};
           </script>
         </head>
         <body>
@@ -110,7 +110,7 @@ app.use((req, res) => {
       </html>
       `;
 
-      res.status(getStatus(initialState, renderProps.routes)).end(html);
+      res.status(getStatus(preloadedState, renderProps.routes)).end(html);
     }
 
     fetchComponentData(store, renderProps.components, renderProps.params)
