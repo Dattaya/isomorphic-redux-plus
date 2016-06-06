@@ -1,14 +1,20 @@
+import {
+  LOAD_AUTH,
+  LOGIN,
+  LOGOUT,
+}                from 'redux/auth/authTypes';
+
 export const loadAuth = () => ({
-  type:    'LOAD_AUTH',
+  type:    LOAD_AUTH,
   promise: client => client.get('/loadAuth'),
 });
 
 export const login = (name, pass) => ({
-  type:    'LOGIN',
+  type:    LOGIN,
   promise: client => client.post('/login', { name, pass }),
 });
 
 export const logout = () => ({
-  type:    'LOGOUT',
+  type:    LOGOUT,
   promise: client => client.post('/logout', {}),
 });
