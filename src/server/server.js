@@ -11,7 +11,7 @@ import favicon                     from 'serve-favicon';
 
 import fetchComponentData          from 'lib/fetchComponentData';
 import configureStore              from 'redux/configureStore';
-import { selectPageStatus }        from 'redux/status/statusSelectors';
+import { getPageStatus }           from 'redux/status/statusSelectors';
 import injectStoreAndGetRoutes     from 'routes';
 import apiRouter                   from './api';
 import config                      from './config';
@@ -44,7 +44,7 @@ app.use(bodyParser.json());
 app.use(config.apiBaseUrl, apiRouter);
 
 function getStatus(state, routes) {
-  return selectPageStatus(state) || routes.reduce((prev, curr) => curr.status || prev, 200);
+  return getPageStatus(state) || routes.reduce((prev, curr) => curr.status || prev, 200);
 }
 
 app.use((req, res) => {

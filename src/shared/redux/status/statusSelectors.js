@@ -1,1 +1,3 @@
-export const selectPageStatus = (state) => state.pageStatus.status;
+const getLocalState = (state) => state.pageStatus;
+
+export const getPageStatus = (state) => getLocalState(state).status;

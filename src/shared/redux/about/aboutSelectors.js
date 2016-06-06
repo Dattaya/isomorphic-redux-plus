@@ -1,1 +1,1 @@
-export const selectAbout = (state) => state.about;
+export const getAbout = (state) => state.about;

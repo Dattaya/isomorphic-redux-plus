@@ -1,3 +1,5 @@
-export const isLoaded = (state) => state.auth.loaded;
+const getLocalState = (state) => state.auth;
 
-export const isAuthenticated = (state) => !!state.auth.user;
+export const isLoaded = (state) => getLocalState(state).loaded;
+
+export const isAuthenticated = (state) => !!getLocalState(state).user;

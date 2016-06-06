@@ -2,10 +2,10 @@ import React, { PropTypes }    from 'react';
 import { connect }             from 'react-redux';
 
 import { ErrorPage }         from 'components';
-import { selectPageStatus }  from 'redux/status/statusSelectors';
+import { getPageStatus }  from 'redux/status/statusSelectors';
 
 @connect((state) => ({
-  status: selectPageStatus(state),
+  status: getPageStatus(state),
 }),
 )
 export default class ErrorHandler extends React.Component {
