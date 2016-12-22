@@ -1,17 +1,17 @@
 import 'babel-polyfill';
-import React                       from 'react';
-import { render }                  from 'react-dom';
+import React from 'react';
+import { render } from 'react-dom';
 import {
   Router,
   browserHistory,
-}                                  from 'react-router';
-import { Provider }                from 'react-redux';
-import injectStoreAndGetRoutes     from 'routes';
-import axios                       from 'axios';
-import { syncHistoryWithStore }    from 'react-router-redux';
+} from 'react-router';
+import { Provider } from 'react-redux';
+import injectStoreAndGetRoutes from 'routes';
+import axios from 'axios';
+import { syncHistoryWithStore } from 'react-router-redux';
 
-import config                      from 'config';
-import configureStore              from 'configureStore';
+import config from 'config';
+import configureStore from 'configureStore';
 
 axios.interceptors.request.use((axiosConfig) => {
   if (axiosConfig.url[0] === '/') {

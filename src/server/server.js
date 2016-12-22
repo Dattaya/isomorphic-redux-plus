@@ -1,20 +1,20 @@
-import express                     from 'express';
-import bodyParser                  from 'body-parser';
-import session                     from 'express-session';
-import axios                       from 'axios';
-import React                       from 'react';
-import { renderToString }          from 'react-dom/server';
-import { RouterContext, match }    from 'react-router';
-import { Provider }                from 'react-redux';
-import path                        from 'path';
-import favicon                     from 'serve-favicon';
+import express from 'express';
+import bodyParser from 'body-parser';
+import session from 'express-session';
+import axios from 'axios';
+import React from 'react';
+import { renderToString } from 'react-dom/server';
+import { RouterContext, match } from 'react-router';
+import { Provider } from 'react-redux';
+import path from 'path';
+import favicon from 'serve-favicon';
 
-import fetchComponentData          from 'lib/fetchComponentData';
-import configureStore              from 'configureStore';
-import { getPageStatus }           from 'status/selectors';
-import injectStoreAndGetRoutes     from 'routes';
-import apiRouter                   from './api';
-import config                      from './config';
+import fetchComponentData from 'lib/fetchComponentData';
+import configureStore from 'configureStore';
+import { getPageStatus } from 'status/selectors';
+import injectStoreAndGetRoutes from 'routes';
+import apiRouter from './api';
+import config from './config';
 
 Object.assign = require('object-assign');
 
@@ -29,9 +29,9 @@ app.use(favicon(path.join(__dirname, '..', '..', 'static', 'favicon.ico')));
 app.use(express.static(path.join(__dirname, '..', '..', 'static'), { maxAge: '7 days' }));
 
 app.use(session({
-  secret:            config.session.secret,
-  name:              config.session.name,
-  resave:            false,
+  secret: config.session.secret,
+  name: config.session.name,
+  resave: false,
   saveUninitialized: false,
 }));
 
@@ -68,7 +68,7 @@ app.use((req, res) => {
   // eslint-disable-next-line consistent-return
   match({ routes, location: req.url }, (err, redirectLocation, renderProps) => {
     if (err) {
-      console.error(err);
+      console.error(err); // eslint-disable-line no-console
       return res.status(500).end('Internal server error');
     }
     if (redirectLocation) {
@@ -115,8 +115,8 @@ app.use((req, res) => {
 
     fetchComponentData(store, renderProps.components, renderProps.params)
       .then(renderView)
-      .catch(error => {
-        console.error(error.stack);
+      .catch((error) => {
+        console.error(error.stack); // eslint-disable-line no-console
         res.sendStatus(500);
       });
   });

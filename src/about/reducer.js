@@ -1,6 +1,6 @@
 import {
   LOAD_ABOUT,
-}              from './types';
+} from './types';
 
 const defaultState = '';
 

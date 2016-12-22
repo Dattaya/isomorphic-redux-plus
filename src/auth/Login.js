@@ -1,17 +1,17 @@
 import React, { PropTypes } from 'react';
-import { connect }          from 'react-redux';
+import { connect } from 'react-redux';
 
 import * as authActions from './actions';
 
-@connect(state => ({ auth: state.auth }), authActions)
+@connect((state) => ({ auth: state.auth }), authActions)
 export default class Login extends React.Component {
   static propTypes = {
-    login:  PropTypes.func.isRequired,
+    login: PropTypes.func.isRequired,
     logout: PropTypes.func.isRequired,
-    auth:   PropTypes.shape({
-      user:      PropTypes.string,
+    auth: PropTypes.shape({
+      user: PropTypes.string,
       loggingIn: PropTypes.bool,
-      error:     PropTypes.bool,
+      error: PropTypes.bool,
     }),
   };
 
@@ -36,7 +36,7 @@ export default class Login extends React.Component {
     const { user, error, loggingIn } = auth;
 
     const errorStyle = {
-      color:      'red',
+      color: 'red',
       marginLeft: '5px',
     };
     return (

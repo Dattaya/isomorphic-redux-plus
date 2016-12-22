@@ -1,6 +1,6 @@
 import {
   SET_STATUS,
-}             from './types';
+} from './types';
 
 export const setStatus = (status) => ({
   type: SET_STATUS,

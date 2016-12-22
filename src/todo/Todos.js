@@ -1,33 +1,31 @@
-import React, { PropTypes }   from 'react';
-import { connect }            from 'react-redux';
-import find                   from 'lodash/find';
+import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
+import find from 'lodash/find';
 
-import fetchData              from 'lib/fetchData';
-import TodosForm              from './TodosForm';
-import TodosView              from './TodosView';
-import * as todoActions       from './actions';
+import fetchData from 'lib/fetchData';
+import TodosForm from './TodosForm';
+import TodosView from './TodosView';
+import * as todoActions from './actions';
 import {
   isEditable, computeTodos,
-}                             from './selectors';
+} from './selectors';
 
 @fetchData((state, dispatch) => dispatch(todoActions.loadTodos()))
-@connect(state => ({
-  todos:    computeTodos(state), // eslint-disable-line no-multi-spaces
+@connect((state) => ({
+  todos: computeTodos(state), // eslint-disable-line no-multi-spaces
   editable: isEditable(state),
-}),
-  todoActions
-)
+}), todoActions)
 export default class Todos extends React.Component {
   static propTypes = {
-    todos:      PropTypes.array.isRequired,
-    editTodo:   PropTypes.func.isRequired,
+    todos: PropTypes.array.isRequired,
+    editTodo: PropTypes.func.isRequired,
     deleteTodo: PropTypes.func.isRequired,
     createTodo: PropTypes.func.isRequired,
-    editable:   PropTypes.bool.isRequired,
+    editable: PropTypes.bool.isRequired,
   };
 
   static defaultProps = {
-    todos:    [],
+    todos: [],
     editable: false,
   };
 

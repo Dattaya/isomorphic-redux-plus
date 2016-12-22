@@ -28,15 +28,15 @@ export default function TodosView({ editable, todos, handleDelete, handleEdit })
 }
 
 TodosView.propTypes = {
-  todos:        PropTypes.array.isRequired,
-  handleEdit:   PropTypes.func.isRequired,
+  todos: PropTypes.array.isRequired,
+  handleEdit: PropTypes.func.isRequired,
   handleDelete: PropTypes.func.isRequired,
-  editable:     PropTypes.bool,
+  editable: PropTypes.bool,
 };
 
 TodosView.defaultProps = {
-  editable:     false,
-  todos:        [],
+  editable: false,
+  todos: [],
   handleDelete: () => {},
-  handleEdit:   () => {},
+  handleEdit: () => {},
 };

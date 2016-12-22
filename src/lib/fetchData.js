@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import hoistStatics                    from 'hoist-non-react-statics';
+import hoistStatics from 'hoist-non-react-statics';
 
 const { shape, func, object } = PropTypes;
 let initialRender = true;
@@ -17,7 +17,7 @@ export function rendered() {
  * @returns {Function}
  * @author Tim Dorr, see https://gist.github.com/timdorr/3ffe30e3c4e116019bc3
  */
-export default (fetch) => WrappedComponent => {
+export default (fetch) => (WrappedComponent) => {
   class FetchDataDecorator extends Component {
     static WrappedComponent = WrappedComponent;
     static fetchData = fetch;

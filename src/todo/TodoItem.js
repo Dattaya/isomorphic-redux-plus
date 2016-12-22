@@ -18,7 +18,7 @@ TodoItem.propTypes = {
   editable: PropTypes.bool,
   btnStyle: PropTypes.object,
   onDelete: PropTypes.func,
-  onEdit:   PropTypes.func,
+  onEdit: PropTypes.func,
   children: PropTypes.any,
 };
 
@@ -26,5 +26,5 @@ TodoItem.defaultProps = {
   editable: false,
   btnStyle: {},
   onDelete: () => {},
-  onEdit:   () => {},
+  onEdit: () => {},
 };

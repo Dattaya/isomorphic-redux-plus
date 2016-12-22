@@ -5,7 +5,7 @@ export default function fetchComponentData(store, components, params) {
     }
     return prev;
   }, []);
-  const promises = needs.map(need => need(store.state, store.dispatch, params));
+  const promises = needs.map((need) => need(store.state, store.dispatch, params));
 
   return Promise.all(promises);
 }

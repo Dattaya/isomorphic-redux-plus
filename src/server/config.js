@@ -3,7 +3,7 @@ import commonConfig from 'config';
 export default {
   ...commonConfig, ...{
     session: {
-      name:   'ssid',
+      name: 'ssid',
       secret: 'duck quack',
     },
     host: 'localhost',

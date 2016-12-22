@@ -4,7 +4,7 @@ import {
   LOGIN,
   LOGIN_FAILURE,
   LOGOUT,
-}                from './types';
+} from './types';
 
 const defaultState = { loaded: false, user: null };
 

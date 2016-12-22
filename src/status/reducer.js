@@ -2,7 +2,7 @@ import { LOCATION_CHANGE } from 'react-router-redux';
 
 import {
   SET_STATUS,
-}             from './types';
+} from './types';
 
 const defaultState = { status: null, initialLoad: true };
 

@@ -1,13 +1,13 @@
-import keyBy               from 'lodash/keyBy';
-import omit                from 'lodash/omit';
-import update              from 'react-addons-update';
+import keyBy from 'lodash/keyBy';
+import omit from 'lodash/omit';
+import update from 'react-addons-update';
 
 import {
   LOAD_TODOS,
   CREATE_TODO,
   EDIT_TODO,
   DELETE_TODO,
-}              from './types';
+} from './types';
 
 const defaultState = {};
 

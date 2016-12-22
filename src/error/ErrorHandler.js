@@ -1,8 +1,8 @@
-import React, { PropTypes }    from 'react';
-import { connect }             from 'react-redux';
+import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
 
-import ErrorPage             from './ErrorPage';
-import { getPageStatus }     from 'status/selectors';
+import ErrorPage from './ErrorPage';
+import { getPageStatus } from 'status/selectors';
 
 @connect((state) => ({
   status: getPageStatus(state),
@@ -10,7 +10,7 @@ import { getPageStatus }     from 'status/selectors';
 )
 export default class ErrorHandler extends React.Component {
   static propTypes = {
-    status:   PropTypes.number,
+    status: PropTypes.number,
     children: PropTypes.any,
   };
 

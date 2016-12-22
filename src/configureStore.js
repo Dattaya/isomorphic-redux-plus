@@ -2,17 +2,22 @@ import {
   createStore,
   applyMiddleware,
   compose,
-}                  from 'redux';
-import thunk       from 'redux-thunk';
+} from 'redux';
+import thunk from 'redux-thunk';
 
 import injectClientAndGetMiddleware from 'lib/promiseMiddleware';
-import reducer                      from 'reducer';
+import reducer from 'reducer';
 
 export default function configureStore(client, preloadedState) {
-  const finalCreateStore = compose(
+  const middleware = [
     applyMiddleware(injectClientAndGetMiddleware(client), thunk),
-    (typeof window !== 'undefined' && window.devToolsExtension) ? window.devToolsExtension() : f => f
-  )(createStore);
+  ];
+
+  if (typeof window !== 'undefined' && window.devToolsExtension) {
+    middleware.push(window.devToolsExtension());
+  }
+
+  const finalCreateStore = compose(...middleware)(createStore);
 
   const store = finalCreateStore(reducer, preloadedState);
 
