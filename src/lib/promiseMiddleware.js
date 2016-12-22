@@ -1,21 +1,12 @@
-export default (client) => () => (next) => (action) => {
-  const { promise, type, ...rest } = action;
-
+export default (injected) => () => (next) => ({ promise, type }) => {
   if (!promise) {
     return next(action);
   }
 
-  const SUCCESS = type;
+  next({ type: `${type}_REQUEST` });
 
-  const REQUEST = `${type}_REQUEST`;
-  const FAILURE = `${type}_FAILURE`;
-
-  next({ ...rest, type: REQUEST });
-
-  return promise(client)
-    .then(
-      (res) => next({ ...rest, payload: res.data, type: SUCCESS }),
-      (error) => next({ ...rest, error, type: FAILURE })
-    )
-    .catch((error) => next({ ...rest, error, type: FAILURE }));
+  return promise(injected).then(
+    ({ data }) => next({ payload: data, type }),
+    (error) => next({ error: true, payload: error, type })
+  )
 };

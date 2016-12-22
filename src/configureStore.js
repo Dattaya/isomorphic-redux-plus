@@ -5,12 +5,12 @@ import {
 } from 'redux';
 import thunk from 'redux-thunk';
 
-import injectClientAndGetMiddleware from 'lib/promiseMiddleware';
+import createInjectMiddleware from 'lib/promiseMiddleware';
 import reducer from 'reducer';
 
-export default function configureStore(client, preloadedState) {
+export default function configureStore(injections, preloadedState) {
   const middleware = [
-    applyMiddleware(injectClientAndGetMiddleware(client), thunk),
+    applyMiddleware(createInjectMiddleware(injections), thunk),
   ];
 
   if (typeof window !== 'undefined' && window.devToolsExtension) {

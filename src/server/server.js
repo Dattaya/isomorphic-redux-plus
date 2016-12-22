@@ -62,7 +62,7 @@ app.use((req, res) => {
     return axiosConfig;
   });
 
-  const store = configureStore(client);
+  const store = configureStore({ client });
   const routes = injectStoreAndGetRoutes(store);
 
   // eslint-disable-next-line consistent-return
