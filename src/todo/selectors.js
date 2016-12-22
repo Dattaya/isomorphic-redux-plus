@@ -1,6 +1,6 @@
 import sortBy from 'lodash/sortBy';
 
-import { isAuthenticated } from 'redux/auth/selectors';
+import { isAuthenticated } from 'auth/selectors';
 
 export const isEditable = (state) => isAuthenticated(state);
 

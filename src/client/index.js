@@ -11,7 +11,7 @@ import axios                       from 'axios';
 import { syncHistoryWithStore }    from 'react-router-redux';
 
 import config                      from 'config';
-import configureStore              from 'redux/configureStore';
+import configureStore              from 'configureStore';
 
 axios.interceptors.request.use((axiosConfig) => {
   if (axiosConfig.url[0] === '/') {

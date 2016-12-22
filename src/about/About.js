@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react';
 import { connect }          from 'react-redux';
 
-import { loadAbout }        from 'redux/about/actions';
-import { getAbout }         from 'redux/about/selectors';
+import { loadAbout }        from './actions';
+import { getAbout }         from './selectors';
 import fetchData            from 'lib/fetchData';
 
 /* eslint-disable react/prefer-stateless-function */

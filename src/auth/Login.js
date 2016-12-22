@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { connect }          from 'react-redux';
 
-import * as authActions from 'redux/auth/actions';
+import * as authActions from './actions';
 
 @connect(state => ({ auth: state.auth }), authActions)
 export default class Login extends React.Component {

@@ -5,8 +5,8 @@ import {
 }                  from 'redux';
 import thunk       from 'redux-thunk';
 
-import injectClientAndGetMiddleware from 'redux/middlewares/promiseMiddleware';
-import reducer                      from 'redux/reducer';
+import injectClientAndGetMiddleware from 'lib/promiseMiddleware';
+import reducer                      from 'reducer';
 
 export default function configureStore(client, preloadedState) {
   const finalCreateStore = compose(
@@ -18,8 +18,8 @@ export default function configureStore(client, preloadedState) {
 
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers
-    module.hot.accept('redux/reducer', () => {
-      const nextReducer = require('redux/reducer').default; // eslint-disable-line global-require
+    module.hot.accept('reducer', () => {
+      const nextReducer = require('reducer').default; // eslint-disable-line global-require
       store.replaceReducer(nextReducer);
     });
   }

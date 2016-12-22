@@ -10,7 +10,7 @@ module.exports = {
     './build/client'
   ],
   resolve: {
-    modulesDirectories: ['node_modules', 'build/shared'],
+    modulesDirectories: ['node_modules', 'build'],
     extensions:         ['', '.js', '.jsx']
   },
   output:  {

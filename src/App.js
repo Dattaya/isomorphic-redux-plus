@@ -1,7 +1,8 @@
 import React, { PropTypes } from 'react';
 import { Link, IndexLink }  from 'react-router';
 
-import { Login, ErrorHandler } from 'components';
+import { Login }               from 'auth'
+import { ErrorHandler }        from 'error'
 import { rendered }            from 'lib/fetchData';
 
 export default class App extends React.Component {

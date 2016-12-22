@@ -1,8 +1,8 @@
 import React, { PropTypes }    from 'react';
 import { connect }             from 'react-redux';
 
-import { ErrorPage }         from 'components';
-import { getPageStatus }     from 'redux/status/selectors';
+import ErrorPage             from './ErrorPage';
+import { getPageStatus }     from 'status/selectors';
 
 @connect((state) => ({
   status: getPageStatus(state),

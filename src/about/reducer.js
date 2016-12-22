@@ -1,6 +1,6 @@
 import {
   LOAD_ABOUT,
-}              from 'redux/about/types';
+}              from './types';
 
 const defaultState = '';
 

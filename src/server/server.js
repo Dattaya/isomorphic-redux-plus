@@ -10,8 +10,8 @@ import path                        from 'path';
 import favicon                     from 'serve-favicon';
 
 import fetchComponentData          from 'lib/fetchComponentData';
-import configureStore              from 'redux/configureStore';
-import { getPageStatus }           from 'redux/status/selectors';
+import configureStore              from 'configureStore';
+import { getPageStatus }           from 'status/selectors';
 import injectStoreAndGetRoutes     from 'routes';
 import apiRouter                   from './api';
 import config                      from './config';

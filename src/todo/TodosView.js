@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-import { TodoItem } from './index';
+import TodoItem from './TodoItem';
 
 export default function TodosView({ editable, todos, handleDelete, handleEdit }) {
   const btnStyle = {

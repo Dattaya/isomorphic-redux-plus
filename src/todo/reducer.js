@@ -7,7 +7,7 @@ import {
   CREATE_TODO,
   EDIT_TODO,
   DELETE_TODO,
-}              from 'redux/todo/types';
+}              from './types';
 
 const defaultState = {};
 

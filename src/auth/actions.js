@@ -2,7 +2,7 @@ import {
   LOAD_AUTH,
   LOGIN,
   LOGOUT,
-}                from 'redux/auth/types';
+}                from './types';
 
 export const loadAuth = () => ({
   type:    LOAD_AUTH,

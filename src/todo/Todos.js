@@ -3,13 +3,12 @@ import { connect }            from 'react-redux';
 import find                   from 'lodash/find';
 
 import fetchData              from 'lib/fetchData';
-import {
-  TodosForm, TodosView,
-}                             from './presentational';
-import * as todoActions       from 'redux/todo/actions';
+import TodosForm              from './TodosForm';
+import TodosView              from './TodosView';
+import * as todoActions       from './actions';
 import {
   isEditable, computeTodos,
-}                             from 'redux/todo/selectors';
+}                             from './selectors';
 
 @fetchData((state, dispatch) => dispatch(todoActions.loadTodos()))
 @connect(state => ({
