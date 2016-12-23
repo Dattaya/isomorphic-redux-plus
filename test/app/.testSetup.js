@@ -26,11 +26,8 @@ const testBase = '..';
 
 global.loadTested = (fromPath, fromFile, exportStatement) => {
   const targetPath = path.relative(path.resolve(__dirname, testBase), path.resolve(fromPath));
-  console.log(targetPath);
   const targetFile = path.basename(fromFile, testExtension);
-  console.log(targetFile);
   const fullTarget = path.resolve(__dirname, appBase, targetPath, `${targetFile}.js`);
-  console.log(fullTarget);
   const imported = require(fullTarget);
   return exportStatement(imported);
 };

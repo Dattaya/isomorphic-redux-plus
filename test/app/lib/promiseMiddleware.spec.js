@@ -1,6 +1,6 @@
 describe('promiseMiddleware', () => {
   let promiseMiddleware;
-  before(() => loadTested(__dirname, __filename, ({default: i}) => promiseMiddleware = i));
+  before(() => loadTested(__dirname, __filename, ({ default: i }) => (promiseMiddleware = i)));
 
   let next;
   beforeEach(() => {
@@ -31,7 +31,7 @@ describe('promiseMiddleware', () => {
     const input = Math.random();
     const expected = input;
 
-    //This is an invariant that should never be violated by Math.random/Number
+    // This is an invariant that should never be violated by Math.random/Number
     expect(input).not.to.have.key('promise');
 
     underTest(input);
@@ -49,10 +49,10 @@ describe('promiseMiddleware', () => {
       const input = { type, promise: {} };
       const expected = { type: `${type}_REQUEST` };
 
-      //Ignore exceptions, all we care about is _REQUEST being fired
+      // Ignore exceptions, all we care about is _REQUEST being fired
       try {
         underTest(input);
-      } catch (e) {}
+      } catch (e) {} // eslint-disable-line no-empty
 
       expect(next).to.have.been.calledOnce;
       expect(next).not.to.have.been.calledWithExactly(input);
@@ -67,7 +67,7 @@ describe('promiseMiddleware', () => {
 
       const input = {
         type,
-        promise: () => Promise.resolve({ data })
+        promise: () => Promise.resolve({ data }),
       };
 
       return underTest(input).then(() => {
@@ -84,7 +84,7 @@ describe('promiseMiddleware', () => {
 
       const input = {
         type,
-        promise: () => Promise.reject(err)
+        promise: () => Promise.reject(err),
       };
 
       return underTest(input).then(() => {
