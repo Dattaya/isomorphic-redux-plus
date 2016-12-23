@@ -3,7 +3,7 @@ import bodyParser from 'body-parser';
 import session from 'express-session';
 import axios from 'axios';
 import React from 'react';
-import { renderToString } from 'react-dom/server';
+import { renderToString, renderToStaticMarkup } from 'react-dom/server';
 import { RouterContext, match } from 'react-router';
 import { Provider } from 'react-redux';
 import path from 'path';
@@ -15,6 +15,7 @@ import { getPageStatus } from 'status/selectors';
 import injectStoreAndGetRoutes from 'routes';
 import apiRouter from './api';
 import config from './config';
+import Html from './Html';
 
 Object.assign = require('object-assign');
 
@@ -86,31 +87,12 @@ app.use((req, res) => {
         </Provider>
       );
 
-      const componentHTML = renderToString(InitialView);
+      const view = renderToString(InitialView);
+      const state = store.getState();
 
-      const preloadedState = store.getState();
+      const html = renderToStaticMarkup(<Html state={state}>{view}</Html>)
 
-      const html = `
-      <!DOCTYPE html>
-      <html>
-        <head>
-          <meta charset="utf-8">
-          <link rel="shortcut icon" href="/favicon.ico">
-
-          <title>Redux Demo</title>
-
-          <script>
-            window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState)};
-          </script>
-        </head>
-        <body>
-          <div id="react-view">${componentHTML}</div>
-          <script type="application/javascript" src="/dist/bundle.js"></script>
-        </body>
-      </html>
-      `;
-
-      res.status(getStatus(preloadedState, renderProps.routes)).end(html);
+      res.status(getStatus(state, renderProps.routes)).end(html);
     }
 
     fetchComponentData(store, renderProps.components, renderProps.params)
