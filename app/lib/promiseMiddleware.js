@@ -1,4 +1,6 @@
-export default (injected) => () => (next) => ({ promise, type }) => {
+export default (injected) => () => (next) => (action) => {
+  const { promise, type } = action;
+
   if (!promise) {
     return next(action);
   }
@@ -8,5 +10,5 @@ export default (injected) => () => (next) => ({ promise, type }) => {
   return promise(injected).then(
     ({ data }) => next({ payload: data, type }),
     (error) => next({ error: true, payload: error, type })
-  )
+  );
 };

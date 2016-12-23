@@ -6,11 +6,11 @@
   "main": "index.js",
   "scripts": {
     "start": "cross-env NODE_ENV=production NODE_PATH=./build/shared node ./build/server",
-    "dev": "cross-env NODE_PATH=./src node ./src/server",
+    "dev": "cross-env NODE_PATH=./app node ./src/server",
     "build": "npm run build:server && npm run build:client",
     "build:client": "webpack --progress --color -p --config ./webpack/webpack.prod.config.js",
     "build:server": "rimraf ./build && babel src -d build --copy-files",
-    "lint": "eslint src"
+    "lint": "eslint app src"
   },
   "author": "Milo Mordaunt <milomord@gmail.com>",
   "license": "MIT",

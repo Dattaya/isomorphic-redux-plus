@@ -15,7 +15,7 @@ export default function (app) {
       './src/client',
     ],
     resolve: {
-      modulesDirectories: ['node_modules', 'src'],
+      modulesDirectories: ['node_modules', 'app'],
       extensions: ['', '.js'],
     },
     module: {
