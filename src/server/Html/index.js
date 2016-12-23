@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 
 export default function Html({ children, state }) {
   const view = { __html: children };
-  const appState = { __html: `window.__PRELOADED_STATE__=${JSON.stringify(state)};` }
+  const appState = { __html: `window.__PRELOADED_STATE__=${JSON.stringify(state)};` };
   return (
     <html>
       <head>
@@ -18,3 +18,8 @@ export default function Html({ children, state }) {
     </html>
   );
 }
+
+Html.propTypes = {
+  children: PropTypes.string.isRequired,
+  state: PropTypes.any.isRequired,
+};

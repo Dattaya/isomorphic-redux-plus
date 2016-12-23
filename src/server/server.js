@@ -90,7 +90,7 @@ app.use((req, res) => {
       const view = renderToString(InitialView);
       const state = store.getState();
 
-      const html = renderToStaticMarkup(<Html state={state}>{view}</Html>)
+      const html = renderToStaticMarkup(<Html state={state}>{view}</Html>);
 
       res.status(getStatus(state, renderProps.routes)).end(html);
     }
