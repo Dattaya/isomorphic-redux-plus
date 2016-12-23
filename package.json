@@ -7,9 +7,10 @@
   "scripts": {
     "start": "cross-env NODE_ENV=production NODE_PATH=./build/shared node ./build/server",
     "dev": "cross-env NODE_PATH=./app node ./src/server",
-    "build": "npm run build:server && npm run build:client",
+    "build": "rimraf ./build && yarn run build:app && yarn run build:server && npm run build:client",
+    "build:app": "babel app -d build/app --copy-files",
     "build:client": "webpack --progress --color -p --config ./webpack/webpack.prod.config.js",
-    "build:server": "rimraf ./build && babel src -d build --copy-files",
+    "build:server": "babel src -d build/src --copy-files",
     "lint": "eslint app src",
     "test": "exit 1"
   },
