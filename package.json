@@ -11,7 +11,10 @@
     "build:app": "babel app -d build/app --copy-files",
     "build:client": "webpack --progress --color -p --config ./webpack/webpack.prod.config.js",
     "build:server": "babel src -d build/src --copy-files",
-    "lint": "eslint app src",
+    "lint": "yarn lint:app && yarn lint:src && yarn lint:test",
+    "lint:app": "eslint app",
+    "lint:src": "eslint src",
+    "lint:test": "eslint test",
     "test": "yarn test:unit",
     "test:unit": "mocha --require babel-register --require test/app/.testSetup.js test/app/*/**.spec.js"
   },
