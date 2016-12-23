@@ -21,7 +21,9 @@ axios.interceptors.request.use((axiosConfig) => {
 });
 
 // eslint-disable-next-line no-underscore-dangle
-const store = configureStore(axios, window.__PRELOADED_STATE__);
+const store = configureStore({
+  client: axios
+}, window.__PRELOADED_STATE__);
 const routes = injectStoreAndGetRoutes(store);
 const history = syncHistoryWithStore(browserHistory, store);
 
