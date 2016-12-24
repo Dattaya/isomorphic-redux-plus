@@ -17,8 +17,6 @@ import apiRouter from './api';
 import config from './config';
 import Html from './Html';
 
-Object.assign = require('object-assign');
-
 const app = express();
 
 if (__DEVELOPMENT__) { // eslint-disable-line no-undef
