@@ -1,20 +1,21 @@
-import express                     from 'express';
-import bodyParser                  from 'body-parser';
-import session                     from 'express-session';
-import axios                       from 'axios';
-import React                       from 'react';
-import { renderToString }          from 'react-dom/server';
-import { RouterContext, match }    from 'react-router';
-import { Provider }                from 'react-redux';
-import path                        from 'path';
-import favicon                     from 'serve-favicon';
+import express from 'express';
+import bodyParser from 'body-parser';
+import session from 'express-session';
+import axios from 'axios';
+import React from 'react';
+import { renderToString, renderToStaticMarkup } from 'react-dom/server';
+import { RouterContext, match } from 'react-router';
+import { Provider } from 'react-redux';
+import path from 'path';
+import favicon from 'serve-favicon';
 
-import fetchComponentData          from 'lib/fetchComponentData';
-import configureStore              from 'redux/configureStore';
-import { getPageStatus }           from 'redux/status/selectors';
-import injectStoreAndGetRoutes     from 'routes';
-import apiRouter                   from './api';
-import config                      from './config';
+import fetchComponentData from 'lib/fetchComponentData';
+import configureStore from 'configureStore';
+import { getPageStatus } from 'status/selectors';
+import injectStoreAndGetRoutes from 'routes';
+import apiRouter from './api';
+import config from './config';
+import Html from './Html';
 
 Object.assign = require('object-assign');
 
@@ -29,9 +30,9 @@ app.use(favicon(path.join(__dirname, '..', '..', 'static', 'favicon.ico')));
 app.use(express.static(path.join(__dirname, '..', '..', 'static'), { maxAge: '7 days' }));
 
 app.use(session({
-  secret:            config.session.secret,
-  name:              config.session.name,
-  resave:            false,
+  secret: config.session.secret,
+  name: config.session.name,
+  resave: false,
   saveUninitialized: false,
 }));
 
@@ -62,13 +63,13 @@ app.use((req, res) => {
     return axiosConfig;
   });
 
-  const store = configureStore(client);
+  const store = configureStore({ client });
   const routes = injectStoreAndGetRoutes(store);
 
   // eslint-disable-next-line consistent-return
   match({ routes, location: req.url }, (err, redirectLocation, renderProps) => {
     if (err) {
-      console.error(err);
+      console.error(err); // eslint-disable-line no-console
       return res.status(500).end('Internal server error');
     }
     if (redirectLocation) {
@@ -86,37 +87,18 @@ app.use((req, res) => {
         </Provider>
       );
 
-      const componentHTML = renderToString(InitialView);
+      const view = renderToString(InitialView);
+      const state = store.getState();
 
-      const preloadedState = store.getState();
+      const html = renderToStaticMarkup(<Html state={state}>{view}</Html>);
 
-      const html = `
-      <!DOCTYPE html>
-      <html>
-        <head>
-          <meta charset="utf-8">
-          <link rel="shortcut icon" href="/favicon.ico">
-
-          <title>Redux Demo</title>
-
-          <script>
-            window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState)};
-          </script>
-        </head>
-        <body>
-          <div id="react-view">${componentHTML}</div>
-          <script type="application/javascript" src="/dist/bundle.js"></script>
-        </body>
-      </html>
-      `;
-
-      res.status(getStatus(preloadedState, renderProps.routes)).end(html);
+      res.status(getStatus(state, renderProps.routes)).end(html);
     }
 
     fetchComponentData(store, renderProps.components, renderProps.params)
       .then(renderView)
-      .catch(error => {
-        console.error(error.stack);
+      .catch((error) => {
+        console.error(error.stack); // eslint-disable-line no-console
         res.sendStatus(500);
       });
   });

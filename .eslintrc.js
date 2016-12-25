@@ -1,30 +1,23 @@
 module.exports = {
-  'extends': 'eslint-config-airbnb',
-  'env':     {
-    'node':    true,
-    'browser': true,
-    'es6':     true
+  extends: 'airbnb',
+  env: {
+    node: true,
+    browser: true,
+    es6: true,
   },
-  'plugins': [
+  plugins: [
     'react', 'import'
   ],
-  'rules':   {
-    'no-multi-spaces': [2, {
-      'exceptions': { 'ImportDeclaration': true, 'Property': true }
-    }],
-    'key-spacing': [2, { 'align': 'value' }],
-    'no-console':  0,
-    'max-len':     [1, 120],
-    'new-cap': [2, {
-      'newIsCap': true,
-      'capIsNew': false
-    }],
+  rules: {
+    curly: ['error', 'all'],
+    'arrow-parens': ['error', 'always'],
+    'space-before-function-paren': ['error', 'never']
   },
-  'parser':  'babel-eslint',
-  'settings': {
+  parser: 'babel-eslint',
+  settings: {
     'import/resolver': {
-      'node': {
-        'moduleDirectory': ['node_modules', 'src/shared']
+      node: {
+        moduleDirectory: ['node_modules', 'app']
       },
     },
   },

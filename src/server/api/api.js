@@ -1,11 +1,11 @@
 import { Router } from 'express';
-import fs         from 'fs';
-import path       from 'path';
-import marked     from 'marked';
-import reject     from 'lodash/reject';
-import map        from 'lodash/map';
+import fs from 'fs';
+import path from 'path';
+import marked from 'marked';
+import reject from 'lodash/reject';
+import map from 'lodash/map';
 
-const router = Router();
+const router = Router(); // eslint-disable-line new-cap
 
 let todos = [
   { id: '1', text: 'Todo item 1', dateCreated: Date.now() },
@@ -20,8 +20,6 @@ router.get('/about', (req, res) => {
   fs.readFile(path.join(__dirname, '../../../README.md'), { encoding: 'utf-8' }, (err, data) => {
     if (!err) {
       res.json({ text: marked(data) });
-    } else {
-      console.log(err);
     }
   });
 });
