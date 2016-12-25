@@ -11,6 +11,10 @@ export default class App extends React.Component {
   };
 
   componentDidMount() {
+    /* This is one of the most important lines of the app,
+     * it is where we start triggering loading of data
+     * on the client-side
+     */
     rendered();
   }
 
