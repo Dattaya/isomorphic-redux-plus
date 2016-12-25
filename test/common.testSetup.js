@@ -15,12 +15,11 @@ global.chai = chai;
 global.expect = expect;
 global.sinon = sinon;
 
-const appBase = '../..';
-const testBase = '..';
+const appBase = '..';
 
 export default function(testExtension) {
   return (fromPath, fromFile, exportStatement) => {
-    const targetPath = path.relative(path.resolve(__dirname, testBase), path.resolve(fromPath));
+    const targetPath = path.relative(path.resolve(__dirname), path.resolve(fromPath));
     const targetFile = path.basename(fromFile, testExtension);
     const fullTarget = path.resolve(__dirname, appBase, targetPath, `${targetFile}.js`);
     const imported = require(fullTarget); // eslint-disable-line global-require
