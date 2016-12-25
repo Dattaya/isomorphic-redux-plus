@@ -5,8 +5,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=production NODE_PATH=./build/shared node ./build/server",
-    "dev": "cross-env NODE_PATH=./app node ./src/server",
+    "start": "NODE_ENV=production NODE_PATH=./build/shared node ./build/server",
+    "dev": "NODE_PATH=./app node ./src/server",
     "build": "rimraf ./build && yarn build:app && yarn build:server && yarn build:client",
     "build:app": "babel app -d build/app --copy-files",
     "build:client": "webpack --progress --color -p --config ./webpack/webpack.prod.config.js",
@@ -16,9 +16,9 @@
     "lint:src": "eslint src",
     "lint:test": "eslint test",
     "test": "yarn test:unit && yarn test:browser && yarn test:http",
-    "test:browser": "NODE_PATH=./app mocha --require babel-register --require test/app/browser.testSetup.js test/app/*/**.browser.js",
-    "test:http": "NODE_PATH=./app mocha --require babel-register --require test/app/http.testSetup.js test/app/*/**.http.js",
-    "test:unit": "NODE_PATH=./app mocha --require babel-register --require test/app/spec.testSetup.js test/app/*/**.spec.js",
+    "test:browser": "NODE_ENV=test NODE_PATH=./app mocha --require babel-register --require test/browser.testSetup.js test/**/*.browser.js",
+    "test:http": "NODE_ENV=test NODE_PATH=./app mocha --require babel-register --require test/http.testSetup.js test/**/*.http.js",
+    "test:unit": "NODE_ENV=test NODE_PATH=./app mocha --require babel-register --require test/spec.testSetup.js test/**/*.spec.js",
     "ci": "yarn lint && yarn build && yarn test"
   },
   "author": "Milo Mordaunt <milomord@gmail.com>",
