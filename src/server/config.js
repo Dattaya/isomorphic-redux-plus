@@ -4,8 +4,8 @@ const LOW_PORT = 49152;
 const PORT_RANGE = 65536 - LOW_PORT;
 
 const port = (process.env.NODE_ENV === 'test')
-  ? 3000
-  : Math.floor((Math.random() * PORT_RANGE) + LOW_PORT);
+  ? Math.floor((Math.random() * PORT_RANGE) + LOW_PORT)
+  : 3000;
 
 export default {
   ...commonConfig, ...{
