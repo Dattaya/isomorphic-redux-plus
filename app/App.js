@@ -4,6 +4,7 @@ import { Link, IndexLink } from 'react-router';
 import { Login } from 'auth';
 import { ErrorHandler } from 'error';
 import { rendered } from 'lib/fetchData';
+import Theme from 'styled/theme';
 
 export default class App extends React.Component {
   static propTypes = {
@@ -20,17 +21,19 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <div id="main-view">
-        <IndexLink to="/">About</IndexLink>
-        {' '}
-        <Link to="/todos">Todos</Link>
-        <hr />
-        <Login />
-        <hr />
-        <ErrorHandler>
-          {this.props.children}
-        </ErrorHandler>
-      </div>
+      <Theme>
+        <div id="main-view">
+          <IndexLink to="/">About</IndexLink>
+          {' '}
+          <Link to="/todos">Todos</Link>
+          <hr />
+          <Login />
+          <hr />
+          <ErrorHandler>
+            {this.props.children}
+          </ErrorHandler>
+        </div>
+      </Theme>
     );
   }
 }
