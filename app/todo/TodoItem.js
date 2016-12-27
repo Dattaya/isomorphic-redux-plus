@@ -1,22 +1,22 @@
 import React, { PropTypes } from 'react';
+import { Button, Card, CardActions, CardText } from 'styled';
 
-export default function TodoItem({ editable, btnStyle, onDelete, onEdit, children }) {
+export default function TodoItem({ editable, onDelete, onEdit, children }) {
   return (
-    <div style={btnStyle}>
-      {children}
+    <Card>
+      <CardText>{children}</CardText>
       {editable &&
-        <span>
-          <button style={btnStyle} onClick={onDelete}>X</button>
-          <button style={btnStyle} onClick={onEdit}>Edit</button>
-        </span>
+        <CardActions>
+          <Button onClick={onDelete}>X</Button>
+          <Button onClick={onEdit}>Edit</Button>
+        </CardActions>
       }
-    </div>
+    </Card>
   );
 }
 
 TodoItem.propTypes = {
   editable: PropTypes.bool,
-  btnStyle: PropTypes.object,
   onDelete: PropTypes.func,
   onEdit: PropTypes.func,
   children: PropTypes.any,
@@ -24,7 +24,6 @@ TodoItem.propTypes = {
 
 TodoItem.defaultProps = {
   editable: false,
-  btnStyle: {},
   onDelete: () => {},
   onEdit: () => {},
 };

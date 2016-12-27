@@ -54,16 +54,14 @@ export default class Todos extends React.Component {
     const { editable, todos } = this.props;
 
     return (
-      <div id="todo-list">
+      <div>
         <TodosView
           todos={todos}
           editable={editable}
           handleDelete={this.handleDelete}
           handleEdit={this.handleEdit}
         />
-
-        {editable && <TodosForm handleSubmit={this.handleSubmit} />
-        }
+        {editable && <TodosForm handleSubmit={this.handleSubmit} />}
       </div>
     );
   }

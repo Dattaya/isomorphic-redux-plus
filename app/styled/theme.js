@@ -1,26 +1,44 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { ThemeProvider } from 'styled-components';
 
 const defaultTheme = {
-  primary: '',
+  primary: '#3f51b5',
   shadow: 'rgba(0, 0, 0, .14)',
+  darkShadow: 'rgba(0, 0, 0, .6)',
+  highlight: 'rgba(218, 218, 218, .8)',
+  highlightDim: 'rgba(218, 218, 218, .4)',
   size: 14,
   gray: 'rgba(158, 158, 158, .2)',
   darkGray: '#333',
   white: '#fff',
-  border: 2
+  border: 2,
+  maxWidth: 960,
+  transparent: 'rgba(0, 0, 0, 0)',
 };
 
-const getters = Object.assign(...Object.keys(defaultTheme).map((key, _) => ({
-  [key]: ({ theme }) => theme[key]
+const getters = Object.assign(...Object.keys(defaultTheme).map((key) => ({
+  [key]: ({ theme }) => theme[key],
 })));
 
-getters.boxShadow = (p) => `0 2px 2px 0 ${getters.shadow(p)}, 0 3px 1px -2px ${getters.shadow(p)}, 0 1px 5px 0 ${getters.shadow(p)}`
+getters.boxShadow = (p) => {
+  const shadow = getters.shadow(p);
+  return `0 2px 2px 0 ${shadow}, 0 3px 1px -2px ${shadow}, 0 1px 5px 0 ${shadow}`;
+};
 
-export default function Theme({ children }) {
-  return (
-    <ThemeProvider theme={defaultTheme}>{children}</ThemeProvider>
-  );
-}
+getters.fg = (p) => p.theme.fg || getters.darkGray(p);
 
-export { getters };
+getters.bg = (p) => p.theme.bg || getters.white(p);
+
+const Theme = ({ children, theme }) => (
+  <ThemeProvider theme={theme || defaultTheme}>
+    {children}
+  </ThemeProvider>
+);
+
+Theme.propTypes = {
+  children: PropTypes.node,
+  theme: PropTypes.object,
+};
+
+export default Theme;
+export { getters, defaultTheme };

@@ -33,6 +33,7 @@
     "chai-as-promised": "^6.0.0",
     "chai-enzyme": "^0.6.1",
     "cheerio": "^0.22.0",
+    "core-decorators": "^0.15.0",
     "cross-env": "^1.0.8",
     "enzyme": "^2.7.0",
     "express": "^4.13.4",

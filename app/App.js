@@ -1,14 +1,13 @@
 import React, { PropTypes } from 'react';
-import { Link, IndexLink } from 'react-router';
 
 import { Login } from 'auth';
 import { ErrorHandler } from 'error';
 import { rendered } from 'lib/fetchData';
-import Theme from 'styled/theme';
+import Theme, { Container, Header, HeaderRow, Nav, NavItem } from 'styled';
 
 export default class App extends React.Component {
   static propTypes = {
-    children: PropTypes.object,
+    children: PropTypes.node.isRequired,
   };
 
   componentDidMount() {
@@ -20,18 +19,27 @@ export default class App extends React.Component {
   }
 
   render() {
+    const { children } = this.props;
+
     return (
       <Theme>
-        <div id="main-view">
-          <IndexLink to="/">About</IndexLink>
-          {' '}
-          <Link to="/todos">Todos</Link>
-          <hr />
-          <Login />
-          <hr />
-          <ErrorHandler>
-            {this.props.children}
-          </ErrorHandler>
+        <div>
+          <Header>
+            <HeaderRow>
+              <Nav>
+                <NavItem href="/">About</NavItem>
+                <NavItem href="/todos">Todos</NavItem>
+              </Nav>
+            </HeaderRow>
+            <HeaderRow>
+              <Login />
+            </HeaderRow>
+          </Header>
+          <Container>
+            <ErrorHandler>
+              {children}
+            </ErrorHandler>
+          </Container>
         </div>
       </Theme>
     );
