@@ -1,8 +1,7 @@
-import config from '../src/server/config';
+import config from '../src/config';
 
-global.__DEVELOPMENT__ = false; // eslint-disable-line no-underscore-dangle
-global.server = require('../src/server/server').default;
-global.server.listen(config.port);
+
+global.server = { address: () => `http://${config.host}:${3000}` };
 
 import createLoadTested from './common.testSetup.js';
 

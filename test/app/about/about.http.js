@@ -4,8 +4,8 @@ const basePath = '/';
 
 describe('the about page', () => {
   it('has the header on the page', (done) => {
-    request(global.server)
-      .get(basePath)
+    request()
+      .get('http://localhost:3000/')
       .end(global.supertestHelper((res) => {
         expect(res).to.have.status(200);
         expect(res).to.be.html;
