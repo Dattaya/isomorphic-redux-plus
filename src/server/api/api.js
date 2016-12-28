@@ -1,7 +1,6 @@
 import { Router } from 'express';
 import fs from 'fs';
 import path from 'path';
-import marked from 'marked';
 import reject from 'lodash/reject';
 import map from 'lodash/map';
 
@@ -19,7 +18,7 @@ let lastIndex = 5;
 router.get('/about', (req, res) => {
   fs.readFile(path.join(__dirname, '../../../README.md'), { encoding: 'utf-8' }, (err, data) => {
     if (!err) {
-      res.json({ text: marked(data) });
+      res.json({ text: data });
     }
   });
 });

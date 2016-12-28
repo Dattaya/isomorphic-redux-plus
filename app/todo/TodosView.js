@@ -11,11 +11,10 @@ export default function TodosView({ editable, todos, handleDelete, handleEdit })
           <TodoItem
             editable={editable}
             key={todo.id}
-            onDelete={() => handleDelete(todo.id)}
-            onEdit={() => handleEdit(todo.id)}
-          >
-            {todo.text}
-          </TodoItem>
+            handleDelete={() => handleDelete(todo.id)}
+            handleEdit={(data) => handleEdit(todo.id, data.text)}
+            todo={todo}
+          />
         ))
       }
     </CardList>

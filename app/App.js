@@ -1,9 +1,14 @@
 import React, { PropTypes } from 'react';
+import styled from 'styled-components';
 
 import { Login } from 'auth';
 import { ErrorHandler } from 'error';
 import { rendered } from 'lib/fetchData';
 import Theme, { Container, Header, HeaderRow, Nav, NavItem } from 'styled';
+
+const CustomHeaderRow = styled(HeaderRow)`
+  margin-left: auto;
+`;
 
 export default class App extends React.Component {
   static propTypes = {
@@ -31,9 +36,9 @@ export default class App extends React.Component {
                 <NavItem href="/todos">Todos</NavItem>
               </Nav>
             </HeaderRow>
-            <HeaderRow>
+            <CustomHeaderRow>
               <Login />
-            </HeaderRow>
+            </CustomHeaderRow>
           </Header>
           <Container>
             <ErrorHandler>

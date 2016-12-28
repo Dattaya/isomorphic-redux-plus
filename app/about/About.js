@@ -4,10 +4,11 @@ import { connect } from 'react-redux';
 import { loadAbout } from './actions';
 import { getAbout } from './selectors';
 import fetchData from 'lib/fetchData';
+import { Card, CardContent, CardList, CardTitle, renderMarkdown } from 'styled';
 
-/* eslint-disable react/prefer-stateless-function */
 @fetchData((state, dispatch) => dispatch(loadAbout()))
 @connect((state) => ({ about: getAbout(state) }))
+// eslint-disable-next-line react/prefer-stateless-function
 export default class About extends React.Component {
   static propTypes = {
     about: PropTypes.any.isRequired,
@@ -15,7 +16,14 @@ export default class About extends React.Component {
 
   render() {
     return (
-      <div className="about" dangerouslySetInnerHTML={{ __html: this.props.about }} />
+      <CardList>
+        <Card>
+          <CardTitle>About this project:</CardTitle>
+          <CardContent>
+            {renderMarkdown(this.props.about)}
+          </CardContent>
+        </Card>
+      </CardList>
     );
   }
 }

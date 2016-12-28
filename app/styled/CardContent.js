@@ -6,6 +6,6 @@ export default styled.div`
   font-size: ${g.size}px;
   line-height: ${(p) => g.size(p) + (2 * g.border(p))}px;
   overflow: hidden;
-  padding: ${(p) => g.size(p) + g.border(p)}px;
+  margin: ${(p) => g.size(p) + g.border(p)}px;
   width: 90%;
 `;

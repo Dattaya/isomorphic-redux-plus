@@ -12,17 +12,24 @@ const headerTheme = {
   },
 };
 
-const HeaderLiteral = styled.nav`
+const CustomContainer = styled(Container)`
+  align-content: space-between;
+  align-items: baseline;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+`;
+
+const HeaderLiteral = styled.header`
   background: ${g.bg};
-  padding-bottom: .5em;
 `;
 
 const Header = ({ children }) => (
   <Theme theme={headerTheme}>
     <HeaderLiteral>
-      <Container>
+      <CustomContainer>
         {children}
-      </Container>
+      </CustomContainer>
     </HeaderLiteral>
   </Theme>
 );

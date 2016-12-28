@@ -6,7 +6,7 @@ import Container from './Container';
 const NavList = styled.ul`
   display: flex;
   flex-direction: row;
-  margin: 0;
+  margin: 0 -1em;
   padding: 0
 `;
 
