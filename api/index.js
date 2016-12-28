@@ -17,7 +17,7 @@ let todos = [
 let lastIndex = 5;
 
 router.get('/about', (req, res) => {
-  fs.readFile(path.join(__dirname, '../../../README.md'), { encoding: 'utf-8' }, (err, data) => {
+  fs.readFile(path.join(__dirname, '../README.md'), { encoding: 'utf-8' }, (err, data) => {
     if (!err) {
       res.json({ text: marked(data) });
     }

@@ -13,19 +13,15 @@ import fetchComponentData from 'lib/fetchComponentData';
 import configureStore from 'configureStore';
 import { getPageStatus } from 'status/selectors';
 import injectStoreAndGetRoutes from 'routes';
-import apiRouter from './api';
+import apiRouter from '../api';
 import config from './config';
-import Html from './Html';
+import Html from './html';
 
 const app = express();
 
-if (__DEVELOPMENT__) { // eslint-disable-line no-undef
-  require('../../webpack/webpack.dev').default(app); // eslint-disable-line global-require
-}
+app.use(favicon(path.join(__dirname, '..', 'static', 'favicon.ico')));
 
-app.use(favicon(path.join(__dirname, '..', '..', 'static', 'favicon.ico')));
-
-app.use(express.static(path.join(__dirname, '..', '..', 'static'), { maxAge: '7 days' }));
+app.use(express.static(path.join(__dirname, '..', 'static'), { maxAge: '7 days' }));
 
 app.use(session({
   secret: config.session.secret,
@@ -47,6 +43,11 @@ function getStatus(state, routes) {
 }
 
 app.use((req, res) => {
+  if (__DEVELOPMENT__) {
+    // Do not cache webpack stats: the script file would change since
+    // hot module replacement is enabled in the development env
+    webpackIsomorphicTools.refresh();
+  }
   res.contentType('text/html');
 
   const client = axios.create();
@@ -88,7 +89,12 @@ app.use((req, res) => {
       const view = renderToString(InitialView);
       const state = store.getState();
 
-      const html = renderToStaticMarkup(<Html state={state}>{view}</Html>);
+      const html = renderToStaticMarkup(
+        <Html
+          state={state}
+          assets={webpackIsomorphicTools.assets()}
+        >{view}</Html>
+      );
 
       res.status(getStatus(state, renderProps.routes)).end(html);
     }
@@ -102,4 +108,26 @@ app.use((req, res) => {
   });
 });
 
-export default app;
+/* eslint-disable no-console */
+if (config.port) {
+  app.listen(config.port, (err) => {
+    if (err) {
+      console.error(err);
+    }
+    console.info(
+      '----\n==> ✅  %s is running, talking to API server on %s.',
+      config.app.title,
+      config.apiPort
+    );
+    console.info(
+      '==> 💻  Open http://%s:%s in a browser to view the app.',
+      config.host,
+      config.port
+    );
+  });
+} else {
+  console.error(
+    '==>     ERROR: No PORT environment variable has been specified'
+  );
+}
+/* eslint-enable */
