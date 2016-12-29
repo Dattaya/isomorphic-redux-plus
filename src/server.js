@@ -19,9 +19,9 @@ import Html from './html';
 
 const app = express();
 
-app.use(favicon(path.join(__dirname, '..', 'static', 'favicon.ico')));
+app.use(favicon(path.join(__dirname, '../static/favicon.ico')));
 
-app.use(express.static(path.join(__dirname, '..', 'static'), { maxAge: '7 days' }));
+app.use(express.static(path.join(__dirname, '../static'), { maxAge: '7 days' }));
 
 app.use(session({
   secret: config.session.secret,
@@ -108,26 +108,4 @@ app.use((req, res) => {
   });
 });
 
-/* eslint-disable no-console */
-if (config.port) {
-  app.listen(config.port, (err) => {
-    if (err) {
-      console.error(err);
-    }
-    console.info(
-      '----\n==> ✅  %s is running, talking to API server on %s.',
-      config.app.title,
-      config.apiPort
-    );
-    console.info(
-      '==> 💻  Open http://%s:%s in a browser to view the app.',
-      config.host,
-      config.port
-    );
-  });
-} else {
-  console.error(
-    '==>     ERROR: No PORT environment variable has been specified'
-  );
-}
-/* eslint-enable */
+export default app;

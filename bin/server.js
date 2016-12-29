@@ -22,5 +22,20 @@ const WebpackIsomorphicTools = require('webpack-isomorphic-tools');
 const isomorphicConfig = require('../webpack/webpack-isomorphic-tools');
 global.webpackIsomorphicTools = new WebpackIsomorphicTools(isomorphicConfig)
   .server(rootDir, () => {
-    require('../src/server');
+    const config = require('../src/config');
+    const { port = 3000, host = 'localhost' } = config;
+    /* eslint-disable no-console */
+    require('../src/server').listen(port, (err) => {
+      if (err) {
+        console.error(err);
+      }
+      console.info(
+        '----\n==> ✅  %s is running, open http://%s:%s in a browser to view the app.',
+        config.app.title,
+        host,
+        port
+      );
+    });
+    /* eslint-enable */
+
   });

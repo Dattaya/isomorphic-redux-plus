@@ -6,19 +6,18 @@ import { getPageStatus } from 'status/selectors';
 
 @connect((state) => ({
   status: getPageStatus(state),
-}),
-)
+}))
 export default class ErrorHandler extends React.Component {
   static propTypes = {
     status: PropTypes.number,
-    children: PropTypes.any,
+    children: PropTypes.node,
   };
 
   render() {
-    const status = this.props.status;
+    const { status, children } = this.props;
 
     if (status === null || status === undefined) {
-      return this.props.children;
+      return children;
     }
 
     switch (status) {
