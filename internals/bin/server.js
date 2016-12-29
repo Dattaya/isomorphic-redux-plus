@@ -31,9 +31,9 @@ const WebpackIsomorphicTools = require('webpack-isomorphic-tools');
 const isomorphicConfig = require('../webpack/webpack-isomorphic-tools');
 global.webpackIsomorphicTools = new WebpackIsomorphicTools(isomorphicConfig)
   .server(rootDir, () => {
-    const config = require('../src/config');
+    const config = require('../../src/config');
     const { port = 3000, host = 'localhost' } = config;
-    require('../src/server').listen(port, (err) => {
+    require('../../src/server').listen(port, (err) => {
       if (err) {
         console.error(err);
       }
