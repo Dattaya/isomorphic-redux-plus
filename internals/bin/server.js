@@ -16,7 +16,7 @@ try {
 require('babel-register')(babelConfig);
 
 const path = require('path');
-const rootDir = path.resolve(__dirname, '..');
+const rootDir = path.resolve(__dirname, '../..');
 
 /**
  * Define isomorphic constants.

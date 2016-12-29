@@ -3,5 +3,4 @@ build
 npm-debug.log
 static/dist
 coverage
-webpack-assets.json
 yarn-error.log
