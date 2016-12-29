@@ -1,0 +1,9 @@
+{
+  "javascript": {
+    "main": "http://localhost:3001/dist/main-efdd61bedb5616aa4244.js"
+  },
+  "styles": {},
+  "assets": {
+    "./app/about/kitten.jpg": "http://localhost:3001/dist/c29770d03d2e95e3ea5899d57c6cfeab.jpg"
+  }
+}
