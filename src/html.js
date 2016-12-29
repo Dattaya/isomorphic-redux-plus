@@ -1,9 +1,11 @@
 import React, { PropTypes } from 'react';
 import Helmet from 'react-helmet';
+import styleSheet from 'styled-components/lib/models/StyleSheet';
 
 export default function Html({ assets, children, state }) {
   const view = { __html: children };
   const head = Helmet.rewind();
+  const appStyle = { __html: styleSheet.rules().map((rule) => rule.cssText).join('\n') };
   const appState = { __html: `window.__PRELOADED_STATE__=${JSON.stringify(state)};` };
   return (
     <html>
@@ -14,6 +16,7 @@ export default function Html({ assets, children, state }) {
         {head.link.toComponent()}
         {head.script.toComponent()}
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <style dangerouslySetInnerHTML={appStyle} />
       </head>
       <body>
         <div id="react-view" dangerouslySetInnerHTML={view} />
