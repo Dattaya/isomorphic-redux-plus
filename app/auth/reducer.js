@@ -2,7 +2,6 @@ import {
   LOAD_AUTH,
   LOGIN_REQUEST,
   LOGIN,
-  LOGIN_FAILURE,
   LOGOUT,
 } from './types';
 
@@ -17,10 +16,10 @@ export default function authReducer(state = defaultState, action = {}) {
       return { ...state, loggingIn: true };
 
     case LOGIN:
+      if (action.error) {
+        return { ...state, loggingIn: false, user: null, error: true };
+      }
       return { ...state, loggingIn: false, user: action.payload || null, error: false };
-
-    case LOGIN_FAILURE:
-      return { ...state, loggingIn: false, user: null, error: true };
 
     case LOGOUT:
       return { ...state, user: null };

@@ -1,14 +1,9 @@
 import React, { Component } from 'react';
 import { mount } from 'enzyme';
 
-describe('fetchData', () => {
-  let fetchData;
-  let rendered;
-  before(() => loadTested(__dirname, __filename, ({ default: i, rendered: r }) => {
-    fetchData = i;
-    rendered = r;
-  }));
+import fetchData, { rendered } from 'lib/fetchData';
 
+describe('fetchData', () => {
   it('is a decorator/shorthand react component (function)', () => {
     expect(fetchData).to.be.a('function');
   });

@@ -7,7 +7,7 @@ const distPath = path.join(rootPath, 'static', 'dist');
 
 module.exports = {
   entry: [
-    './build/src/client',
+    './build/client',
   ],
   resolve: {
     modulesDirectories: ['node_modules', 'build/app'],

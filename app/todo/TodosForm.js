@@ -1,22 +1,46 @@
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
+import { autobind } from 'core-decorators';
 
-export default class TodosForm extends React.Component {
+import { Button, Card, CardActions, CardContent, CardList, CardTitle } from 'styled';
+
+import TodoEdit from './TodoEdit';
+
+class TodosForm extends Component {
   static propTypes = {
-    handleSubmit: PropTypes.func.isRequired,
-  };
+    createTodo: PropTypes.func.isRequired,
+  }
 
-  static defaultProps = {
-    handleSubmit: () => {},
-  };
+  constructor(props) {
+    super(props);
+    this.state = { value: { text: '' } };
+  }
+
+  @autobind
+  handleChange(data) {
+    this.setState({ value: data });
+  }
+
+  @autobind
+  save() {
+    this.props.createTodo(this.state.value.text);
+    this.setState({ value: { text: '' } });
+  }
 
   render() {
-    const { handleSubmit } = this.props;
-
     return (
-      <div>
-        <input type="text" placeholder="type todo" ref="todo-input" />
-        <input type="submit" value="OK!" onClick={() => handleSubmit(this.refs['todo-input'])} />
-      </div>
+      <CardList>
+        <Card>
+          <CardTitle>Create a ToDo item</CardTitle>
+          <CardContent>
+            <TodoEdit onChange={this.handleChange} value={this.state.value} onSubmit={this.save} />
+          </CardContent>
+          <CardActions>
+            <Button onClick={this.save}>Save</Button>
+          </CardActions>
+        </Card>
+      </CardList>
     );
   }
 }
+
+export default TodosForm;

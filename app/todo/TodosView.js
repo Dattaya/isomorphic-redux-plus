@@ -1,29 +1,23 @@
 import React, { PropTypes } from 'react';
 
 import TodoItem from './TodoItem';
+import { CardList } from 'styled';
 
 export default function TodosView({ editable, todos, handleDelete, handleEdit }) {
-  const btnStyle = {
-    margin: '1em 0 1em 1em',
-  };
-
   return (
-    <div id="todos-list">
+    <CardList>
       {
         todos.map((todo) => (
           <TodoItem
-            btnStyle={btnStyle}
             editable={editable}
             key={todo.id}
-            onDelete={() => handleDelete(todo.id)}
-            onEdit={() => handleEdit(todo.id)}
-          >
-            {todo.text}
-          </TodoItem>
-          )
-        )
+            handleDelete={() => handleDelete(todo.id)}
+            handleEdit={(data) => handleEdit(todo.id, data.text)}
+            todo={todo}
+          />
+        ))
       }
-    </div>
+    </CardList>
   );
 }
 

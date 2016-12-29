@@ -1,15 +1,12 @@
-import config from '../src/server/config';
-
-global.__DEVELOPMENT__ = false; // eslint-disable-line no-underscore-dangle
-global.server = require('../src/server/server').default;
-global.server.listen(config.port);
+import config from '../src/config';
 
 import createLoadTested from './common.testSetup.js';
 
 import supertestChai from 'supertest-chai';
-const { request, httpAsserts } = supertestChai;
+const { httpAsserts } = supertestChai;
 global.chai.use(httpAsserts);
-global.request = request;
+import request from 'supertest';
+global.request = request(`http://${config.host}:${config.port}`);
 
 global.loadTested = createLoadTested('.http.js');
 global.supertestHelper = (assertions, done) => (err, res) => {
