@@ -1,10 +1,7 @@
-import Promise from 'bluebird';
 import fetchData from 'lib/fetchData';
+import fetchComponentData from 'lib/fetchComponentData';
 
 describe('fetchComponentData', () => {
-  let fetchComponentData;
-  before(() => loadTested(__dirname, __filename, ({ default: i }) => (fetchComponentData = i)));
-
   it('is a function', () => {
     expect(fetchComponentData).to.be.a('function');
   });
@@ -23,14 +20,16 @@ describe('fetchComponentData', () => {
     }];
 
     const params = Math.random();
-
     const expected = [componentResult];
-    const actual = fetchComponentData(store, components, params);
 
-    return expect(actual).to.eventually.deep.equal(expected).then(() => {
+    return fetchComponentData(store, components, params).then((actual) => {
+      expect(actual).to.deep.equal(expected);
       expect(componentFetchData).to.have.been.calledOnce;
-      expect(componentFetchData).to.have.been
-        .calledWithExactly(store.state, store.dispatch, params);
+      expect(componentFetchData).to.have.been.calledWithExactly(
+        store.state,
+        store.dispatch,
+        params
+      );
     });
   });
 
@@ -45,9 +44,9 @@ describe('fetchComponentData', () => {
     const params = Math.random();
 
     const expected = [];
-    const actual = fetchComponentData(store, components, params);
-
-    return expect(actual).to.eventually.deep.equal(expected);
+    return fetchComponentData(store, components, params).then((actual) => {
+      expect(actual).to.deep.equal(expected);
+    });
   });
 
   it('ignores components that do not have a fetchData method', () => {
@@ -61,9 +60,10 @@ describe('fetchComponentData', () => {
     const params = Math.random();
 
     const expected = [];
-    const actual = fetchComponentData(store, components, params);
 
-    return expect(actual).to.eventually.deep.equal(expected);
+    return fetchComponentData(store, components, params).then((actual) => {
+      expect(actual).to.deep.equal(expected);
+    });
   });
 
   it('works with components decorated with @fetchData', () => {
@@ -82,9 +82,9 @@ describe('fetchComponentData', () => {
     const params = Math.random();
 
     const expected = [componentResult];
-    const actual = fetchComponentData(store, components, params);
 
-    return expect(actual).to.eventually.deep.equal(expected).then(() => {
+    return fetchComponentData(store, components, params).then((actual) => {
+      expect(actual).to.deep.equal(expected);
       expect(componentFetchData).to.have.been.calledOnce;
     });
   });

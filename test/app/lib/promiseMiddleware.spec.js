@@ -1,7 +1,6 @@
-describe('promiseMiddleware', () => {
-  let promiseMiddleware;
-  before(() => loadTested(__dirname, __filename, ({ default: i }) => (promiseMiddleware = i)));
+import promiseMiddleware from 'lib/promiseMiddleware';
 
+describe('promiseMiddleware', () => {
   let next;
   beforeEach(() => {
     next = sinon.stub();

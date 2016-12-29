@@ -6,12 +6,12 @@ import {
   browserHistory,
 } from 'react-router';
 import { Provider } from 'react-redux';
-import injectStoreAndGetRoutes from 'routes';
+import injectStoreAndGetRoutes from '../app/routes';
 import axios from 'axios';
 import { syncHistoryWithStore } from 'react-router-redux';
 
-import config from 'config';
-import configureStore from 'configureStore';
+import config from './config';
+import configureStore from '../app/configureStore';
 
 axios.interceptors.request.use((axiosConfig) => {
   if (axiosConfig.url[0] === '/') {

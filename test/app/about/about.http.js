@@ -4,7 +4,7 @@ const basePath = '/';
 
 describe('the about page', () => {
   it('has the header on the page', (done) => {
-    request(global.server)
+    request
       .get(basePath)
       .end(global.supertestHelper((res) => {
         expect(res).to.have.status(200);
