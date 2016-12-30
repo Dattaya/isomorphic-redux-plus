@@ -1,7 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import session from 'express-session';
-import axios from 'axios';
 import React from 'react';
 import { renderToString, renderToStaticMarkup } from 'react-dom/server';
 import { match } from 'react-router';
@@ -10,6 +9,7 @@ import path from 'path';
 import favicon from 'serve-favicon';
 
 import configureStore from 'helpers/configureStore';
+import createApi from 'helpers/apiClient';
 import { getPageStatus } from 'status/selectors';
 import injectStoreAndGetRoutes from 'routes';
 import apiRouter from '../api';
@@ -50,18 +50,7 @@ app.use((req, res) => {
   }
   res.contentType('text/html');
 
-  const client = axios.create();
-  client.interceptors.request.use((axiosConfig) => {
-    if (axiosConfig.url[0] === '/') {
-      // eslint-disable-next-line no-param-reassign
-      axiosConfig.url = `http://${config.host}:${config.port}${config.apiBaseUrl}${axiosConfig.url}`;
-      // eslint-disable-next-line no-param-reassign
-      axiosConfig.headers = req.headers;
-    }
-
-    return axiosConfig;
-  });
-
+  const client = createApi(req);
   const store = configureStore({ client });
   const routes = injectStoreAndGetRoutes(store);
 

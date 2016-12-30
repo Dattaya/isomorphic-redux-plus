@@ -7,30 +7,22 @@ import {
 } from 'react-router';
 import { Provider } from 'react-redux';
 import injectStoreAndGetRoutes from 'routes';
-import axios from 'axios';
 import { syncHistoryWithStore } from 'react-router-redux';
 
-import config from 'config';
+import { client } from 'helpers/apiClient';
 import configureStore from 'helpers/configureStore';
 import { ReduxAsyncConnect } from 'redux-connect';
 
-axios.interceptors.request.use((axiosConfig) => {
-  if (axiosConfig.url[0] === '/') {
-    axiosConfig.url = config.apiBaseUrl + axiosConfig.url; // eslint-disable-line no-param-reassign
-  }
-  return axiosConfig;
-});
-
-const store = configureStore({
-  client: axios,
-}, window.__PRELOADED_STATE__); // eslint-disable-line no-underscore-dangle
+const store = configureStore(
+  { client }, window.__PRELOADED_STATE__  // eslint-disable-line no-underscore-dangle
+);
 const routes = injectStoreAndGetRoutes(store);
 const history = syncHistoryWithStore(browserHistory, store);
 
 render(
   <Provider store={store}>
     <Router
-      render={(props) => <ReduxAsyncConnect {...props} helpers={{ client: axios }} />}
+      render={(props) => <ReduxAsyncConnect {...props} helpers={{ client }} />}
       history={history}
       children={routes}
     />
