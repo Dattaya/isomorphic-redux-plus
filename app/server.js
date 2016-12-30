@@ -9,14 +9,13 @@ import { Provider } from 'react-redux';
 import path from 'path';
 import favicon from 'serve-favicon';
 
-import configureStore from 'configureStore';
+import configureStore from 'helpers/configureStore';
 import { getPageStatus } from 'status/selectors';
 import injectStoreAndGetRoutes from 'routes';
 import apiRouter from '../api';
-import config from './config';
-import Html from './html';
+import config from 'config';
+import Html from 'helpers/Html';
 import { ReduxAsyncConnect, loadOnServer } from 'redux-connect';
-
 
 const app = express();
 

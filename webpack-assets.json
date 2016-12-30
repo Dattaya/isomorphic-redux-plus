@@ -1,1 +1,9 @@
-{"javascript":{"main":"/dist/main-6edbcf4cdb57aebe1e0e.js"},"styles":{},"assets":{"./app/about/kitten.jpg":"/dist/c29770d03d2e95e3ea5899d57c6cfeab.jpg"}}
+{
+  "javascript": {
+    "main": "http://localhost:3001/dist/main-45a4f85bbed044d9aaaa.js"
+  },
+  "styles": {},
+  "assets": {
+    "./app/about/kitten.jpg": "http://localhost:3001/dist/c29770d03d2e95e3ea5899d57c6cfeab.jpg"
+  }
+}

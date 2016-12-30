@@ -12,7 +12,7 @@ const context = path.resolve(__dirname, '../..');
 const assetsPath = path.resolve(__dirname, '../../static/dist');
 const rootPath = path.resolve(__dirname, '../../');
 const hmr = `webpack-hot-middleware/client?path=http://${host}:${port}/__webpack_hmr`;
-const entry = './src/client.js';
+const entry = './app/client.js';
 const baseLoaders = [
   {
     test: /\.json$/,

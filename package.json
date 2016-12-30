@@ -24,7 +24,7 @@
   },
   "betterScripts": {
     "start-prod": {
-      "command": "node interanls/bin/server.js",
+      "command": "node internals/bin/server.js",
       "env": {
         "NODE_PATH": "./app",
         "NODE_ENV": "production",
