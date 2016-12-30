@@ -14,9 +14,8 @@ import { getPageStatus } from 'status/selectors';
 import injectStoreAndGetRoutes from 'routes';
 import apiRouter from '../api';
 import config from 'config';
-import Html from './html';
+import Html from 'helpers/Html';
 import { ReduxAsyncConnect, loadOnServer } from 'redux-connect';
-
 
 const app = express();
 
