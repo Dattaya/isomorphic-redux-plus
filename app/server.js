@@ -9,7 +9,7 @@ import { Provider } from 'react-redux';
 import path from 'path';
 import favicon from 'serve-favicon';
 
-import configureStore from 'configureStore';
+import configureStore from 'helpers/configureStore';
 import { getPageStatus } from 'status/selectors';
 import injectStoreAndGetRoutes from 'routes';
 import apiRouter from '../api';

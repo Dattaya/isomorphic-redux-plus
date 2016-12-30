@@ -11,7 +11,7 @@ import axios from 'axios';
 import { syncHistoryWithStore } from 'react-router-redux';
 
 import config from 'config';
-import configureStore from 'configureStore';
+import configureStore from 'helpers/configureStore';
 import { ReduxAsyncConnect } from 'redux-connect';
 
 axios.interceptors.request.use((axiosConfig) => {
