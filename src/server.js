@@ -13,7 +13,7 @@ import configureStore from 'configureStore';
 import { getPageStatus } from 'status/selectors';
 import injectStoreAndGetRoutes from 'routes';
 import apiRouter from '../api';
-import config from './config';
+import config from 'config';
 import Html from './html';
 import { ReduxAsyncConnect, loadOnServer } from 'redux-connect';
 

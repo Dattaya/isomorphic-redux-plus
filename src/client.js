@@ -10,7 +10,7 @@ import injectStoreAndGetRoutes from '../app/routes';
 import axios from 'axios';
 import { syncHistoryWithStore } from 'react-router-redux';
 
-import config from './config';
+import config from 'config';
 import configureStore from '../app/configureStore';
 import { ReduxAsyncConnect } from 'redux-connect';
 
