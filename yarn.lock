@@ -3275,7 +3275,7 @@ jsbn@~0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/jsbn/-/jsbn-0.1.0.tgz#650987da0dd74f4ebf5a11377a2aa2d273e97dfd"
 
-jsdom-global@^2.1.1:
+jsdom-global:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/jsdom-global/-/jsdom-global-2.1.1.tgz#47d46fe77f6167baf5d34431d3bb59fc41b0915a"
 
@@ -3405,6 +3405,10 @@ karma-ie-launcher@^1.0.0:
   resolved "https://registry.yarnpkg.com/karma-ie-launcher/-/karma-ie-launcher-1.0.0.tgz#497986842c490190346cd89f5494ca9830c6d59c"
   dependencies:
     lodash "^4.6.1"
+
+karma-jsdom-launcher:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/karma-jsdom-launcher/-/karma-jsdom-launcher-5.0.0.tgz#4546a79d623cbbac35d2cae22771cc3b08979d9f"
 
 karma-mocha-reporter@^2.2.1:
   version "2.2.1"

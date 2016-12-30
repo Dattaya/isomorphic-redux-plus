@@ -2,15 +2,21 @@ const webpackConfig = require('../webpack/test.config.js');
 const argv = require('minimist')(process.argv.slice(2));
 const path = require('path');
 
+function getBrowsers() {
+  if (process.env.TRAVIS) {
+    return ['ChromeTravis'];
+  }
+  if (process.env.APPVEYOR) {
+    return ['IE'];
+  }
+  return ['jsdom'];
+}
+
 module.exports = (config) => {
   config.set({
     frameworks: ['mocha', 'chai', 'sinon-chai'],
     reporters: ['coverage', 'mocha'],
-    browsers: process.env.TRAVIS // eslint-disable-line no-nested-ternary
-      ? ['ChromeTravis']
-      : process.env.APPVEYOR
-        ? ['IE'] : ['Chrome'],
-
+    browsers: getBrowsers(),
     autoWatch: false,
     singleRun: true,
 
