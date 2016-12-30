@@ -1,4 +1,5 @@
 const webpack = require('webpack');
+const config = require('./base.config');
 
 module.exports = {
   devtool: 'inline-source-map',
@@ -10,30 +11,29 @@ module.exports = {
       /node_modules(\\|\/)acorn/,
     ],
     loaders: [
-      { test: /\.json$/, loader: 'json-loader' },
-      { test: /\.css$/, loader: 'null-loader' },
-
-      // sinon.js--aliased for enzyme--expects/requires global vars.
-      // imports-loader allows for global vars to be injected into the module.
-      // See https://github.com/webpack/webpack/issues/304
-      { test: /sinon(\\|\/)pkg(\\|\/)sinon\.js/,
+      {
+        test: /\.json$/,
+        loader: 'json-loader',
+      }, {
+        test: /\.css$/,
+        loader: 'null-loader',
+      }, {
+        // sinon.js--aliased for enzyme--expects/requires global vars.
+        // imports-loader allows for global vars to be injected into the module.
+        // See https://github.com/webpack/webpack/issues/304
+        test: /sinon(\\|\/)pkg(\\|\/)sinon\.js/,
         loader: 'imports?define=>false,require=>false',
-      },
-      { test: /\.js$/,
+      }, {
+        test: /\.jsx?$/,
         loader: 'babel',
         exclude: [/node_modules/],
-      },
-      { test: /\.jpe?g$|\.gif$|\.png$|\.svg$/i,
+      }, {
+        test: /\.jpe?g$|\.gif$|\.png$|\.svg$/i,
         loader: 'null-loader',
       },
     ],
   },
-
   plugins: [
-
-    // Always expose NODE_ENV to webpack, in order to use `process.env.NODE_ENV`
-    // inside your code for any environment checks; UglifyJS will automatically
-    // drop any unreachable code.
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify(process.env.NODE_ENV),
@@ -61,17 +61,10 @@ module.exports = {
     'react/lib/ExecutionEnvironment': true,
     'react/lib/ReactContext': 'window',
   },
-  resolve: {
-
-    modulesDirectories: [
-      'src',
-      'node_modules',
-      'app',
-    ],
-    extensions: ['', '.json', '.js'],
+  resolve: Object.assign({}, config.resolve, {
     alias: {
       // required for enzyme to work properly
       sinon: 'sinon/pkg/sinon',
     },
-  },
+  }),
 };

@@ -1,11 +1,22 @@
 #!/usr/bin/env node
 
-/* eslint-disable no-underscore-dangle, global-require */
+/* eslint-disable no-underscore-dangle, global-require, no-console */
 
-require('../server.babel'); // babel registration (runtime transpilation for node)
+const fs = require('fs');
+const babelrc = fs.readFileSync('./.babelrc');
+let babelConfig;
+
+try {
+  babelConfig = JSON.parse(babelrc);
+} catch (err) {
+  console.error('==>     ERROR: Error parsing your .babelrc.');
+  console.error(err);
+}
+
+require('babel-register')(babelConfig);
 
 const path = require('path');
-const rootDir = path.resolve(__dirname, '..');
+const rootDir = path.resolve(__dirname, '../..');
 
 /**
  * Define isomorphic constants.
@@ -15,17 +26,14 @@ global.__SERVER__ = true;
 global.__DISABLE_SSR__ = false;  // <----- DISABLES SERVER SIDE RENDERING FOR ERROR DEBUGGING
 global.__DEVELOPMENT__ = process.env.NODE_ENV !== 'production';
 
-
-
 // https://github.com/halt-hammerzeit/webpack-isomorphic-tools
 const WebpackIsomorphicTools = require('webpack-isomorphic-tools');
 const isomorphicConfig = require('../webpack/webpack-isomorphic-tools');
 global.webpackIsomorphicTools = new WebpackIsomorphicTools(isomorphicConfig)
   .server(rootDir, () => {
-    const config = require('../src/config');
+    const config = require('../../src/config');
     const { port = 3000, host = 'localhost' } = config;
-    /* eslint-disable no-console */
-    require('../src/server').listen(port, (err) => {
+    require('../../src/server').listen(port, (err) => {
       if (err) {
         console.error(err);
       }
@@ -36,6 +44,4 @@ global.webpackIsomorphicTools = new WebpackIsomorphicTools(isomorphicConfig)
         port
       );
     });
-    /* eslint-enable */
-
   });

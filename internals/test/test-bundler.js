@@ -10,9 +10,9 @@ import chaiAsPromised from 'chai-as-promised';
 function getContext() {
   switch (process.env.TEST_TYPE) {
     case 'browser':
-      return require.context('./', true, /\.browser\.js$/);
+      return require.context('../../tests', true, /\.browser\.js$/);
     case 'unit':
-      return require.context('./', true, /\.spec\.js$/);
+      return require.context('../../tests', true, /\.spec\.js$/);
     default:
       throw new Error('invalid TEST_TYPE: use \'browser\' or \'unit\'');
   }

@@ -3,3 +3,4 @@ build
 npm-debug.log
 static/dist
 coverage
+yarn-error.log

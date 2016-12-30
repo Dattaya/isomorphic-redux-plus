@@ -24,7 +24,7 @@
   },
   "betterScripts": {
     "start-prod": {
-      "command": "node ./bin/server.js",
+      "command": "node interanls/bin/server.js",
       "env": {
         "NODE_PATH": "./app",
         "NODE_ENV": "production",
@@ -32,7 +32,7 @@
       }
     },
     "start-dev": {
-      "command": "node ./bin/server.js",
+      "command": "node internals/bin/server.js",
       "env": {
         "NODE_PATH": "./app",
         "NODE_ENV": "development",
@@ -40,7 +40,7 @@
       }
     },
     "watch-client": {
-      "command": "node webpack/webpack-dev-server.js",
+      "command": "node internals/webpack/webpack-dev-server.js",
       "env": {
         "UV_THREADPOOL_SIZE": 100,
         "NODE_PATH": "./app",
@@ -48,27 +48,27 @@
       }
     },
     "build": {
-      "command": "webpack --verbose --colors --display-error-details --config webpack/prod.config.js",
+      "command": "webpack --verbose --colors --display-error-details --config internals/webpack/prod.config.js",
       "env": {
         "NODE_ENV": "production"
       }
     },
     "test:unit": {
-      "command": "karma start test/karma.conf.js --single-run",
+      "command": "karma start internals/test/karma.conf.js --single-run",
       "env": {
         "TEST_TYPE": "unit",
         "NODE_ENV": "test"
       }
     },
     "test:browser": {
-      "command": "karma start test/karma.conf.js --single-run",
+      "command": "karma start internals/test/karma.conf.js --single-run",
       "env": {
         "TEST_TYPE": "unit",
         "NODE_ENV": "test"
       }
     },
     "test:http": {
-      "command": "mocha --require bin/server.js --require babel-register --require test/http.conf.js test/**/*.http.js",
+      "command": "mocha --require internals/bin/server.js --require babel-register --require internals/test/http.conf.js tests/**/*.http.js",
       "env": {
         "PORT": 3000,
         "NODE_ENV": "test",
