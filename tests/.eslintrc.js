@@ -1,7 +1,7 @@
 module.exports = {
   extends: '../.eslintrc.js',
   env: {
-    browser: false,
+    browser: true,
     mocha: true,
   },
   rules: {
@@ -13,6 +13,6 @@ module.exports = {
     expect: true,
     loadTested: true,
     sinon: true,
-    request: true
+    request: true,
   },
 };
