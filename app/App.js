@@ -3,26 +3,17 @@ import styled from 'styled-components';
 
 import { Login } from 'auth';
 import { ErrorHandler } from 'error';
-import { rendered } from 'lib/fetchData';
 import Theme, { Container, Header, HeaderRow, Nav, NavItem } from 'styled';
 
 const CustomHeaderRow = styled(HeaderRow)`
   margin-left: auto;
 `;
 
+// eslint-disable-next-line react/prefer-stateless-function
 export default class App extends React.Component {
   static propTypes = {
     children: PropTypes.node.isRequired,
   };
-
-  componentDidMount() {
-    /* This is one of the most important lines of the app,
-     * it is where we start triggering loading of data
-     * on the client-side
-     */
-    rendered();
-  }
-
   render() {
     const { children } = this.props;
 
