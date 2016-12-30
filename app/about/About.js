@@ -1,10 +1,7 @@
 import React, { PropTypes } from 'react';
-import { connect } from 'react-redux';
+import { asyncConnect } from 'redux-connect';
 import { autobind } from 'core-decorators';
 
-import { loadAbout } from './actions';
-import { getAbout } from './selectors';
-import fetchData from 'lib/fetchData';
 import {
   Button,
   Card,
@@ -14,11 +11,12 @@ import {
   CardTitle,
   renderMarkdown,
 } from 'styled';
-
 import kitten from './kitten.jpg';
 
-@fetchData((state, dispatch) => dispatch(loadAbout()))
-@connect((state) => ({ about: getAbout(state) }))
+@asyncConnect([{
+  key: 'about',
+  promise: ({ helpers: { client } }) => client.get('/about').then((res) => res.data.text),
+}])
 // eslint-disable-next-line react/prefer-stateless-function
 export default class About extends React.Component {
   static propTypes = {

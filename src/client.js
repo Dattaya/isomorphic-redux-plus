@@ -12,6 +12,7 @@ import { syncHistoryWithStore } from 'react-router-redux';
 
 import config from './config';
 import configureStore from '../app/configureStore';
+import { ReduxAsyncConnect } from 'redux-connect';
 
 axios.interceptors.request.use((axiosConfig) => {
   if (axiosConfig.url[0] === '/') {
@@ -19,7 +20,6 @@ axios.interceptors.request.use((axiosConfig) => {
   }
   return axiosConfig;
 });
-
 
 const store = configureStore({
   client: axios,
@@ -29,7 +29,11 @@ const history = syncHistoryWithStore(browserHistory, store);
 
 render(
   <Provider store={store}>
-    <Router history={history} children={routes} />
+    <Router
+      render={(props) => <ReduxAsyncConnect {...props} helpers={{ client: axios }} />}
+      history={history}
+      children={routes}
+    />
   </Provider>,
   document.getElementById('react-view')
 );

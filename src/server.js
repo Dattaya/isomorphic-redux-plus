@@ -4,18 +4,19 @@ import session from 'express-session';
 import axios from 'axios';
 import React from 'react';
 import { renderToString, renderToStaticMarkup } from 'react-dom/server';
-import { RouterContext, match } from 'react-router';
+import { match } from 'react-router';
 import { Provider } from 'react-redux';
 import path from 'path';
 import favicon from 'serve-favicon';
 
-import fetchComponentData from 'lib/fetchComponentData';
 import configureStore from 'configureStore';
 import { getPageStatus } from 'status/selectors';
 import injectStoreAndGetRoutes from 'routes';
 import apiRouter from '../api';
 import config from './config';
 import Html from './html';
+import { ReduxAsyncConnect, loadOnServer } from 'redux-connect';
+
 
 const app = express();
 
@@ -79,14 +80,12 @@ app.use((req, res) => {
       return res.status(404).end('Not found');
     }
 
-    function renderView() {
-      const InitialView = (
-        <Provider store={store}>
-          <RouterContext {...renderProps} />
+    loadOnServer({ ...renderProps, store, helpers: { client } }).then(() => {
+      const view = renderToString(
+        <Provider store={store} key="provider">
+          <ReduxAsyncConnect {...renderProps} />
         </Provider>
       );
-
-      const view = renderToString(InitialView);
       const state = store.getState();
 
       const html = renderToStaticMarkup(
@@ -97,14 +96,10 @@ app.use((req, res) => {
       );
 
       res.status(getStatus(state, renderProps.routes)).end(html);
-    }
-
-    fetchComponentData(store, renderProps.components, renderProps.params)
-      .then(renderView)
-      .catch((error) => {
-        console.error(error.stack); // eslint-disable-line no-console
-        res.sendStatus(500);
-      });
+    }).catch((error) => {
+      console.error(error.stack); // eslint-disable-line no-console
+      res.sendStatus(500);
+    });
   });
 });
 
