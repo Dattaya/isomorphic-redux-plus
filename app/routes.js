@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 
-import App from './App';
+import { App } from './app';
 import { About } from 'about';
 import { ErrorPage } from 'error';
 import { Todos } from 'todo';
