@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-
 import { asyncConnect } from 'redux-connect';
+
 import TodosForm from './TodosForm';
 import TodosView from './TodosView';
 import * as todoActions from './actions';
