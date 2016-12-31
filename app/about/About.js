@@ -14,9 +14,9 @@ import {
 import kitten from './kitten.jpg';
 
 @asyncConnect([{
-  key: 'about',
   promise: ({ helpers: { client } }) => client.get('/about').then((res) => res.data.text),
 }])
+@connect((state) => ({ about: getAbout(state) }))
 // eslint-disable-next-line react/prefer-stateless-function
 export default class About extends React.Component {
   static propTypes = {
