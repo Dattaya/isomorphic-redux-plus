@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import { asyncConnect } from 'redux-connect';
 import { autobind } from 'core-decorators';
 
+import * as aboutActions from './actions';
 import {
   Button,
   Card,
@@ -14,7 +15,7 @@ import {
 import kitten from './kitten.jpg';
 
 @asyncConnect([{
-  promise: ({ helpers: { client } }) => client.get('/about').then((res) => res.data.text),
+  promise: ({ store: { dispatch } }) => dispatch(aboutActions.loadAbout())
 }])
 @connect((state) => ({ about: getAbout(state) }))
 // eslint-disable-next-line react/prefer-stateless-function
