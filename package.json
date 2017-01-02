@@ -40,7 +40,7 @@
       }
     },
     "watch-client": {
-      "command": "node internals/webpack/webpack-dev-server.js",
+      "command": "node internals/bin/webpack-dev-server.js",
       "env": {
         "UV_THREADPOOL_SIZE": 100,
         "NODE_PATH": "./app",
