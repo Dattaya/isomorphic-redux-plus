@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
 import { asyncConnect } from 'redux-connect';
 import { autobind } from 'core-decorators';
 
@@ -11,12 +12,15 @@ import {
   CardTitle,
   renderMarkdown,
 } from 'styled';
+
 import kitten from './kitten.jpg';
+import * as aboutActions from './actions';
+import { getAbout } from './selectors';
 
 @asyncConnect([{
-  key: 'about',
-  promise: ({ helpers: { client } }) => client.get('/about').then((res) => res.data.text),
+  promise: ({ store: { dispatch } }) => dispatch(aboutActions.loadAbout()),
 }])
+@connect((state) => ({ about: getAbout(state) }))
 // eslint-disable-next-line react/prefer-stateless-function
 export default class About extends React.Component {
   static propTypes = {
