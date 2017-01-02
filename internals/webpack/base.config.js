@@ -2,8 +2,7 @@ require('babel-polyfill');
 
 const path = require('path');
 const WebpackIsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin');
-const isomorphicConfig = require('./webpack-isomorphic-tools');
-const webpackIsomorphicToolsPlugin = new WebpackIsomorphicToolsPlugin(isomorphicConfig);
+const { url_loader_parser } = WebpackIsomorphicToolsPlugin;
 const host = (process.env.HOST || 'localhost');
 const port = (+process.env.PORT + 1) || 3001;
 const context = path.resolve(__dirname, '../..');
@@ -21,6 +20,25 @@ babelrc.env.development.plugins.find((p) =>
   locals: ['module'],
 });
 const babelLoaderQuery = JSON.stringify(babelrc);
+
+const webpackIsomorphicConfig = {
+  assets: {
+    images: {
+      extensions: ['jpeg', 'jpg', 'png', 'gif'],
+      parser: url_loader_parser,
+    },
+    fonts: {
+      extensions: ['woff', 'woff2', 'ttf', 'eot'],
+      parser: url_loader_parser,
+    },
+    svg: {
+      extension: 'svg',
+      parser: url_loader_parser,
+    },
+  },
+};
+
+const webpackIsomorphicToolsPlugin = new WebpackIsomorphicToolsPlugin(webpackIsomorphicConfig);
 
 const baseLoaders = [
   {
@@ -43,6 +61,7 @@ const baseLoaders = [
     loader: 'url-loader?limit=10240',
   },
 ];
+
 const resolve = {
   modulesDirectories: ['src', 'app', 'node_modules'],
   extensions: ['', '.json', '.js', '.jsx'],
@@ -58,6 +77,7 @@ module.exports = {
   entry,
   baseLoaders,
   resolve,
+  webpackIsomorphicConfig,
   webpackIsomorphicToolsPlugin,
   babelLoaderQuery,
 };
