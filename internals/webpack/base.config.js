@@ -3,8 +3,6 @@ require('babel-polyfill');
 const path = require('path');
 const WebpackIsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin');
 const isomorphicConfig = require('./webpack-isomorphic-tools');
-const babelLoaderQuery = require('./babelLoaderQuery');
-
 const webpackIsomorphicToolsPlugin = new WebpackIsomorphicToolsPlugin(isomorphicConfig);
 const host = (process.env.HOST || 'localhost');
 const port = (+process.env.PORT + 1) || 3001;
@@ -13,6 +11,17 @@ const assetsPath = path.resolve(__dirname, '../../static/dist');
 const rootPath = path.resolve(__dirname, '../../');
 const hmr = `webpack-hot-middleware/client?path=http://${host}:${port}/__webpack_hmr`;
 const entry = './app/client.js';
+
+const babelrc = JSON.parse(require('fs').readFileSync('./.babelrc'));
+babelrc.env.development.plugins.find((p) =>
+  Array.isArray(p) && p[0] === 'react-transform'
+)[1].transforms.push({
+  transform: 'react-transform-hmr',
+  imports: ['react'],
+  locals: ['module'],
+});
+const babelLoaderQuery = JSON.stringify(babelrc);
+
 const baseLoaders = [
   {
     test: /\.json$/,
