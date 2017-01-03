@@ -1,9 +1,13 @@
 {
   "javascript": {
+<<<<<<< HEAD
     "main": "http://localhost:3001/dist/main-2e8ef007ddafbdd42bc7.js"
+=======
+    "main": "http://localhost:3001/dist/main-7100747c84f28d6b88c7.js"
+>>>>>>> reorganzied server and client files
   },
   "styles": {},
   "assets": {
-    "./app/about/kitten.jpg": "http://localhost:3001/dist/c29770d03d2e95e3ea5899d57c6cfeab.jpg"
+    "./src/app/about/kitten.jpg": "http://localhost:3001/dist/c29770d03d2e95e3ea5899d57c6cfeab.jpg"
   }
 }
