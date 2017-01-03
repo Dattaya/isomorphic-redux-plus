@@ -2,7 +2,7 @@ const webpack = require('webpack');
 const config = require('./base.config');
 
 module.exports = {
-  devtool: 'inline-source-map',
+  devtool: 'source-map',
   module: {
     // Some libraries don't like being run through babel.
     // If they gripe, put them here.
