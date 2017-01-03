@@ -28,8 +28,8 @@ global.__DEVELOPMENT__ = process.env.NODE_ENV !== 'production';
 
 // https://github.com/halt-hammerzeit/webpack-isomorphic-tools
 const WebpackIsomorphicTools = require('webpack-isomorphic-tools');
-const isomorphicConfig = require('../webpack/webpack-isomorphic-tools');
-global.webpackIsomorphicTools = new WebpackIsomorphicTools(isomorphicConfig)
+const { webpackIsomorphicConfig } = require('../webpack/base.config');
+global.webpackIsomorphicTools = new WebpackIsomorphicTools(webpackIsomorphicConfig)
   .server(rootDir, () => {
     const config = require('config');
     const { port = 3000, host = 'localhost' } = config;
