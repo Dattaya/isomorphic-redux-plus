@@ -26,7 +26,7 @@
     "start-prod": {
       "command": "node internals/bin/server.js",
       "env": {
-        "NODE_PATH": "./app",
+        "NODE_PATH": "./src/app",
         "NODE_ENV": "production",
         "PORT": 8080
       }
@@ -34,7 +34,7 @@
     "start-dev": {
       "command": "node internals/bin/server.js",
       "env": {
-        "NODE_PATH": "./app",
+        "NODE_PATH": "./src/app",
         "NODE_ENV": "development",
         "PORT": 3000
       }
@@ -43,7 +43,7 @@
       "command": "node internals/bin/webpack-dev-server.js",
       "env": {
         "UV_THREADPOOL_SIZE": 100,
-        "NODE_PATH": "./app",
+        "NODE_PATH": "./src/app",
         "PORT": 3000
       }
     },
@@ -72,7 +72,7 @@
       "env": {
         "PORT": 3000,
         "NODE_ENV": "test",
-        "NODE_PATH": "./app"
+        "NODE_PATH": "./src/app"
       }
     }
   },

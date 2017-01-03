@@ -9,7 +9,7 @@ const context = path.resolve(__dirname, '../..');
 const assetsPath = path.resolve(__dirname, '../../static/dist');
 const rootPath = path.resolve(__dirname, '../../');
 const hmr = `webpack-hot-middleware/client?path=http://${host}:${port}/__webpack_hmr`;
-const entry = './app/client.js';
+const entry = './src/client/index.js';
 
 const babelrc = JSON.parse(require('fs').readFileSync('./.babelrc'));
 babelrc.env.development.plugins.find((p) =>
@@ -63,7 +63,7 @@ const baseLoaders = [
 ];
 
 const resolve = {
-  modulesDirectories: ['src', 'app', 'node_modules'],
+  modulesDirectories: ['src/app', 'src', 'node_modules'],
   extensions: ['', '.json', '.js', '.jsx'],
 };
 
