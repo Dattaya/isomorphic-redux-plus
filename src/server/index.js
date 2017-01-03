@@ -19,9 +19,9 @@ import { ReduxAsyncConnect, loadOnServer } from 'redux-connect';
 
 const app = express();
 
-app.use(favicon(path.join(__dirname, '../../static/favicon.ico')));
+app.use(favicon(path.join(__dirname, './static/favicon.ico')));
 
-app.use(express.static(path.join(__dirname, '../../static'), { maxAge: '7 days' }));
+app.use(express.static(path.join(__dirname, './static'), { maxAge: '7 days' }));
 
 app.use(session({
   secret: config.session.secret,
