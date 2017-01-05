@@ -10,6 +10,7 @@ module.exports = {
   ],
   rules: {
     curly: ['error', 'all'],
+    'new-cap': [2, { "capIsNewExceptions": ['List', 'Map', 'OrderedMap', 'Set', 'OrderedSet', 'Stack', 'Record', 'Seq', 'Iterable', 'Collection' ] }],
     'arrow-parens': ['error', 'always'],
     'space-before-function-paren': ['error', 'never']
   },

@@ -1,6 +1,4 @@
-import keyBy from 'lodash/keyBy';
-import omit from 'lodash/omit';
-import update from 'react-addons-update';
+import { Map } from 'immutable';
 
 import {
   LOAD_TODOS,
@@ -9,29 +7,19 @@ import {
   DELETE_TODO,
 } from './types';
 
-const defaultState = {};
+export default function todoReducer(state = Map(), action) {
+  const { payload } = action;
 
-export default function todoReducer(state = defaultState, action) {
   switch (action.type) {
     case LOAD_TODOS:
-      return keyBy(action.payload, 'id');
+      return Map(payload.map((todo) => [todo.id, Map(todo)]));
 
     case CREATE_TODO:
-      return update(state, {
-        [action.payload.id]: {
-          $set: action.payload,
-        },
-      });
-
     case EDIT_TODO:
-      return update(state, {
-        [action.payload.id]: {
-          $set: action.payload,
-        },
-      });
+      return state.set(payload.id, Map(payload));
 
     case DELETE_TODO:
-      return omit(state, action.id);
+      return state.delete(payload.id);
 
     default:
       return state;
