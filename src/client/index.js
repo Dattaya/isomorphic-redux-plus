@@ -9,7 +9,10 @@ import { Provider } from 'react-redux';
 import injectStoreAndGetRoutes from 'routes';
 import { syncHistoryWithStore } from 'react-router-redux';
 
-import { client } from 'helpers/apiClient';
+import createApi from 'helpers/apiClient';
+import config from '../config';
+const client = createApi(config.apiBaseUrl);
+
 import configureStore from 'helpers/configureStore';
 import { ReduxAsyncConnect } from 'redux-connect';
 

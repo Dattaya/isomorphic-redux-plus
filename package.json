@@ -13,10 +13,11 @@
     "postinstall": "npm run build",
     "start-dev": "better-npm-run start-dev",
     "watch-client": "better-npm-run watch-client",
-    "lint": "yarn lint:app && yarn lint:src && yarn lint:test",
-    "lint:app": "eslint app",
-    "lint:src": "eslint src",
-    "lint:test": "eslint test",
+    "lint": "concurrently 'yarn lint:app' 'yarn lint:client' 'yarn lint:server' 'yarn lint:test'",
+    "lint:app": "eslint src/app",
+    "lint:client": "eslint src/client",
+    "lint:server": "eslint src/server --ignore-pattern 'src/server/static'",
+    "lint:test": "eslint tests",
     "test": "yarn test:unit && yarn test:browser && yarn test:http",
     "test:unit": "better-npm-run test:unit",
     "test:browser": "better-npm-run test:browser",
@@ -26,15 +27,15 @@
     "start-prod": {
       "command": "node internals/bin/server.js",
       "env": {
-        "NODE_PATH": "./app",
+        "NODE_PATH": "./src/app",
         "NODE_ENV": "production",
-        "PORT": 8080
+        "PORT": 8081
       }
     },
     "start-dev": {
       "command": "node internals/bin/server.js",
       "env": {
-        "NODE_PATH": "./app",
+        "NODE_PATH": "./src/app",
         "NODE_ENV": "development",
         "PORT": 3000
       }
@@ -43,7 +44,7 @@
       "command": "node internals/bin/webpack-dev-server.js",
       "env": {
         "UV_THREADPOOL_SIZE": 100,
-        "NODE_PATH": "./app",
+        "NODE_PATH": "./src/app",
         "PORT": 3000
       }
     },
@@ -72,7 +73,7 @@
       "env": {
         "PORT": 3000,
         "NODE_ENV": "test",
-        "NODE_PATH": "./app"
+        "NODE_PATH": "./src/app"
       }
     }
   },

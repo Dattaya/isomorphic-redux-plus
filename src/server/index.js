@@ -12,16 +12,16 @@ import configureStore from 'helpers/configureStore';
 import createApi from 'helpers/apiClient';
 import { getPageStatus } from 'status/selectors';
 import injectStoreAndGetRoutes from 'routes';
-import apiRouter from '../api';
-import config from 'config';
-import Html from 'helpers/Html';
+import apiRouter from './api';
+import config from '../config';
+import Html from './Html';
 import { ReduxAsyncConnect, loadOnServer } from 'redux-connect';
 
 const app = express();
 
-app.use(favicon(path.join(__dirname, '../static/favicon.ico')));
+app.use(favicon(path.join(__dirname, './static/favicon.ico')));
 
-app.use(express.static(path.join(__dirname, '../static'), { maxAge: '7 days' }));
+app.use(express.static(path.join(__dirname, './static'), { maxAge: '7 days' }));
 
 app.use(session({
   secret: config.session.secret,
@@ -50,7 +50,8 @@ app.use((req, res) => {
   }
   res.contentType('text/html');
 
-  const client = createApi(req);
+  const apiPrefix = `http://${config.host}:${config.port}${config.apiBaseUrl}`;
+  const client = createApi(apiPrefix, req);
   const store = configureStore({ client });
   const routes = injectStoreAndGetRoutes(store);
 

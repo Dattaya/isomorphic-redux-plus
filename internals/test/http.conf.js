@@ -1,4 +1,4 @@
-import config from '../../app/config';
+import config from '../../src/config';
 
 import chai from 'chai';
 import sinon from 'sinon';
