@@ -1,13 +1,28 @@
 import { createSelector } from 'reselect';
 
-const getLocalState = () => (state) => state.auth;
+const getLocalState = (state) => state.auth;
 
 export const isLoaded = createSelector(
-  getLocalState(),
-  ({ loaded }) => loaded
+  getLocalState,
+  (auth) => auth.get('loaded'),
+);
+
+export const selectUser = createSelector(
+  getLocalState,
+  (auth) => auth.get('user'),
 );
 
 export const isAuthenticated = createSelector(
-  getLocalState(),
-  ({ user }) => !!user,
+  selectUser,
+  (user) => !!user,
+);
+
+export const selectLoggingIn = createSelector(
+  getLocalState,
+  (auth) => auth.get('loggingIn'),
+);
+
+export const selectError = createSelector(
+  getLocalState,
+  (auth) => auth.get('error'),
 );
