@@ -1,21 +1,22 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { asyncConnect } from 'redux-connect';
+import { createStructuredSelector as select } from 'reselect';
 
 import TodosForm from './TodosForm';
 import TodosView from './TodosView';
 import * as todoActions from './actions';
-import {
-  isEditable, computeTodos,
-} from './selectors';
+import { computeTodos, isEditable } from './selectors';
 
 @asyncConnect([{
-  promise: ({ store: { dispatch } }) => dispatch(todoActions.loadTodos()),
+  promise: ({ store }) => store.dispatch(todoActions.loadTodos()),
 }])
-@connect((state) => ({
-  todos: computeTodos(state), // eslint-disable-line no-multi-spaces
-  editable: isEditable(state),
+
+@connect(select({
+  todos: computeTodos,
+  editable: isEditable,
 }), todoActions)
+
 export default class Todos extends React.Component {
   static propTypes = {
     todos: PropTypes.array.isRequired,

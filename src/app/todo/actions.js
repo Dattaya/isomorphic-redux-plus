@@ -20,7 +20,7 @@ export const createTodo = (text) => ({
 });
 
 export const editTodo = (id, text) => (dispatch, getState) => {
-  const todo = getTodo(getState(), id);
+  const todo = getTodo(id)(getState());
   dispatch({
     type: EDIT_TODO,
     promise: ({ client }) => client.put(`/todos/${id}`, { ...todo, id, text }),

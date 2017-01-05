@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { asyncConnect } from 'redux-connect';
 import { autobind } from 'core-decorators';
+import { createStructuredSelector as select } from 'reselect';
 
 import {
   Button,
@@ -20,7 +21,11 @@ import { getAbout } from './selectors';
 @asyncConnect([{
   promise: ({ store: { dispatch } }) => dispatch(aboutActions.loadAbout()),
 }])
-@connect((state) => ({ about: getAbout(state) }))
+
+@connect(select({
+  about: getAbout,
+}))
+
 // eslint-disable-next-line react/prefer-stateless-function
 export default class About extends React.Component {
   static propTypes = {
