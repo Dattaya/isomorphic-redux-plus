@@ -5,7 +5,7 @@ import LoginForm from './LoginForm';
 import UserInfo from './UserInfo';
 import * as authActions from './actions';
 
-@connect((state) => ({ auth: state.auth }), authActions)
+@connect(({ auth }) => ({ auth }), authActions)
 // eslint-disable-next-line react/prefer-stateless-function
 export default class Login extends React.Component {
   static propTypes = {

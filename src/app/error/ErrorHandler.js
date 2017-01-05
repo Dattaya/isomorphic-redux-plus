@@ -1,11 +1,12 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { createStructuredSelector as select } from 'reselect';
 
 import ErrorPage from './ErrorPage';
 import { getPageStatus } from 'status/selectors';
 
-@connect((state) => ({
-  status: getPageStatus(state),
+@connect(select({
+  status: getPageStatus,
 }))
 export default class ErrorHandler extends React.Component {
   static propTypes = {

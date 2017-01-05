@@ -1,5 +1,13 @@
-const getLocalState = (state) => state.auth;
+import { createSelector } from 'reselect';
 
-export const isLoaded = (state) => getLocalState(state).loaded;
+const getLocalState = () => (state) => state.auth;
 
-export const isAuthenticated = (state) => !!getLocalState(state).user;
+export const isLoaded = createSelector(
+  getLocalState(),
+  ({ loaded }) => loaded
+);
+
+export const isAuthenticated = createSelector(
+  getLocalState(),
+  ({ user }) => !!user,
+);
