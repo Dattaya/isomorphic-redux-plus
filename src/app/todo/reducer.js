@@ -8,7 +8,7 @@ import {
 } from './types';
 
 export default function todoReducer(state = Map(), action) {
-  const { payload } = action;
+  const { payload, meta } = action;
 
   switch (action.type) {
     case LOAD_TODOS:
@@ -19,7 +19,7 @@ export default function todoReducer(state = Map(), action) {
       return state.set(payload.id, Map(payload));
 
     case DELETE_TODO:
-      return state.delete(payload.id);
+      return state.delete(meta.id);
 
     default:
       return state;

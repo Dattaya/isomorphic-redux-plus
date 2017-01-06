@@ -2,7 +2,4 @@ import {
   SET_STATUS,
 } from './types';
 
-export const setStatus = (status) => ({
-  type: SET_STATUS,
-  payload: status,
-});
+export const setStatus = (payload) => ({ type: SET_STATUS, payload });

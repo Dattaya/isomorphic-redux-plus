@@ -1,4 +1,7 @@
-import promiseMiddleware from 'lib/promiseMiddleware';
+import promiseMiddleware, {
+  createRequest,
+  injected,
+} from 'lib/promiseMiddleware';
 
 describe('promiseMiddleware', () => {
   let next;
@@ -39,14 +42,17 @@ describe('promiseMiddleware', () => {
     expect(next).to.have.been.calledWithExactly(expected);
   });
 
-  describe('resolves promises when there is a `promise` key', () => {
+  describe('when meta.injected is true and payload is a function', () => {
     it('fires the _REQUEST action immediately instead of the action proper', () => {
       const underTest = promiseMiddleware()()(next);
 
       const type = Math.random();
+      const payload = () => Promise.resolve();
+      const meta = { inject: true };
 
-      const input = { type, promise: {} };
-      const expected = { type: `${type}_REQUEST` };
+      const input = { type, payload, meta };
+
+      const expected = { type: `${type}_REQUEST`, meta };
 
       // Ignore exceptions, all we care about is _REQUEST being fired
       try {
@@ -58,36 +64,35 @@ describe('promiseMiddleware', () => {
       expect(next).to.have.been.calledWithExactly(expected);
     });
 
-    it('fires the action when a promise resolves', () => {
+    it('fires the action when the promise resolves', () => {
       const underTest = promiseMiddleware()()(next);
 
       const type = Math.random();
       const data = Math.random();
+      const payload = () => Promise.resolve({ data });
+      const meta = { inject: true };
 
-      const input = {
-        type,
-        promise: () => Promise.resolve({ data }),
-      };
+      const input = { type, payload, meta };
 
       return underTest(input).then(() => {
         expect(next).to.have.been.calledTwice;
-        expect(next.secondCall.args[0]).to.deep.equal({ type, payload: data });
+        expect(next.secondCall.args[0]).to.deep.equal({ ...input, payload: data });
       });
     });
 
-    it('attaches role as meta data', () => {
+    it('forwards all meta data', () => {
       const underTest = promiseMiddleware()()(next);
 
       const type = Math.random();
       const data = Math.random();
-      const role = Math.random();
-      const promise = () => Promise.resolve({ data });
+      const payload = () => Promise.resolve({ data });
+      const meta = { inject: true, foo: Math.random(), bar: Math.random };
 
-      const input = { type, role, promise };
+      const input = { type, payload, meta };
 
       return underTest(input).then(() => {
         expect(next).to.have.been.calledTwice;
-        expect(next.secondCall.args[0]).to.deep.equal({ type, payload: data, meta: { role } });
+        expect(next.secondCall.args[0]).to.deep.equal({ ...input, payload: data });
       });
     });
 
@@ -96,16 +101,92 @@ describe('promiseMiddleware', () => {
 
       const type = Math.random();
       const err = Math.random();
+      const payload = () => Promise.reject(err);
+      const meta = { inject: true };
 
-      const input = {
-        type,
-        promise: () => Promise.reject(err),
-      };
+      const input = { type, payload, meta };
 
       return underTest(input).then(() => {
         expect(next).to.have.been.calledTwice;
-        expect(next.secondCall.args[0]).to.deep.equal({ type, error: true, payload: err });
+        expect(next.secondCall.args[0]).to.deep.equal({ ...input, payload: err, error: true });
       });
     });
+  });
+});
+
+describe('injected', () => {
+  let type;
+  let payload;
+  let meta;
+
+  beforeEach(() => {
+    type = Math.random();
+    payload = Math.random();
+    meta = { foo: Math.random() };
+  });
+
+  it('creates FSAs', () => {
+    expect(
+      injected(type, payload, meta)
+    ).to.have.all.keys(['type', 'payload', 'meta']);
+  });
+
+  it('adds inject true to existing meta data', () => {
+    expect(
+      injected(type, payload, meta)
+    ).to.contain.all.keys({
+      meta: { ...meta, inject: true },
+    });
+  });
+
+  it('adds a meta object with inject true, when no meta is provided', () => {
+    expect(
+      injected(type, payload)
+    ).to.contain.all.keys({
+      meta: { inject: true },
+    });
+  });
+
+  it('should not mutate meta', () => {
+    expect(
+      injected(type, payload, meta).meta
+    ).to.not.equal(meta);
+  });
+});
+
+
+describe('createRequest', () => {
+  let type;
+  let config;
+  let meta;
+
+  beforeEach(() => {
+    type = Math.random();
+    config = Math.random();
+    meta = { foo: Math.random() };
+  });
+
+  it('properly formats into an FSA that the promiseMiddleware will intercept', () => {
+    const action = createRequest(type, config, meta);
+    const expectedMeta = { ...meta, inject: true };
+
+    expect(action.meta).to.deep.equal(expectedMeta);
+    expect(action.payload).to.be.a('function');
+  });
+
+  it('calling payload should call client with the config object', () => {
+    const client = sinon.spy();
+
+    createRequest(type, config).payload({ client });
+
+    expect(client).to.have.been.calledWithExactly(config);
+  });
+
+  it('calling payload should return the output of client', () => {
+    const client = sinon.stub().returns(Math.random());
+
+    expect(
+      createRequest(type, config).payload({ client })
+    ).to.equal(client());
   });
 });
