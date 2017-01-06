@@ -1,5 +1,9 @@
+import { Map } from 'immutable';
+
+const applyRole = (map, role) => (role ? map.set('meta', { role }) : map);
+
 export default (injected) => () => (next) => (action) => {
-  const { promise, type } = action;
+  const { promise, type, role } = action;
 
   if (!promise) {
     return next(action);
@@ -8,15 +12,14 @@ export default (injected) => () => (next) => (action) => {
   next({ type: `${type}_REQUEST` });
 
   return promise(injected).then(
-    ({ data }) => next({
-      type,
-      payload: data,
-      meta: { primary: action.primary },
-    }), (error) => next({
-      type,
-      payload: error,
-      error: true,
-      meta: { primary: action.primary },
-    })
-  );
+    ({ data }) => next(
+      applyRole(Map({ type }), role)
+      .set('payload', data)
+      .toJS()
+    ), (error) => next(
+      applyRole(Map({ type }), role)
+      .set('payload', error)
+      .set('error', true)
+      .toJS()
+    ));
 };

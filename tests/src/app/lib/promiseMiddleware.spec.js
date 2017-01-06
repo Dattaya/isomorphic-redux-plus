@@ -75,6 +75,22 @@ describe('promiseMiddleware', () => {
       });
     });
 
+    it('attaches role as meta data', () => {
+      const underTest = promiseMiddleware()()(next);
+
+      const type = Math.random();
+      const data = Math.random();
+      const role = Math.random();
+      const promise = () => Promise.resolve({ data });
+
+      const input = { type, role, promise };
+
+      return underTest(input).then(() => {
+        expect(next).to.have.been.calledTwice;
+        expect(next.secondCall.args[0]).to.deep.equal({ type, payload: data, meta: { role } });
+      });
+    });
+
     it('fires the action with `error: true` when a promise rejects', () => {
       const underTest = promiseMiddleware()()(next);
 

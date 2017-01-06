@@ -24,7 +24,7 @@ export default (state = defaultState, action = {}) => {
         ? state.set('initialLoad', false)
         : state.set('status', null);
     default:
-      return action.role === 'primary' && action.error
+      return action.error && action.meta && action.meta.role === 'primary'
         ? state.set('status', computeStatus(action.error.status))
         : state;
   }
