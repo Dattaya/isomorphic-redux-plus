@@ -1,35 +1,31 @@
 import { LOCATION_CHANGE } from 'react-router-redux';
+import { Map } from 'immutable';
 
 import {
   SET_STATUS,
 } from './types';
 
-const defaultState = { status: null, initialLoad: true };
+const defaultState = Map({ status: null, initialLoad: true });
 
 const computeStatus = (status) => {
   if (!status) {
     return 0;
   }
-  if (String(status).startsWith('5')) {
-    return 503;
-  }
-  return 404;
+
+  return String(status).startsWith('5') ? 503 : 404;
 };
 
 export default (state = defaultState, action = {}) => {
-  if (action.type === SET_STATUS) {
-    return { ...state, status: computeStatus(action.status) };
+  switch (action.type) {
+    case SET_STATUS:
+      return state.set('status', computeStatus(action.payload));
+    case LOCATION_CHANGE:
+      return state.get('initialLoad')
+        ? state.set('initialLoad', false)
+        : state.set('status', null);
+    default:
+      return action.role === 'primary' && action.error
+        ? state.set('status', computeStatus(action.error.status))
+        : state;
   }
-
-  if (action.type === LOCATION_CHANGE) {
-    if (state.initialLoad) {
-      return { ...state, initialLoad: false };
-    }
-    return { ...state, status: null };
-  }
-  if (action.role === 'primary' && action.error) {
-    return { ...state, status: computeStatus(action.error.status) };
-  }
-
-  return state;
 };

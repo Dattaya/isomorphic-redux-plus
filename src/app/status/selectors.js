@@ -4,5 +4,5 @@ const getLocalState = (state) => state.pageStatus;
 
 export const getPageStatus = createSelector(
   getLocalState,
-  ({ status }) => status,
+  (pageStatus) => pageStatus.get('status'),
 );

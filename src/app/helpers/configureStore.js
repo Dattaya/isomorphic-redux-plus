@@ -19,6 +19,7 @@ export default function configureStore(injections, preloadedState = {}) {
   }
 
   const state = Object.assign({}, preloadedState, {
+    pageStatus: fromJS(preloadedState.pageStatus),
     auth: fromJS(preloadedState.auth),
     todo: fromJS(preloadedState.todo),
     about: fromJS(preloadedState.about),
