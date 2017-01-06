@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 
-const getLocalState = (state) => state.auth;
+const getLocalState = (state) => state.get('auth');
 
 export const isLoaded = createSelector(
   getLocalState,

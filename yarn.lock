@@ -4867,6 +4867,12 @@ redux-connect:
     babel-runtime "^6.20.0"
     redux-actions "^1.2.0"
 
+redux-immutable:
+  version "3.0.9"
+  resolved "https://registry.yarnpkg.com/redux-immutable/-/redux-immutable-3.0.9.tgz#b14f8ddc5cc390c46439e287e053336398881c58"
+  dependencies:
+    immutable "^3.8.1"
+
 redux-thunk@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/redux-thunk/-/redux-thunk-2.1.0.tgz#c724bfee75dbe352da2e3ba9bc14302badd89a98"

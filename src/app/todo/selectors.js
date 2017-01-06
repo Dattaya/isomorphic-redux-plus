@@ -3,7 +3,7 @@ import { isAuthenticated } from 'auth/selectors';
 
 export const isEditable = isAuthenticated;
 
-const getTodos = (state) => state.todo.toList();
+const getTodos = (state) => state.get('todo');
 
 export const getTodo = (id) => createSelector(
   getTodos,
@@ -12,5 +12,5 @@ export const getTodo = (id) => createSelector(
 
 export const todosByDate = createSelector(
   getTodos,
-  (todos) => todos.sortBy((todo) => todo.dateCreated).toJS(),
+  (todos) => todos.toList().sortBy((todo) => todo.dateCreated).toJS(),
 );

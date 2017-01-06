@@ -18,16 +18,9 @@ export default function configureStore(injections, preloadedState = {}) {
     middleware.push(window.devToolsExtension());
   }
 
-  const state = Object.assign({}, preloadedState, {
-    pageStatus: fromJS(preloadedState.pageStatus),
-    auth: fromJS(preloadedState.auth),
-    todo: fromJS(preloadedState.todo),
-    about: fromJS(preloadedState.about),
-  });
-
   const finalCreateStore = compose(...middleware)(createStore);
 
-  const store = finalCreateStore(reducer, state);
+  const store = finalCreateStore(reducer, fromJS(preloadedState));
 
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers

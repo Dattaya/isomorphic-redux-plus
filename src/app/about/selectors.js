@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 
-const getLocalState = (state) => state.about;
+const getLocalState = (state) => state.get('about');
 
 export const getAbout = createSelector(
   getLocalState,
