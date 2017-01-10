@@ -4,11 +4,12 @@ import {
   compose,
 } from 'redux';
 import thunk from 'redux-thunk';
+import { fromJS } from 'immutable';
 
 import createInjectMiddleware from 'lib/promiseMiddleware';
 import reducer from 'reducer';
 
-export default function configureStore(injections, preloadedState) {
+export default function configureStore(injections, preloadedState = {}) {
   const middleware = [
     applyMiddleware(createInjectMiddleware(injections), thunk),
   ];
@@ -19,7 +20,7 @@ export default function configureStore(injections, preloadedState) {
 
   const finalCreateStore = compose(...middleware)(createStore);
 
-  const store = finalCreateStore(reducer, preloadedState);
+  const store = finalCreateStore(reducer, fromJS(preloadedState));
 
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers

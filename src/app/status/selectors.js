@@ -1,8 +1,8 @@
 import { createSelector } from 'reselect';
 
-const getLocalState = (state) => state.pageStatus;
+const getLocalState = (state) => state.get('pageStatus');
 
 export const getPageStatus = createSelector(
   getLocalState,
-  ({ status }) => status,
+  (pageStatus) => pageStatus.get('status'),
 );

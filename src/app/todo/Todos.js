@@ -6,14 +6,14 @@ import { createStructuredSelector as select } from 'reselect';
 import TodosForm from './TodosForm';
 import TodosView from './TodosView';
 import * as todoActions from './actions';
-import { computeTodos, isEditable } from './selectors';
+import { todosByDate, isEditable } from './selectors';
 
 @asyncConnect([{
   promise: ({ store }) => store.dispatch(todoActions.loadTodos()),
 }])
 
 @connect(select({
-  todos: computeTodos,
+  todos: todosByDate,
   editable: isEditable,
 }), todoActions)
 

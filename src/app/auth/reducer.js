@@ -1,3 +1,5 @@
+import { Map } from 'immutable';
+
 import {
   LOAD_AUTH,
   LOGIN_REQUEST,
@@ -5,24 +7,23 @@ import {
   LOGOUT,
 } from './types';
 
-const defaultState = { loaded: false, user: null };
+const defaultState = Map({ loaded: false, user: null });
 
 export default function authReducer(state = defaultState, action = {}) {
   switch (action.type) {
     case LOAD_AUTH:
-      return { ...state, loaded: true, user: action.payload || null };
+      return state.merge({ loaded: true, user: action.payload || null });
 
     case LOGIN_REQUEST:
-      return { ...state, loggingIn: true };
+      return state.set('loggingIn', true);
 
     case LOGIN:
-      if (action.error) {
-        return { ...state, loggingIn: false, user: null, error: true };
-      }
-      return { ...state, loggingIn: false, user: action.payload || null, error: false };
+      return action.error
+        ? state.merge({ loggingIn: false, user: null, error: true })
+        : state.merge({ loggingIn: false, user: action.payload || null, error: false });
 
     case LOGOUT:
-      return { ...state, user: null };
+      return state.set('user', null);
 
     default:
       return state;

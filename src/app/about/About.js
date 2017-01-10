@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { asyncConnect } from 'redux-connect';
-import { autobind } from 'core-decorators';
 import { createStructuredSelector as select } from 'reselect';
 
 import {
@@ -16,7 +15,7 @@ import {
 
 import kitten from './kitten.jpg';
 import * as aboutActions from './actions';
-import { getAbout } from './selectors';
+import { getAbout, getShowKitten } from './selectors';
 
 @asyncConnect([{
   promise: ({ store: { dispatch } }) => dispatch(aboutActions.loadAbout()),
@@ -24,25 +23,19 @@ import { getAbout } from './selectors';
 
 @connect(select({
   about: getAbout,
-}))
+  showKitten: getShowKitten,
+}), aboutActions)
 
 // eslint-disable-next-line react/prefer-stateless-function
 export default class About extends React.Component {
   static propTypes = {
     about: PropTypes.any.isRequired,
+    showKitten: PropTypes.bool.isRequired,
+    toggleKitten: PropTypes.func.isRequired,
   };
 
-  state = {
-    showKitten: false,
-  }
-
-  @autobind
-  handleToggleKitten() {
-    this.setState({ showKitten: !this.state.showKitten });
-  }
-
   render() {
-    const { showKitten } = this.state;
+    const { showKitten, toggleKitten } = this.props;
     return (
       <CardList>
         <Card>
@@ -53,11 +46,11 @@ export default class About extends React.Component {
         </Card>
         <Card>
           <CardContent>
-            <h4>Psst! Would you like to see a kitten?</h4>
+            <h4>Psst! Would you like to see a kittenss?</h4>
             {showKitten && <img src={kitten} alt="kitten" />}
           </CardContent>
           <CardActions>
-            <Button onClick={this.handleToggleKitten}>
+            <Button onClick={toggleKitten}>
               {showKitten ? 'No! Take it away!' : 'Yes! Please!'}
             </Button>
           </CardActions>

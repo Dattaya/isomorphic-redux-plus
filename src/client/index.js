@@ -20,12 +20,23 @@ const store = configureStore(
   { client }, window.__PRELOADED_STATE__  // eslint-disable-line no-underscore-dangle
 );
 const routes = injectStoreAndGetRoutes(store);
-const history = syncHistoryWithStore(browserHistory, store);
+const history = syncHistoryWithStore(browserHistory, store, {
+  selectLocationState: (state) => state.get('routing').toObject(),
+});
+
+const reloadOnPropsChange = (props, nextProps) =>
+  props.location.pathname !== nextProps.location.pathname;
 
 render(
   <Provider store={store}>
     <Router
-      render={(props) => <ReduxAsyncConnect {...props} helpers={{ client }} />}
+      render={(props) =>
+        <ReduxAsyncConnect
+          {...props}
+          reloadOnPropsChange={reloadOnPropsChange}
+          helpers={{ client }}
+        />
+      }
       history={history}
       children={routes}
     />

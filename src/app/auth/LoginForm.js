@@ -33,7 +33,7 @@ const LoginForm = ({ error, loggingIn, login }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    login(user.value || '', pass.value || '');
+    login({ name: user.value || '', pass: pass.value || '' });
     user.value = pass.value = '';
   };
 
