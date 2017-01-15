@@ -1,4 +1,6 @@
 import { createRequest } from 'lib/promiseMiddleware';
+import { createAction } from 'redux-actions';
+
 import {
   LOAD_ABOUT,
   TOGGLE_KITTEN,
@@ -9,6 +11,4 @@ export const loadAbout = () => createRequest(LOAD_ABOUT, {
   url: '/about',
 }, { role: 'primary' });
 
-export const toggleKitten = () => ({
-  type: TOGGLE_KITTEN,
-});
+export const toggleKitten = createAction(TOGGLE_KITTEN);

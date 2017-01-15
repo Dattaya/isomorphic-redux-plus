@@ -1,4 +1,5 @@
 import { Map } from 'immutable';
+import { handleActions } from 'redux-actions';
 
 import {
   LOAD_TODOS,
@@ -7,21 +8,16 @@ import {
   DELETE_TODO,
 } from './types';
 
-export default function todoReducer(state = Map(), action) {
-  const { payload, meta } = action;
+export default handleActions({
+  [LOAD_TODOS]: (state, { payload }) =>
+    Map(payload.map((todo) => [todo.id, Map(todo)])),
 
-  switch (action.type) {
-    case LOAD_TODOS:
-      return Map(payload.map((todo) => [todo.id, Map(todo)]));
+  [CREATE_TODO]: (state, { payload }) =>
+    state.set(payload.id, Map(payload)),
 
-    case CREATE_TODO:
-    case EDIT_TODO:
-      return state.set(payload.id, Map(payload));
+  [EDIT_TODO]: (state, { payload }) =>
+    state.set(payload.id, Map(payload)),
 
-    case DELETE_TODO:
-      return state.delete(meta.id);
-
-    default:
-      return state;
-  }
-}
+  [DELETE_TODO]: (state, { meta }) =>
+    state.delete(meta.id),
+}, Map());

@@ -1,4 +1,5 @@
 import { Map } from 'immutable';
+import { handleActions } from 'redux-actions';
 
 import {
   LOAD_AUTH,
@@ -7,25 +8,31 @@ import {
   LOGOUT,
 } from './types';
 
-const defaultState = Map({ loaded: false, user: null });
+const defaultState = Map({
+  user: null,
+  loaded: false,
+  loggingIn: false,
+  error: false,
+});
 
-export default function authReducer(state = defaultState, action = {}) {
-  switch (action.type) {
-    case LOAD_AUTH:
-      return state.merge({ loaded: true, user: action.payload || null });
+export default handleActions({
+  [LOAD_AUTH]: (state, { payload }) =>
+    state.merge({ loaded: true, user: payload || null }),
 
-    case LOGIN_REQUEST:
-      return state.set('loggingIn', true);
+  [LOGIN_REQUEST]: (state) =>
+    state.set('loggingIn', true),
 
-    case LOGIN:
-      return action.error
-        ? state.merge({ loggingIn: false, user: null, error: true })
-        : state.merge({ loggingIn: false, user: action.payload || null, error: false });
+  [LOGIN]: (state, { error, payload }) =>
+    (error ? state.merge({
+      loggingIn: false,
+      user: null,
+      error: true,
+    }) : state.merge({
+      loggingIn: false,
+      user: payload || null,
+      error: false,
+    })),
 
-    case LOGOUT:
-      return state.set('user', null);
-
-    default:
-      return state;
-  }
-}
+  [LOGOUT]: (state) =>
+    state.set('user', null),
+}, defaultState);

@@ -1,4 +1,5 @@
 import { fromJS } from 'immutable';
+import { handleActions } from 'redux-actions';
 
 import {
   LOAD_ABOUT,
@@ -10,13 +11,10 @@ const defaultState = fromJS({
   showKitten: false,
 });
 
-export default function aboutReducer(state = defaultState, action) {
-  switch (action.type) {
-    case LOAD_ABOUT:
-      return state.set('text', action.payload.text);
-    case TOGGLE_KITTEN:
-      return state.update('showKitten', (showKitten) => !showKitten);
-    default:
-      return state;
-  }
-}
+export default handleActions({
+  [LOAD_ABOUT]: (state, { payload }) =>
+    state.set('text', payload.text),
+
+  [TOGGLE_KITTEN]: (state) =>
+    state.update('showKitten', (showKitten) => !showKitten),
+}, defaultState);
