@@ -1,18 +1,16 @@
-import { createRequest } from 'lib/promiseMiddleware';
 import { LOAD_AUTH, LOGIN, LOGOUT } from './types';
 
-export const loadAuth = () => createRequest(LOAD_AUTH, {
-  method: 'GET',
-  url: '/loadAuth',
+export const loadAuth = () => ({ client }) => ({
+  type: LOAD_AUTH,
+  payload: client.get('/loadAuth'),
 });
 
-export const logout = () => createRequest(LOGOUT, {
-  method: 'POST',
-  url: '/logout',
+export const logout = () => ({ client }) => ({
+  type: LOGOUT,
+  payload: client.get('/logout'),
 });
 
-export const login = (payload) => createRequest(LOGIN, {
-  method: 'POST',
-  url: '/login',
-  data: payload,
+export const login = (payload) => ({ client }) => ({
+  type: LOGIN,
+  payload: client.post('/login', payload),
 });

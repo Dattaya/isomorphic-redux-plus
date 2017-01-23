@@ -1,5 +1,6 @@
 import { getTodo } from './selectors';
-import { createRequest } from 'lib/promiseMiddleware';
+import { setStatus } from 'status/actions';
+
 import {
   LOAD_TODOS,
   CREATE_TODO,
@@ -8,26 +9,30 @@ import {
 } from './types';
 
 
-export const loadTodos = () => createRequest(LOAD_TODOS, {
-  method: 'GET',
-  url: '/todo',
-}, { role: 'primary' });
-
-export const createTodo = (text) => createRequest(CREATE_TODO, {
-  method: 'POST',
-  url: '/todos',
-  data: { text, dateCreated: Date.now() },
+export const loadTodos = () => ({ client, store }) => ({
+  type: LOAD_TODOS,
+  payload: client.get('/todos').catch((err) => {
+    store.dispatch(setStatus(err.response.status));
+  }),
 });
 
-export const editTodo = (id, text) => (dispatch, getState) => {
-  dispatch(createRequest(EDIT_TODO, {
-    method: 'PUT',
-    url: `/todos/${id}`,
-    data: { ...getTodo(id)(getState()), id, text },
-  }));
+export const createTodo = (text) => ({ client }) => ({
+  type: CREATE_TODO,
+  payload: client.post('/todos', { text, dateCreated: Date.now() }),
+});
+
+export const editTodo = (id, text) => ({ store, client }) => {
+  const todo = getTodo(id)(store.getState());
+  const updated = { ...todo, id, text };
+
+  return {
+    type: EDIT_TODO,
+    payload: client.put(`/todos/${id}`, updated),
+  };
 };
 
-export const deleteTodo = (id) => createRequest(DELETE_TODO, {
-  method: 'DELETE',
-  url: `/todos/${id}`,
-}, { id });
+export const deleteTodo = (id) => ({ client }) => ({
+  type: DELETE_TODO,
+  payload: client.delete(`/todos/${id}`),
+  meta: { id },
+});

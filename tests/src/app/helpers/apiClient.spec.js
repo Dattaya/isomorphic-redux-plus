@@ -1,6 +1,9 @@
 import MockAdapter from 'axios-mock-adapter';
 import createApi from 'helpers/apiClient';
 
+import { transformResponse, transformRequest } from 'helpers/apiClient';
+
+
 describe('Api Configuration', () => {
   const testApiBaseUrl = 'testApiBaseUrl';
   const testHeader = { header: 'HEADER' };
