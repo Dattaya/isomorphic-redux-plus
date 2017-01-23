@@ -1,33 +1,45 @@
 import 'babel-polyfill';
-import React                       from 'react';
-import { render }                  from 'react-dom';
+import React from 'react';
+import { render } from 'react-dom';
 import {
   Router,
   browserHistory,
-}                                  from 'react-router';
-import { Provider }                from 'react-redux';
-import injectStoreAndGetRoutes     from 'routes';
-import axios                       from 'axios';
-import { syncHistoryWithStore }    from 'react-router-redux';
+} from 'react-router';
+import { Provider } from 'react-redux';
+import injectStoreAndGetRoutes from 'routes';
+import { syncHistoryWithStore } from 'react-router-redux';
 
-import config                      from 'config';
-import configureStore              from 'redux/configureStore';
+import createApi from 'helpers/apiClient';
+import config from '../config';
+const client = createApi(config.apiBaseUrl);
 
-axios.interceptors.request.use((axiosConfig) => {
-  if (axiosConfig.url[0] === '/') {
-    axiosConfig.url = config.apiBaseUrl + axiosConfig.url; // eslint-disable-line no-param-reassign
-  }
-  return axiosConfig;
+import configureStore from 'helpers/configureStore';
+import { ReduxAsyncConnect } from 'redux-connect';
+
+const store = configureStore(
+  { client }, window.__PRELOADED_STATE__  // eslint-disable-line no-underscore-dangle
+);
+const routes = injectStoreAndGetRoutes(store);
+const history = syncHistoryWithStore(browserHistory, store, {
+  selectLocationState: (state) => state.get('routing').toObject(),
 });
 
-// eslint-disable-next-line no-underscore-dangle
-const store = configureStore(axios, window.__PRELOADED_STATE__);
-const routes = injectStoreAndGetRoutes(store);
-const history = syncHistoryWithStore(browserHistory, store);
+const reloadOnPropsChange = (props, nextProps) =>
+  props.location.pathname !== nextProps.location.pathname;
 
 render(
   <Provider store={store}>
-    <Router history={history} children={routes} />
+    <Router
+      render={(props) =>
+        <ReduxAsyncConnect
+          {...props}
+          reloadOnPropsChange={reloadOnPropsChange}
+          helpers={{ client }}
+        />
+      }
+      history={history}
+      children={routes}
+    />
   </Provider>,
   document.getElementById('react-view')
 );
